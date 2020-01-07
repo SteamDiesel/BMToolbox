@@ -1,6 +1,16 @@
 <template>
-  <div @keyup.17="hotkey()" class="w-full py-12">
-    <div class="container mx-auto">
+  <div @keyup.17="hotkey()" class="w-full">
+    <div class="">
+        <div class="sm:w-2/3 md:w-1/2 lg:w-1/3 mx-16 sm:mx-0">
+            <div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
+                <label class="font-semibold">Name</label>
+                <input
+                v-model="loan_calculator.name"
+                type="text"
+                class="appearance-none bg-transparent border-none w-full text-right text-gray-700 mr-3 px-2 leading-tight focus:outline-none"
+                />
+            </div>
+        </div>
       <div class="sm:flex sm:justify-center mx-16 sm:mx-0">
         <div class="sm:w-1/3">
           <div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
@@ -171,6 +181,17 @@
               class="appearance-none bg-transparent border-none w-full text-right text-gray-700 mr-3 px-2 leading-tight focus:outline-none"
             />
           </div>
+          
+          <div class="md:flex md:justify-end mx-4 mt-6">
+            <button @click.prevent="pushLoanToHistory({calc: loan_calculator, weekly: weekly_pmt, fortnightly: fort_pmt, monthly: monthly_pmt})" class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full">
+                <svg viewBox="0 0 24 24" class="h-10 w-10">
+                <circle cx="12" cy="12" r="10" class="primary"/>
+                <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
+                </svg>
+            </button>
+            
+          </div>
+
         </div>
       </div>
       <div class="lg:flex lg:justify-between mx-16 sm:mx-0 mt-24">
@@ -201,7 +222,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   // Author is Jason Lloyd Law
   // contact me at jason.lloyd.law@gmail.com or call me on 0400 696 332
@@ -294,6 +315,9 @@ export default {
     }
   },
   methods: {
+      ...mapMutations([
+      'pushLoanToHistory',
+    ]),
     hotkey() {
       alert("that only works when logged into your account");
     },

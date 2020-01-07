@@ -14,5 +14,9 @@
 </template>
 
 <style>
+.primary {
+  fill: #64D5CA; }
 
+.secondary {
+  fill: #20504F; }
 </style>

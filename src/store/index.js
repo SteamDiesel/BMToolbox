@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loan_calculator: {
+      name: "",
       vehicle_price: 30000,
       accessories: 0,
       trade_value: 0,
@@ -28,11 +29,22 @@ export default new Vuex.Store({
       weekly_big: true,
       fort_big: false,
       monthly_big: false,
-      hidden: false
+      hidden: false,
+      is_saved: false,
     },
-    saved_quotes_array: []
+    loan_calc_history: []
   },
-  mutations: {},
+  mutations: {
+    pushLoanToHistory(state, payload) {
+      var loan = {};
+      Object.assign(loan, state.loan_calculator);
+      loan.weekly = payload.weekly;
+      loan.fortnightly = payload.fortnightly;
+      loan.monthly = payload.monthly;
+      state.loan_calc_history.unshift(loan);
+      state.loan_calculator.is_saved = true;
+    }
+  },
   actions: {},
   modules: {}
 });
