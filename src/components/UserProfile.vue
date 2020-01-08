@@ -252,13 +252,23 @@
         >
           Save All Changes
         </button>
-        
-        <!-- <button
+<!--         
+        <button
           @click.prevent="getPreferencesFromLocalStorage"
           class="bg-orange-600 font-semibold text-orange-100 hover:bg-orange-500 p-2 shadow-lg rounded-full"
         >
           Get from storage
         </button> -->
+        
+<!--         
+        <button
+          @click.prevent="clear"
+          class="bg-red-600 font-semibold text-orange-100 hover:bg-red-500 p-2 shadow-lg rounded-full"
+        >
+          Clear storage
+        </button> -->
+
+
 
       </div>
       
@@ -279,6 +289,10 @@ export default {
    
   },
   methods: {
+    clear(){
+      localStorage.clear();
+      window.console.log('local storage cleared')
+    },
     ...mapMutations(['savePreferences', 'getPreferencesFromLocalStorage'])
   },
   mounted() {}

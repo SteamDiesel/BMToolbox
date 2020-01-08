@@ -84,10 +84,10 @@ export default new Vuex.Store({
       localStorage.setItem('user_preferences', JSON.stringify(state.user_preferences));
     },
     getPreferencesFromLocalStorage(state){
-      // var prefs = localStorage.getItem('user_preferences');
-      // if(prefs){
+      var prefs = localStorage.getItem('user_preferences');
+      if(prefs){
        state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
-    
+      }
     
     }
   },
