@@ -1,11 +1,11 @@
 <template>
-  <div class="py-12 container mx-auto">
+	<div class="py-12 container mx-auto">
 
-    <Calc/>
+		<Calc/>
 
-    <CalcHistory/>
+		<CalcHistory/>
 
-  </div>
+	</div>
 </template>
 
 <script>
@@ -14,10 +14,10 @@ import Calc from '@/components/Calc.vue'
 import CalcHistory from '@/components/CalcHistory.vue'
 
 export default {
-  name: 'home',
-  components: {
-    Calc,
-    CalcHistory
-  }
+	name: 'home',
+	components: {
+		Calc,
+		CalcHistory
+	}
 }
 </script>

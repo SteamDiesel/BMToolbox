@@ -260,8 +260,8 @@
           Get from storage
         </button> -->
         
-<!--         
-        <button
+        
+        <!-- <button
           @click.prevent="clear"
           class="bg-red-600 font-semibold text-orange-100 hover:bg-red-500 p-2 shadow-lg rounded-full"
         >

@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import FourOhFour from '../views/FourOhFour.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  
+  {
     path: '/',
     name: 'home',
     component: Home
   },
+
   {
     path: '/about',
     name: 'about',
@@ -19,14 +27,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/preferences',
-    name: 'preferences',
+    path: '/settings',
+    name: 'settings',
     component: () => import(/* webpackChunkName: "about" */ '../views/Preferences.vue')
-  }
+  },
+  {
+    // This route must be last in the routes list.
+    path: '/*',
+    name: 'FourOhFour',
+    component: FourOhFour
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'underline',
   base: process.env.BASE_URL,
   routes
 })
