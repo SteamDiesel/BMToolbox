@@ -38,7 +38,7 @@ export default new Vuex.Store({
 			user_email: '',
 			user_phone: '',
 			
-			user_business_name: 'F & I Toolbox',
+			user_business_name: 'lite.bdfi.app',
 			user_business_address: '',
 			user_brand_image_url: '',
 			user_email_sign_off: '',

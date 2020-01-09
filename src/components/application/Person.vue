@@ -186,7 +186,7 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField 
+			<FormField v-if="person.licence_state == 'NSW'"
 			class="w-1/3"
 			@copy="copyClipboard('#'+person.licence_card)">
 				<template v-slot:label>
@@ -260,39 +260,39 @@
 		<div class="flex flex-wrap">
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+person.licence_number)">
+			@copy="copyClipboard('#'+person.passport_number)">
 				<template v-slot:label>
 					Passport #
 				</template>
 				<input
-					:id="'#'+person.licence_number"
-					v-model="person.licence_number"
+					:id="'#'+person.passport_number"
+					v-model="person.passport_number"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+person.licence_state)">
+			@copy="copyClipboard('#'+person.passport_country)">
 				<template v-slot:label>
 					Passport Country
 				</template>
 				<input
-					:id="'#'+person.licence_state"
-					v-model="person.licence_state"
+					:id="'#'+person.passport_country"
+					v-model="person.passport_country"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+person.licence_card)">
+			@copy="copyClipboard('#'+person.passport_expiry)">
 				<template v-slot:label>
 					Passport Expiry Date
 				</template>
 				<input
-					:id="'#'+person.licence_card"
-					v-model="person.licence_card"
+					:id="'#'+person.passport_expiry"
+					v-model="person.passport_expiry"
 					type="text"
 					class="form-input text-center"
 				/>
