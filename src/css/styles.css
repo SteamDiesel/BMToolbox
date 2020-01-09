@@ -3,6 +3,11 @@
 
 @tailwind components;
 
-
+.form-input {
+	@apply appearance-none tracking-wide bg-transparent border-none w-full text-gray-700 px-1 leading-tight ;
+}
+.form-input:focus {
+	@apply outline-none;
+}
 
 @tailwind utilities;

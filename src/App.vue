@@ -51,4 +51,15 @@ export default {
 .secondary {
 	fill: #20504f;
 }
+
+@media print
+	{
+		.no-print, .no-print *
+		{
+			display: none !important;
+		}
+		.container {
+			contain: none !important;
+		}
+	}
 </style>
