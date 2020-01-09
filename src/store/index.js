@@ -69,9 +69,53 @@ export default new Vuex.Store({
 			is_saved: false,
 		},
 		
-		loan_calc_history: []
+		loan_calc_history: [],
+		application: {
+			people: [],
+			businesses: []
+		},
+		person: {
+			title: '',
+			first_name: '',
+			alias: '',
+			middle_names: '',
+			surname: '',
+			mobile_phone: '',
+			home_phone: '',
+			work_phone: '',
+			email_address: '',
+			gender: '',
+			date_of_birth: '',
+			abn_established_date: '',
+			abn_gst_date: '',
+			abn: '',
+			licence_number: '',
+			licence_state: '',
+			licence_card: '',
+			licence_expiry: '',
+			passport_number: '',
+			passport_country: '',
+			passport_expiry: '',
+			marital_status: '',
+			partner_id: '',
+			visa_status: '',
+			visa_class: '',
+			visa_expiry: '',
+			addresses: [],
+			employers: [],
+		}
+		
 	},
 	mutations: {
+		addPersonToApplication(state){
+			var ar = state.application.people
+			var empty_person = {}
+			Object.assign(empty_person, state.person)
+			ar.push(empty_person)
+		},
+		addBusinessToApplication(){
+			window.alert('not built yet')
+		},
 		initialize(state){
 			var prefs = localStorage.getItem('user_preferences');
 			if(prefs){
