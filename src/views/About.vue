@@ -1,5 +1,5 @@
 <template>
-	<div class="py-12 container mx-auto">
+	<div class="py-12 container mx-auto px-4 sm:px-2">
 		<div>
 			<h1 class="text-2xl">About</h1>
 			<p class="mt-5">

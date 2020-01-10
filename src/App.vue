@@ -1,7 +1,7 @@
 <template>
 	<div class="min-h-screen text-gray-600 bg-gray-100" id="app">
 		<div id="nav" class="bg-gray-300">
-			<div class="container mx-auto flex justify-between h-full items-center">
+			<div class="container mx-auto flex justify-between h-full items-center pl-2 sm:pl-0">
 				<div class="text-xl font-semibold">{{user_preferences.user_name}} @ {{user_preferences.user_business_name}}</div>
 				<div class="font-semibold flex">
 					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/home">
