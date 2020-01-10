@@ -64,14 +64,15 @@
 // @ is an alias to /src
 import Person from "@/components/application/Person.vue";
 
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
 	name: "home",
 	components: {
 		Person
 	},
 	computed: {
-		...mapState(["application"])
+		...mapState(["applications"]),
+		...mapGetters(["application"])
 	},
 	methods: {
 		...mapMutations([

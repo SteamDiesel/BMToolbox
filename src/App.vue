@@ -8,8 +8,13 @@
 						<svg viewBox="0 0 24 24" class="h-10 w-10"><path class="primary" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm2 3a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-8 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-4 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/><rect width="2" height="6" x="15" y="13" class="secondary" rx="1"/></svg>
 					</router-link> 
 					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/application">
-						<svg viewBox="0 0 24 24" class="h-10 w-10"><g><path class="primary" d="M22 10H2V6c0-1.1.9-2 2-2h7l2 2h7a2 2 0 0 1 2 2v2z"/><rect width="20" height="12" x="2" y="8" class="secondary" rx="2"/><path class="primary" d="M13 13h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2v-2a1 1 0 0 1 2 0v2z"/></g></svg>
+						<svg viewBox="0 0 24 24" class="h-10 w-10"><g><path class="primary" d="M22 10H2V6c0-1.1.9-2 2-2h7l2 2h7a2 2 0 0 1 2 2v2z"/><rect width="20" height="12" x="2" y="8" class="secondary" rx="2"/></g></svg>
 					</router-link>
+					
+					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/applications">
+						<svg  viewBox="0 0 24 24" class="h-10 w-10"><rect width="20" height="12" x="2" y="10" class="primary" rx="2"/><path class="secondary" d="M20 8H4c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2zm-2-4H6c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2z"/></svg>
+					</router-link>
+
 					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/about">
 						<svg viewBox="0 0 24 24" class="h-10 w-10"><path class="primary" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/><path class="secondary" d="M11 12a1 1 0 0 1 0-2h2a1 1 0 0 1 .96 1.27L12.33 17H13a1 1 0 0 1 0 2h-2a1 1 0 0 1-.96-1.27L11.67 12H11zm2-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
 					</router-link> 
@@ -50,6 +55,13 @@ export default {
 
 .secondary {
 	fill: #20504f;
+}
+
+.text-primary {
+	color: #64d5ca;
+}
+.text-secondary {
+	color: #20504f;
 }
 
 @media print

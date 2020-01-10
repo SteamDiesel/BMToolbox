@@ -33,7 +33,7 @@ export default new Vuex.Store({
 			is_saved: false,
 		},
 		user_preferences: {
-			user_name: 'Anonymous',
+			user_name: 'Anonymous User',
 			user_role: '',
 			user_email: '',
 			user_phone: '',
@@ -49,18 +49,18 @@ export default new Vuex.Store({
 			custom_one_label: 'Custom Field 01',
 			trade_value: 0,
 			trade_payout: 0,
-			sign_deposit: 2000,
+			sign_deposit: 500,
 			further_deposit: 0,
-			origination_fee: 975,
+			origination_fee: 990,
 			brokerage: 0,
 			custom_two: 0,
 			custom_two_label: 'Custom Field 02',
 			custom_three: 0,
 			custom_three_label: 'Custom Field 03',
-			lender_fee: 398,
+			lender_fee: 450,
 			monthly_fee: 0,
-			term: 48,
-			apr: 5.99,
+			term: 60,
+			apr: 6.99,
 			rv: 0,
 			rv_percent: 0,
 			weekly_big: true,
@@ -70,49 +70,147 @@ export default new Vuex.Store({
 		},
 
 		loan_calc_history: [],
-		application: {
-			people: [
-				{
-					title: '',
-					first_name: '',
-					alias: '',
-					middle_names: '',
-					surname: '',
-					mobile_phone: '',
-					home_phone: '',
-					work_phone: '',
-					email_address: '',
-					gender: '',
-					date_of_birth: '',
-					abn_established_date: '',
-					abn_gst_date: '',
-					abn: '',
-					licence_number: '',
-					licence_state: '',
-					licence_card: '',
-					licence_expiry: '',
-					passport_number: '',
-					passport_country: '',
-					passport_expiry: '',
-					marital_status: '',
-					partner_id: '',
-					visa_status: '',
-					visa_class: '',
-					visa_expiry: '',
-					adr_count: 0,
-					addresses: [
-						{
-							address: '',
-							years: 0,
-							months: 0,
-							status: '',
-						}
-					],
-					employers: [],
-				},
-			],
-			businesses: []
-		},
+		applications: [
+			{
+				people: [
+					{
+						title: '',
+						first_name: '',
+						alias: '',
+						middle_names: '',
+						surname: '',
+						mobile_phone: '',
+						home_phone: '',
+						work_phone: '',
+						email_address: '',
+						gender: '',
+						date_of_birth: '',
+						abn_established_date: '',
+						abn_gst_date: '',
+						abn: '',
+						licence_number: '',
+						licence_state: '',
+						licence_card: '',
+						licence_expiry: '',
+						passport_number: '',
+						passport_country: '',
+						passport_expiry: '',
+						marital_status: '',
+						partner_id: '',
+						visa_status: '',
+						visa_class: '',
+						visa_expiry: '',
+						adr_count: 0,
+						addresses: [
+							{
+								address: '',
+								years: 0,
+								months: 0,
+								status: '',
+							}
+						],
+						employers: [],
+					},
+				],
+				businesses: []
+			},
+			{
+				people: [
+					{
+						title: 'Mr',
+						first_name: 'Jason',
+						alias: '',
+						middle_names: '',
+						surname: 'Law',
+						mobile_phone: '0400 696 332',
+						home_phone: '',
+						work_phone: '',
+						email_address: 'jason@bdfi.com.au',
+						gender: 'male',
+						date_of_birth: '',
+						abn_established_date: '',
+						abn_gst_date: '',
+						abn: '',
+						licence_number: '',
+						licence_state: '',
+						licence_card: '',
+						licence_expiry: '',
+						passport_number: '',
+						passport_country: '',
+						passport_expiry: '',
+						marital_status: '',
+						partner_id: '',
+						visa_status: '',
+						visa_class: '',
+						visa_expiry: '',
+						adr_count: 0,
+						addresses: [
+							{
+								address: '1 Eagle Street, Brisbane QLD 4000',
+								years: 1,
+								months: 6,
+								status: 'Mortgage',
+							},
+							{
+								address: 'Suite 2405, 24 Mary Street, Brisbane QLD 4000',
+								years: 1,
+								months: 6,
+								status: 'Rented',
+							},
+
+						],
+						employers: [],
+					},
+				],
+				businesses: []
+			},
+			
+		],
+		selected_application_index: 0,
+
+		// application: {
+		// 	people: [
+		// 		{
+		// 			title: '',
+		// 			first_name: '',
+		// 			alias: '',
+		// 			middle_names: '',
+		// 			surname: '',
+		// 			mobile_phone: '',
+		// 			home_phone: '',
+		// 			work_phone: '',
+		// 			email_address: '',
+		// 			gender: '',
+		// 			date_of_birth: '',
+		// 			abn_established_date: '',
+		// 			abn_gst_date: '',
+		// 			abn: '',
+		// 			licence_number: '',
+		// 			licence_state: '',
+		// 			licence_card: '',
+		// 			licence_expiry: '',
+		// 			passport_number: '',
+		// 			passport_country: '',
+		// 			passport_expiry: '',
+		// 			marital_status: '',
+		// 			partner_id: '',
+		// 			visa_status: '',
+		// 			visa_class: '',
+		// 			visa_expiry: '',
+		// 			adr_count: 0,
+		// 			addresses: [
+		// 				{
+		// 					address: '',
+		// 					years: 0,
+		// 					months: 0,
+		// 					status: '',
+		// 				}
+		// 			],
+		// 			employers: [],
+		// 		},
+		// 	],
+		// 	businesses: []
+		// },
 
 		address: {
 			address: '',
@@ -123,9 +221,18 @@ export default new Vuex.Store({
 
 
 	},
+	getters: {
+		application: state => {
+			return state.applications[state.selected_application_index]
+		}
+	},
 	mutations: {
+
+		// addApplication(state){
+
+		// },
 		addPersonToApplication(state) {
-			var ar = state.application.people
+			var ar = state.applications[state.selected_application_index].people
 			var empty_person = {
 				title: '',
 				first_name: '',
@@ -170,7 +277,7 @@ export default new Vuex.Store({
 		},
 		removePersonFromApplication(state, person) {
 			if (confirm('Are you sure you want to permanently remove this person?')) {
-				var ar = state.application.people
+				var ar = state.applications[state.selected_application_index].people
 				window.console.log(ar.indexOf(person))
 				ar.splice(ar.indexOf(person), 1)
 			}
@@ -192,7 +299,7 @@ export default new Vuex.Store({
 		removeAddressFromPerson(state, payload) {
 			if (confirm('Are your sure you want to permanently remove this address?')) {
 				window.console.log(payload)
-				var person = state.application.people[payload.person_index]
+				var person = state.applications[state.selected_application_index].people[payload.person_index]
 				person.addresses.splice(payload.address_index, 1)
 				person.adr_count--
 			}

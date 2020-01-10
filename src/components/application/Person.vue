@@ -84,6 +84,15 @@
 					class="form-input text-center"
 				/>
 			</FormField>
+			<FormField class="w-1/3" @copy="copyClipboard('#'+person.abn)">
+				<template v-slot:label>Sole Trader ABN</template>
+				<input
+					:id="'#'+person.abn"
+					v-model="person.abn"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
 		</div>
 		<div class="flex flex-wrap">
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.date_of_birth)">
