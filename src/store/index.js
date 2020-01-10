@@ -32,12 +32,12 @@ export default new Vuex.Store({
 			hidden: false,
 			is_saved: false,
 		},
-		user_preferences:{
+		user_preferences: {
 			user_name: 'Anonymous',
 			user_role: '',
 			user_email: '',
 			user_phone: '',
-			
+
 			user_business_name: 'lite.bdfi.app',
 			user_business_address: '',
 			user_brand_image_url: '',
@@ -68,7 +68,7 @@ export default new Vuex.Store({
 			monthly_big: false,
 			is_saved: false,
 		},
-		
+
 		loan_calc_history: [],
 		application: {
 			people: [],
@@ -104,21 +104,28 @@ export default new Vuex.Store({
 			addresses: [],
 			employers: [],
 		}
-		
+
 	},
 	mutations: {
-		addPersonToApplication(state){
+		addPersonToApplication(state) {
 			var ar = state.application.people
 			var empty_person = {}
 			Object.assign(empty_person, state.person)
 			ar.push(empty_person)
 		},
-		addBusinessToApplication(){
+		removePersonFromApplication(state, person) {
+			if (confirm('Are you sure you want to permanently remove this person?')) {
+				var ar = state.application.people
+				window.console.log(ar.indexOf(person))
+				ar.splice(ar.indexOf(person), 1)
+			}
+		},
+		addBusinessToApplication() {
 			window.alert('not built yet')
 		},
-		initialize(state){
+		initialize(state) {
 			var prefs = localStorage.getItem('user_preferences');
-			if(prefs){
+			if (prefs) {
 				state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
 				state.loan_calculator.vehicle_price = state.user_preferences.vehicle_price;
 				state.loan_calculator.custom_one = state.user_preferences.custom_one;
@@ -146,7 +153,7 @@ export default new Vuex.Store({
 				state.loan_calculator.is_saved = state.user_preferences.is_saved;
 
 			}
-			
+
 		},
 		pushLoanToHistory(state, payload) {
 			var loan = {};
@@ -157,11 +164,11 @@ export default new Vuex.Store({
 			state.loan_calc_history.unshift(loan);
 			state.loan_calculator.is_saved = true;
 		},
-		savePreferences(state){
+		savePreferences(state) {
 			localStorage.setItem('user_preferences', JSON.stringify(state.user_preferences));
 			window.console.log('User preferences saved to the computers local storage in browser.')
 		},
-		getPreferencesFromLocalStorage(state){	
+		getPreferencesFromLocalStorage(state) {
 			window.console.log('setting user preferences from browser local storage.')
 			state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
 		}

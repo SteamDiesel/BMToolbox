@@ -1,5 +1,8 @@
 <template>
 	<div class="w-full bg-gray-200 p-2">
+		<div class="flex justify-end">
+			<slot/>
+		</div>
 		
 		<div class="flex flex-wrap">
 			
@@ -140,7 +143,7 @@
 				<input
 					:id="'#'+person.gender"
 					v-model="person.gender"
-					type="date"
+					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -251,7 +254,7 @@
 				<input
 					:id="'#'+person.visa_expiry"
 					v-model="person.visa_expiry"
-					type="date"
+					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -319,7 +322,7 @@ export default {
 		},
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
-			// valueToCopy.setAttribute('type', 'text');
+			valueToCopy.setAttribute('type', 'text');
 			valueToCopy.select();
 			try {
 				document.execCommand('copy');
