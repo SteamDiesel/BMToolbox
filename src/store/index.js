@@ -71,45 +71,100 @@ export default new Vuex.Store({
 
 		loan_calc_history: [],
 		application: {
-			people: [],
+			people: [
+				{
+					title: '',
+					first_name: '',
+					alias: '',
+					middle_names: '',
+					surname: '',
+					mobile_phone: '',
+					home_phone: '',
+					work_phone: '',
+					email_address: '',
+					gender: '',
+					date_of_birth: '',
+					abn_established_date: '',
+					abn_gst_date: '',
+					abn: '',
+					licence_number: '',
+					licence_state: '',
+					licence_card: '',
+					licence_expiry: '',
+					passport_number: '',
+					passport_country: '',
+					passport_expiry: '',
+					marital_status: '',
+					partner_id: '',
+					visa_status: '',
+					visa_class: '',
+					visa_expiry: '',
+					adr_count: 0,
+					addresses: [
+						{
+							address: '',
+							years: 0,
+							months: 0,
+							status: '',
+						}
+					],
+					employers: [],
+				},
+			],
 			businesses: []
 		},
-		person: {
-			title: '',
-			first_name: '',
-			alias: '',
-			middle_names: '',
-			surname: '',
-			mobile_phone: '',
-			home_phone: '',
-			work_phone: '',
-			email_address: '',
-			gender: '',
-			date_of_birth: '',
-			abn_established_date: '',
-			abn_gst_date: '',
-			abn: '',
-			licence_number: '',
-			licence_state: '',
-			licence_card: '',
-			licence_expiry: '',
-			passport_number: '',
-			passport_country: '',
-			passport_expiry: '',
-			marital_status: '',
-			partner_id: '',
-			visa_status: '',
-			visa_class: '',
-			visa_expiry: '',
-			addresses: [],
-			employers: [],
-		}
+
+		address: {
+			address: '',
+			years: 0,
+			months: 0,
+			status: '',
+		},
+
 
 	},
 	mutations: {
 		addPersonToApplication(state) {
 			var ar = state.application.people
-			var empty_person = {}
+			var empty_person = {
+				title: '',
+				first_name: '',
+				alias: '',
+				middle_names: '',
+				surname: '',
+				mobile_phone: '',
+				home_phone: '',
+				work_phone: '',
+				email_address: '',
+				gender: '',
+				date_of_birth: '',
+				abn_established_date: '',
+				abn_gst_date: '',
+				abn: '',
+				licence_number: '',
+				licence_state: '',
+				licence_card: '',
+				licence_expiry: '',
+				passport_number: '',
+				passport_country: '',
+				passport_expiry: '',
+				marital_status: '',
+				partner_id: '',
+				visa_status: '',
+				visa_class: '',
+				visa_expiry: '',
+				adr_count: 0,
+				addresses: [
+					{
+						address: '',
+						years: 0,
+						months: 0,
+						status: '',
+					}
+				],
+				employers: [],
+			}
+
 			Object.assign(empty_person, state.person)
 			ar.push(empty_person)
 		},
@@ -118,6 +173,28 @@ export default new Vuex.Store({
 				var ar = state.application.people
 				window.console.log(ar.indexOf(person))
 				ar.splice(ar.indexOf(person), 1)
+			}
+		},
+		addAddressToPerson(state, person) {
+			var new_address = {}
+			if (person.addresses) {
+				var address_array = person.addresses
+				Object.assign(new_address, state.address)
+				address_array.push(new_address)
+				person.adr_count++
+			} else {
+				person.addresses = []
+				Object.assign(new_address, state.address)
+				person.addresses.push(new_address)
+				person.adr_count++
+			}
+		},
+		removeAddressFromPerson(state, payload) {
+			if (confirm('Are your sure you want to permanently remove this address?')) {
+				window.console.log(payload)
+				var person = state.application.people[payload.person_index]
+				person.addresses.splice(payload.address_index, 1)
+				person.adr_count--
 			}
 		},
 		addBusinessToApplication() {
