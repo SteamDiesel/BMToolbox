@@ -1,15 +1,15 @@
 <template>
-	<div class="py-12 container mx-auto px-4 sm:px-2">
+	<div class="pt-12 pb-24 container mx-auto px-4 sm:px-2">
 		<div>
 			<h1 class="text-2xl">About the lite version of BDFI.app</h1>
 			<p
 				class="mt-5"
-			>BDFI is 'Broker Dealer Finance and Insurance' that's what this app is made to do.</p>
+			>BDFI is a handy set of tools for 'Broker & Dealer Finance & Insurance'.</p>
 
 			<p class="mt-5">
-				This is the free version, which has most of the useful things needed for
-				running a small Finance and Insurance department in a motor dealership or even a finance brokerage.
-				<br />The pro version is under development, due for release mid 2020. Get in touch if you would like an early demo.
+				This is the free version, which has some useful things needed for
+				running a Finance and Insurance department in a motor dealership or even a Finance Brokerage.
+				<br />The pro version is in development, due for release mid 2020.
 			</p>
 		</div>
 		<div class="mt-16">
@@ -17,7 +17,7 @@
 			<p class="mt-5">- Fully featured loan calculator with 3 customizable fields.</p>
 			<p
 				class="mt-5"
-			>- A clean and user friendly application form, built for taking quick or detailed application with your client.</p>
+			>- A clean and user friendly application form, built for taking both quick or detailed application from your client.</p>
 			<p
 				class="mt-5"
 			>- The application form has no "Required fields" or "Minimum lengths" because you're a professional: you know what you need to collect.</p>
@@ -28,7 +28,7 @@
 		<div class="mt-16">
 			<h1 class="text-2xl">Where is your data?</h1>
 			<p class="mt-5">
-				All data you enter into this lite version of bdfi.app is saved to your browsers local storage cache (on your computer, tablet or mobile),
+				All data you enter into the free version of lite.bdfi.app is saved to your browsers local storage cache (on your computer, tablet or mobile),
 				this comes with the benefit of extra data security and persistent offline access.
 				It also means we don't have access to your client data,
 				in fact, the only data we collect is your contact information.
@@ -44,13 +44,15 @@
 			<p class="mt-5">
 				A cloud storage option is being considered for the lite version and
 				you are encouraged to express your interest by contacting us.
-				<br />Storing your client's sensitive personal information securely in the cloud is costly to set up and maintain.
+				<br />Storing your data and your client's sensitive personal information securely in 
+				the cloud is costly to set up and maintain. So expect that feature in 
+				the pro version lanuching in the 1st quarter of 2020.
 			</p>
 		</div>
 
-		<div class="mt-16 flex items-center">
-			<div class="w-1/5 mx-4">
-				<img class="rounded-full" src="@/assets/Jason Law.jpg" alt="Jason Law" />
+		<div class="mt-16 md:flex md:items-center">
+			<div class="w-full md:w-1/5 mx-4 flex justify-center">
+				<img class="w-1/2 md:w-full rounded-full" src="@/assets/Jason Law.jpg" alt="Jason Law" />
 			</div>
 			<div>
 				<h1 class="text-2xl">Contact</h1>
