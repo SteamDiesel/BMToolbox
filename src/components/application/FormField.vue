@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="relative border-gray-500 border-b border-b-2 mt-6 mx-2">
+		<div class="relative border-gray-500 border-b border-b-2 mt-4 mx-2">
 			<label class="text-sm whitespace-no-wrap">
 				<slot name="label"/>
 			</label><br>

@@ -54,7 +54,7 @@
 			</Person>
 		</div>
 		<div>
-			<!-- <textarea :value="JSON.stringify(application)" name="application" cols="30" rows="10"></textarea> -->
+			<!-- <textarea :value="JSON.stringify(application)" name="application" cols="200" rows="40"></textarea> -->
 			<!-- {{application}} -->
 		</div>
 	</div>

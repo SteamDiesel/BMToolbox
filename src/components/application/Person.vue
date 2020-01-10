@@ -219,7 +219,7 @@
 			</FormField>
 		</div>
 		<div>
-			<Address v-for="(address, index) in person.addresses" :key="index" :address="address">
+			<Address class="mt-6" v-for="(address, index) in person.addresses" :key="index" :address="address">
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="removeAddressFromPerson({person_index: person_index, address_index: index})"
