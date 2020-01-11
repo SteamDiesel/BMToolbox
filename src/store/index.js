@@ -110,7 +110,25 @@ export default new Vuex.Store({
 								status: '',
 							}
 						],
-						employers: [],
+						employers: [{
+							current: true,
+							employer: '',
+							position: '',
+							status: '',
+							industry: '',
+							contact_name: '',
+							contact_phone: '',
+							street_address: '',
+							suburb: '',
+							postcode: '',
+							notes: '',
+							wage: '',
+							commission: '',
+							bonus: '',
+							allowance: '',
+							start_date: '',
+							end_date: '',
+						}],
 					},
 				],
 				businesses: []
@@ -227,7 +245,25 @@ export default new Vuex.Store({
 								status: '',
 							}
 						],
-						employers: [],
+						employers: [{
+							current: true,
+							employer: '',
+							position: '',
+							status: '',
+							industry: '',
+							contact_name: '',
+							contact_phone: '',
+							address: '',
+							notes: '',
+							wage: '',
+							commission: '',
+							bonus: '',
+							allowance: '',
+							years: 0,
+							months: 0,
+							start_date: '',
+							end_date: '',
+						}],
 					},
 				],
 				businesses: []
@@ -274,7 +310,27 @@ export default new Vuex.Store({
 						status: '',
 					}
 				],
-				employers: [],
+				employers: [
+					{
+						current: true,
+						employer: '',
+						position: '',
+						status: '',
+						industry: '',
+						contact_name: '',
+						contact_phone: '',
+						address: '',
+						notes: '',
+						wage: '',
+						commission: '',
+						bonus: '',
+						allowance: '',
+						years: 0,
+						months: 0,
+						start_date: '',
+						end_date: '',
+					}
+				],
 			}
 
 			Object.assign(empty_person, state.person)
@@ -283,9 +339,27 @@ export default new Vuex.Store({
 		removePersonFromApplication(state, person) {
 			if (confirm('Are you sure you want to permanently remove this person?')) {
 				var ar = state.applications[state.selected_application_index].people
-				window.console.log(ar.indexOf(person))
 				ar.splice(ar.indexOf(person), 1)
 			}
+		},
+		addEmployerToPerson(state, payload){
+			var new_employer = {
+				current: true,
+				employer: '',
+				position: '',
+				status: '',
+				contact_name: '',
+				contact_phone: '',
+				address: '',
+				notes: '',
+				years: 0,
+				months: 0,
+				start_date: '',
+				end_date: '',
+			}
+			var employer_array = payload.employers
+			employer_array.push(new_employer)
+			payload.adr_count++
 		},
 		addAddressToPerson(state, person) {
 			var new_address = {}
@@ -300,6 +374,11 @@ export default new Vuex.Store({
 				person.addresses.push(new_address)
 				person.adr_count++
 			}
+		},
+		removeEmployerFromPerson(state, payload){
+			var person = state.applications[state.selected_application_index].people[payload.person_index]
+			person.employers.splice(payload.employer_index, 1)
+			person.adr_count--
 		},
 		removeAddressFromPerson(state, payload) {
 			var person = state.applications[state.selected_application_index].people[payload.person_index]
@@ -370,7 +449,10 @@ export default new Vuex.Store({
 				window.console.log('Unable to retrieve Applications data from browser local storage.')
 				alert('Unable to retrieve Applications data from your browser local storage.')
 			}
-		}
+		},
+		deleteApplication(state, index){
+			state.applications.splice(index, 1)
+		},
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -385,9 +467,24 @@ export default new Vuex.Store({
 			}
 			dispatch('saveApplicationsLoop')
 		},
+		addEmployerToPerson({commit}, payload){
+			commit('addEmployerToPerson', payload)
+		},
+		removeEmployerFromPerson({commit, dispatch}, payload){
+			if (confirm('Are you sure you want to permanently remove this employer?')) {
+				commit('removeEmployerFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
 		removeAddressFromPerson({commit, dispatch}, payload){
 			if (confirm('Are you sure you want to permanently remove this address?')) {
 				commit('removeAddressFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
+		deleteApplication({commit, dispatch}, index){
+			if (confirm('Are you sure you want to permanently remove this application?')) {
+				commit('deleteApplication', index)
 				dispatch('saveApplications')
 			}
 		},

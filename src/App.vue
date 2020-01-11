@@ -68,6 +68,13 @@ export default {
 .text-secondary {
 	color: #20504f;
 }
+.danger-primary {
+	fill: #d56464;
+}
+.danger-secondary {
+	fill: #502020;
+}
+
 
 @media print
 	{
