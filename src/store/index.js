@@ -173,7 +173,20 @@ export default new Vuex.Store({
 							},
 
 						],
-						employers: [],
+						employers: [{
+							current: true,
+							employer: '',
+							position: '',
+							status: '',
+							contact_name: '',
+							contact_phone: '',
+							address: '',
+							notes: '',
+							years: 0,
+							months: 0,
+							start_date: '',
+							end_date: '',
+						}],
 					},
 				],
 				businesses: []
@@ -253,6 +266,7 @@ export default new Vuex.Store({
 							start_date: '',
 							end_date: '',
 						}],
+						properties:[],
 					},
 				],
 				businesses: []
@@ -350,6 +364,11 @@ export default new Vuex.Store({
 			employer_array.push(new_employer)
 			payload.adr_count++
 		},
+		removeEmployerFromPerson(state, payload){
+			var person = state.applications[state.selected_application_index].people[payload.person_index]
+			person.employers.splice(payload.employer_index, 1)
+			person.adr_count--
+		},
 		addAddressToPerson(state, person) {
 			var new_address = {}
 			if (person.addresses) {
@@ -364,11 +383,7 @@ export default new Vuex.Store({
 				person.adr_count++
 			}
 		},
-		removeEmployerFromPerson(state, payload){
-			var person = state.applications[state.selected_application_index].people[payload.person_index]
-			person.employers.splice(payload.employer_index, 1)
-			person.adr_count--
-		},
+		
 		removeAddressFromPerson(state, payload) {
 			var person = state.applications[state.selected_application_index].people[payload.person_index]
 			person.addresses.splice(payload.address_index, 1)
@@ -442,6 +457,27 @@ export default new Vuex.Store({
 		deleteApplication(state, index){
 			state.applications.splice(index, 1)
 		},
+		addPropertyToPerson(state, payload){
+			var new_property = {
+				description: '',
+				market_value: '',
+				rental_income: '',
+				first_mortgage_lender: '',
+				first_mortgage_balance: '',
+				first_mortgage_payment: '',
+				second_mortgage_lender: '',
+				second_mortgage_balance: '',
+				second_mortgage_payment: '',
+			}
+			var property_array = payload.properties
+			property_array.push(new_property)
+			payload.adr_count++
+		},
+		removePropertyFromPerson(state, payload){
+			var person = state.applications[state.selected_application_index].people[payload.person_index]
+			person.properties.splice(payload.property_index, 1)
+			person.adr_count--
+		},
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -471,15 +507,15 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
+		addAddressToPerson({commit, dispatch}, payload){
+			commit('addAddressToPerson', payload)
+			dispatch('saveApplications')
+		},
 		deleteApplication({commit, dispatch}, index){
 			if (confirm('Are you sure you want to permanently remove this application?')) {
 				commit('deleteApplication', index)
 				dispatch('saveApplications')
 			}
-		},
-		addAddressToPerson({commit, dispatch}, payload){
-			commit('addAddressToPerson', payload)
-			dispatch('saveApplications')
 		},
 		saveApplicationsLoop({commit, dispatch}){
 			setTimeout(() => {
@@ -490,7 +526,17 @@ export default new Vuex.Store({
 		},
 		saveApplications({commit}){
 			commit('saveApplicationsToLocal')
-		}
+		},
+		removePropertyFromPerson({commit, dispatch}, payload){
+			if (confirm('Are you sure you want to permanently remove this property?')) {
+				commit('removePropertyFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
+		addPropertyToPerson({commit, dispatch}, payload){
+			commit('addPropertyToPerson', payload)
+			dispatch('saveApplications')
+		},
 	},
 	modules: {}
 });

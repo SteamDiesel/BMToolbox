@@ -26,11 +26,6 @@ export default {
 	name: "AppCard",
 	props: {
 		app: Object
-	},
-	computed: {
-		// people_count(){
-		// 	return this.app.people.length
-		// }
 	}
 };
 </script>
