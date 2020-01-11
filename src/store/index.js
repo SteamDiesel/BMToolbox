@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// import VueRouter from "vue-router";
 
 Vue.use(Vuex);
 
@@ -227,10 +228,55 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-
-		// addApplication(state){
-
-		// },
+		
+		newApplication(state){
+			var new_app = {
+				people: [
+					{
+						title: '',
+						first_name: '',
+						alias: '',
+						middle_names: '',
+						surname: '',
+						mobile_phone: '',
+						home_phone: '',
+						work_phone: '',
+						email_address: '',
+						gender: '',
+						date_of_birth: '',
+						abn_established_date: '',
+						abn_gst_date: '',
+						abn: '',
+						licence_number: '',
+						licence_state: '',
+						licence_card: '',
+						licence_expiry: '',
+						passport_number: '',
+						passport_country: '',
+						passport_expiry: '',
+						marital_status: '',
+						partner_id: '',
+						visa_status: '',
+						visa_class: '',
+						visa_expiry: '',
+						adr_count: 0,
+						addresses: [
+							{
+								address: '',
+								years: 0,
+								months: 0,
+								status: '',
+							}
+						],
+						employers: [],
+					},
+				],
+				businesses: []
+			}
+			state.applications.unshift(new_app)
+			var $index = state.applications.indexOf(new_app)
+			state.selected_application_index = $index
+		},
 		addPersonToApplication(state) {
 			var ar = state.applications[state.selected_application_index].people
 			var empty_person = {
@@ -307,7 +353,7 @@ export default new Vuex.Store({
 		addBusinessToApplication() {
 			window.alert('not built yet')
 		},
-		initialize(state) {
+		initialize(state, commit) {
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
 				state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
@@ -335,7 +381,10 @@ export default new Vuex.Store({
 				state.loan_calculator.monthly_big = state.user_preferences.monthly_big;
 				state.loan_calculator.hidden = state.user_preferences.hidden;
 				state.loan_calculator.is_saved = state.user_preferences.is_saved;
-
+			}
+			var apps = localStorage.getItem('applications')
+			if(apps){
+				commit('getApplicationsFromLocal')
 			}
 
 		},
@@ -353,8 +402,26 @@ export default new Vuex.Store({
 			window.console.log('User preferences saved to the computers local storage in browser.')
 		},
 		getPreferencesFromLocalStorage(state) {
-			window.console.log('setting user preferences from browser local storage.')
 			state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
+			window.console.log('setting user preferences from browser local storage.')
+		},
+		saveApplicationsToLocal(state){
+			try {
+				localStorage.setItem('applications', JSON.stringify(state.applications));
+				window.console.log('Applications array has been saved to the computers local storage in browser.')
+			} catch {
+				window.console.log('Unable to save applications to local storage.')
+				alert('Unable to save applications to local storage.')
+			}
+		},
+		getApplicationsFromLocal(state){
+			try {
+				state.applications = JSON.parse(localStorage.getItem('applications'));
+				window.console.log('Retrieved Applications data from browser local storage.')
+			} catch {
+				window.console.log('Unable to retrieve Applications data from browser local storage.')
+				alert('Unable to retrieve Applications data from your browser local storage.')
+			}
 		}
 	},
 	actions: {},
