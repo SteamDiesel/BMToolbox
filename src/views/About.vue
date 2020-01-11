@@ -7,9 +7,9 @@
 			>BDFI is a handy set of tools for 'Broker & Dealer Finance & Insurance'.</p>
 
 			<p class="mt-5">
-				This is the free version, which has some useful things needed for
-				running a Finance and Insurance department in a motor dealership or even a Finance Brokerage.
-				<br />The pro version is in development, due for release mid 2020.
+				This is the free version, which has many useful features for
+				operating a Finance and Insurance department in your motor dealership 
+				or Finance Brokerage.
 			</p>
 		</div>
 		<div class="mt-16">
@@ -39,14 +39,20 @@
 			<p class="mt-5">
 				It is easy to back up your data, it can be retrieved from this app as plain text (JSON) and
 				you are free to store and create backups for it as you see fit.
-				Other data formats may become available on request.
+				Other data formats may become available on request. <br>
+				<router-link class="hover:underline text-indigo-500 font-semibold" to="/data-dump">
+					See all of your data here.
+				</router-link> 
 			</p>
 			<p class="mt-5">
 				A cloud storage option is being considered for the lite version and
 				you are encouraged to express your interest by contacting us.
 				<br />Storing your data and your client's sensitive personal information securely in 
-				the cloud is costly to set up and maintain. So expect that feature in 
-				the pro version lanuching in the 1st quarter of 2020.
+				the cloud is costly to set up and maintain. 
+			</p>
+			<p class="mt-5">
+				You can expect cloud storage, service API integrations and many more features in 
+				the pro version when it launches in the 1st quarter of 2020.
 			</p>
 		</div>
 
@@ -60,14 +66,16 @@
 					This is a project built by me, Jason Law.
 					<br />I've been a Business Manager Locum in the motor trade since 2012, an
 					asset finance broker since 2014 and a web developer since 2017.
-					<br />In 2012 it seemed weird that Business Managers still take handwritten
-					applications... and now it's 2020 and we've made very little progress.
-					<br />It's not much better in the Broker world, with the range of Credit
-					CRMs available for Asset Finance Brokers being limited and prohibitively expensive.
+					<br />In 2012 it seemed weird that many Business Managers and Finance Brokers still take handwritten
+					applications... now it's 2020 and we've made very little progress.
 				</p>
 				<p class="mt-5">
-					So I learned how to code and made a CRM that I would want to use.
-					<br />I'm building the features into this system that I want, let me know if you think something is missing.
+					To be fair, there haven't been many good alternatives to pen and paper in this domain. 
+					Hopefully this app can change some minds.	
+				</p>
+				<p class="mt-5">
+					So I'm building the features into this system that I use, let me know if you think 
+					something is missing.
 				</p>
 				<p class="mt-5">
 					You can find me on

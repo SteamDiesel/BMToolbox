@@ -169,66 +169,25 @@ export default new Vuex.Store({
 		],
 		selected_application_index: 0,
 
-		// application: {
-		// 	people: [
-		// 		{
-		// 			title: '',
-		// 			first_name: '',
-		// 			alias: '',
-		// 			middle_names: '',
-		// 			surname: '',
-		// 			mobile_phone: '',
-		// 			home_phone: '',
-		// 			work_phone: '',
-		// 			email_address: '',
-		// 			gender: '',
-		// 			date_of_birth: '',
-		// 			abn_established_date: '',
-		// 			abn_gst_date: '',
-		// 			abn: '',
-		// 			licence_number: '',
-		// 			licence_state: '',
-		// 			licence_card: '',
-		// 			licence_expiry: '',
-		// 			passport_number: '',
-		// 			passport_country: '',
-		// 			passport_expiry: '',
-		// 			marital_status: '',
-		// 			partner_id: '',
-		// 			visa_status: '',
-		// 			visa_class: '',
-		// 			visa_expiry: '',
-		// 			adr_count: 0,
-		// 			addresses: [
-		// 				{
-		// 					address: '',
-		// 					years: 0,
-		// 					months: 0,
-		// 					status: '',
-		// 				}
-		// 			],
-		// 			employers: [],
-		// 		},
-		// 	],
-		// 	businesses: []
-		// },
-
 		address: {
 			address: '',
 			years: 0,
 			months: 0,
 			status: '',
 		},
-
-
+		unsaved_changes: false
 	},
 	getters: {
 		application: state => {
 			return state.applications[state.selected_application_index]
-		}
+		},
+		
 	},
 	mutations: {
-		
+		selectApplication(state, index){
+			state.selected_application_index = index
+
+		},
 		newApplication(state){
 			var new_app = {
 				people: [
@@ -343,19 +302,14 @@ export default new Vuex.Store({
 			}
 		},
 		removeAddressFromPerson(state, payload) {
-			if (confirm('Are your sure you want to permanently remove this address?')) {
-				window.console.log(payload)
-				var person = state.applications[state.selected_application_index].people[payload.person_index]
-				person.addresses.splice(payload.address_index, 1)
-				person.adr_count--
-			}
+			var person = state.applications[state.selected_application_index].people[payload.person_index]
+			person.addresses.splice(payload.address_index, 1)
+			person.adr_count--
 		},
 		addBusinessToApplication() {
 			window.alert('not built yet')
 		},
-		initialize(state, commit) {
-			var prefs = localStorage.getItem('user_preferences');
-			if (prefs) {
+		setUserPreferencesFromLocal(state) {
 				state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
 				state.loan_calculator.vehicle_price = state.user_preferences.vehicle_price;
 				state.loan_calculator.custom_one = state.user_preferences.custom_one;
@@ -381,12 +335,6 @@ export default new Vuex.Store({
 				state.loan_calculator.monthly_big = state.user_preferences.monthly_big;
 				state.loan_calculator.hidden = state.user_preferences.hidden;
 				state.loan_calculator.is_saved = state.user_preferences.is_saved;
-			}
-			var apps = localStorage.getItem('applications')
-			if(apps){
-				commit('getApplicationsFromLocal')
-			}
-
 		},
 		pushLoanToHistory(state, payload) {
 			var loan = {};
@@ -408,7 +356,7 @@ export default new Vuex.Store({
 		saveApplicationsToLocal(state){
 			try {
 				localStorage.setItem('applications', JSON.stringify(state.applications));
-				window.console.log('Applications array has been saved to the computers local storage in browser.')
+				window.console.log('Applications data is saved to local storage.')
 			} catch {
 				window.console.log('Unable to save applications to local storage.')
 				alert('Unable to save applications to local storage.')
@@ -424,6 +372,39 @@ export default new Vuex.Store({
 			}
 		}
 	},
-	actions: {},
+	actions: {
+		initialize({commit, dispatch}) {
+			var prefs = localStorage.getItem('user_preferences');
+			if (prefs) {
+				commit('setUserPreferencesFromLocal')
+			}
+			var apps = localStorage.getItem('applications')
+			if(apps){
+				window.console.log('getting apps')
+				commit('getApplicationsFromLocal')
+			}
+			dispatch('saveApplicationsLoop')
+		},
+		removeAddressFromPerson({commit, dispatch}, payload){
+			if (confirm('Are you sure you want to permanently remove this address?')) {
+				commit('removeAddressFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
+		addAddressToPerson({commit, dispatch}, payload){
+			commit('addAddressToPerson', payload)
+			dispatch('saveApplications')
+		},
+		saveApplicationsLoop({commit, dispatch}){
+			setTimeout(() => {
+				commit('saveApplicationsToLocal')
+
+				dispatch('saveApplicationsLoop')
+			}, 58000)
+		},
+		saveApplications({commit}){
+			commit('saveApplicationsToLocal')
+		}
+	},
 	modules: {}
 });

@@ -10,6 +10,7 @@
 				<input
 					:id="'#'+person.first_name"
 					v-model="person.first_name"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -20,6 +21,7 @@
 				<input
 					:id="'#'+person.alias"
 					v-model="person.alias"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -29,6 +31,7 @@
 				<input
 					:id="'#'+person.middle_names"
 					v-model="person.middle_names"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -38,6 +41,7 @@
 				<input
 					:id="'#'+person.surname"
 					v-model="person.surname"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -50,6 +54,7 @@
 				<input
 					:id="'#'+person.mobile_phone"
 					v-model="person.mobile_phone"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -60,6 +65,7 @@
 				<input
 					:id="'#'+person.home_phone"
 					v-model="person.home_phone"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -70,6 +76,7 @@
 				<input
 					:id="'#'+person.work_phone"
 					v-model="person.work_phone"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -80,6 +87,7 @@
 				<input
 					:id="'#'+person.email_address"
 					v-model="person.email_address"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -89,6 +97,7 @@
 				<input
 					:id="'#'+person.abn"
 					v-model="person.abn"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -100,6 +109,7 @@
 				<input
 					:id="'#'+person.date_of_birth"
 					v-model="person.date_of_birth"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -110,6 +120,7 @@
 				<input
 					:id="'#'+person.gender"
 					v-model="person.gender"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -120,6 +131,7 @@
 				<input
 					:id="'#'+person.marital_status"
 					v-model="person.marital_status"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -131,6 +143,7 @@
 				<input
 					:id="'#'+person.licence_number"
 					v-model="person.licence_number"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -140,6 +153,7 @@
 				<input
 					:id="'#'+person.licence_state"
 					v-model="person.licence_state"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -153,6 +167,7 @@
 				<input
 					:id="'#'+person.licence_card"
 					v-model="person.licence_card"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -162,6 +177,7 @@
 				<input
 					:id="'#'+person.licence_expiry"
 					v-model="person.licence_expiry"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -173,6 +189,7 @@
 				<input
 					:id="'#'+person.visa_status"
 					v-model="person.visa_status"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -183,6 +200,7 @@
 				<input
 					:id="'#'+person.visa_class"
 					v-model="person.visa_class"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -193,6 +211,7 @@
 				<input
 					:id="'#'+person.visa_expiry"
 					v-model="person.visa_expiry"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -204,6 +223,7 @@
 				<input
 					:id="'#'+person.passport_number"
 					v-model="person.passport_number"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -213,6 +233,7 @@
 				<input
 					:id="'#'+person.passport_country"
 					v-model="person.passport_country"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -222,6 +243,7 @@
 				<input
 					:id="'#'+person.passport_expiry"
 					v-model="person.passport_expiry"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -280,7 +302,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 import FormField from "@/components/application/FormField.vue";
 import Address from "@/components/application/Address.vue";
 export default {
@@ -294,7 +316,8 @@ export default {
 		person_index: Number
 	},
 	methods: {
-		...mapMutations(['addAddressToPerson', 'removeAddressFromPerson']),
+		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['addAddressToPerson', 'removeAddressFromPerson']),
 		test() {
 			alert("works");
 		},

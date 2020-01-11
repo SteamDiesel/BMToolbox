@@ -34,13 +34,18 @@
 	</div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
+import { 
+	mapState, 
+	// mapMutations, 
+	mapActions 
+} from "vuex";
 export default {
 	computed: {
 		...mapState(['user_preferences'])
 	},
 	methods: {
-		...mapMutations(['initialize'])
+		// ...mapMutations(['initialize']),
+		...mapActions(['initialize'])
 	},
 	mounted() {
 		this.initialize();

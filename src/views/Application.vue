@@ -14,7 +14,7 @@
 					/>
 				</svg>
 			</button>
-			<button
+			<!-- <button
 				@click="addBusinessToApplication"
 				class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
 			>
@@ -28,7 +28,7 @@
 						d="M7 13h3v2H7v-2zm5 0h3v2h-3v-2zm5 0h3v2h-3v-2zM7 17h3v2H7v-2zm5 0h3v2h-3v-2zm5 0h3v2h-3v-2z"
 					/>
 				</svg>
-			</button>
+			</button> -->
 		</div>
 
 		<div class="lg:flex xl:justify-around">

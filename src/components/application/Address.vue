@@ -10,6 +10,7 @@
 				<input
 					:id="'#'+address.address"
 					v-model="address.address"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -29,6 +30,7 @@
 				<input
 					:id="'#'+address.years"
 					v-model="address.years"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -42,6 +44,7 @@
 				<input
 					:id="'#'+address.months"
 					v-model="address.months"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -55,6 +58,7 @@
 				<input
 					:id="'#'+address.status"
 					v-model="address.status"
+					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -65,6 +69,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
 	name: 'Address',
@@ -75,6 +80,7 @@ export default {
 		address: Object
 	},
 	methods:{
+		...mapMutations(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');
