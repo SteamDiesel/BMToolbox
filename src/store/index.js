@@ -334,6 +334,7 @@ export default new Vuex.Store({
 						end_date: '',
 					}
 				],
+				properties:[],
 			}
 
 			Object.assign(empty_person, state.person)
@@ -462,6 +463,7 @@ export default new Vuex.Store({
 				description: '',
 				market_value: '',
 				rental_income: '',
+				shared: false,
 				first_mortgage_lender: '',
 				first_mortgage_balance: '',
 				first_mortgage_payment: '',
@@ -474,7 +476,8 @@ export default new Vuex.Store({
 			payload.adr_count++
 		},
 		removePropertyFromPerson(state, payload){
-			var person = state.applications[state.selected_application_index].people[payload.person_index]
+			var person = state.applications[state.selected_application_index]
+			.people[payload.person_index]
 			person.properties.splice(payload.property_index, 1)
 			person.adr_count--
 		},
@@ -533,10 +536,13 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
-		addPropertyToPerson({commit, dispatch}, payload){
-			commit('addPropertyToPerson', payload)
+		addPropertyToPerson({commit, dispatch}, person){
+			commit('addPropertyToPerson', person)
 			dispatch('saveApplications')
 		},
+		// addPropertyToPerson({commit}, person){
+
+		// }
 	},
 	modules: {}
 });

@@ -2,8 +2,8 @@
 	<div class="pb-12 container mx-auto">
 		<div class="w-full h-full flex justify-between py-1 items-center">
 			<!-- Menu -->
-			<NewApplicationButton />Excuse the mess... this page is under construction...
-			<!-- <SaveApplicationsButton /> -->
+			<NewApplicationButton />
+			
 		</div>
 		<div class>
 			<AppCard
