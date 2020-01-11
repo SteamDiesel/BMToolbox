@@ -252,7 +252,12 @@
 		<!-- Address Section  -->
 		<div class="mt-6">
 			<h2 class="text-xl">Address History</h2>
-			<Address class="mb-4" v-for="(address, index) in person.addresses" :key="index" :address="address">
+			<Address
+				class="mb-4"
+				v-for="(address, index) in person.addresses"
+				:key="index"
+				:address="address"
+			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="removeAddressFromPerson({person_index: person_index, address_index: index})"
@@ -267,8 +272,13 @@
 							d="M12.01 4.42l-8.3 8.3a1 1 0 1 1-1.42-1.41l9.02-9.02a1 1 0 0 1 1.41 0l8.99 9.02a1 1 0 0 1-1.42 1.41l-8.28-8.3z"
 						/>
 					</svg>
-					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0"><path class="secondary" fill-rule="evenodd" d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"/></svg>
-					
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
+						<path
+							class="secondary"
+							fill-rule="evenodd"
+							d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
+						/>
+					</svg>
 				</button>
 			</Address>
 			<div class="flex justify-start m-2 px-2">
@@ -299,13 +309,33 @@
 		<!-- Employer Section  -->
 		<div class="mt-6">
 			<h2 class="text-xl">Employment History</h2>
-			<Employer class="mb-4" v-for="(employer, index) in person.employers" :key="index" :employer="employer">
+			<Employer
+				class="mb-4"
+				v-for="(employer, index) in person.employers"
+				:key="index"
+				:employer="employer"
+			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="removeEmployerFromPerson({person_index: person_index, employer_index: index})"
 				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="secondary" d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"/><path class="primary" d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"/></svg>
-					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0"><path class="secondary" fill-rule="evenodd" d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"/></svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="secondary"
+							d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"
+						/>
+						<path
+							class="primary"
+							d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"
+						/>
+					</svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
+						<path
+							class="secondary"
+							fill-rule="evenodd"
+							d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
+						/>
+					</svg>
 				</button>
 			</Employer>
 			<div class="flex justify-start m-2 px-2">
@@ -313,7 +343,16 @@
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
 					@click="addEmployerToPerson(person)"
 				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="secondary" d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"/><path class="primary" d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"/></svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="secondary"
+							d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"
+						/>
+						<path
+							class="primary"
+							d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"
+						/>
+					</svg>
 					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
 						<path
 							class="secondary"
@@ -327,28 +366,174 @@
 		<!-- Properties Section -->
 		<div class="mt-6">
 			<h2 class="text-xl">Real Estate</h2>
-			<Property class="mb-4" v-for="(property, index) in person.properties" :key="index" :property="property">
+			<Property
+				class="mb-4"
+				v-for="(property, index) in person.properties"
+				:key="index"
+				:property="property"
+			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="removePropertyFromPerson({person_index: person_index, property_index: index})"
 				>
-				<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M3 6l9 4v12l-9-4V6zm14-3v2c0 1.1-2.24 2-5 2s-5-.9-5-2V3c0 1.1 2.24 2 5 2s5-.9 5-2z"/><polygon class="secondary" points="21 6 12 10 12 22 21 18"/></svg>					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0"><path class="secondary" fill-rule="evenodd" d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"/></svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="primary"
+							d="M3 6l9 4v12l-9-4V6zm14-3v2c0 1.1-2.24 2-5 2s-5-.9-5-2V3c0 1.1 2.24 2 5 2s5-.9 5-2z"
+						/>
+						<polygon class="secondary" points="21 6 12 10 12 22 21 18" />
+					</svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
+						<path
+							class="secondary"
+							fill-rule="evenodd"
+							d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
+						/>
+					</svg>
 				</button>
-				
+				<!-- Link to next person  -->
 				<button
+					v-show="!property.shared"
+					:class="{ 'bg-blue-400': property.shared}"
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
-					@click="linkPropertyToOtherPerson({person_index: person_index, property_index: index})"
+					@click="linkPropertyToNextPerson({person_index: person_index, property: property})"
 				>
-				<svg viewBox="0 0 24 24" class="h-6 w-6"><path class="secondary" d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"/><path class="primary" d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"/></svg>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
+						/>
+						<path
+							class="primary"
+							d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
+						/>
+					</svg>
 				</button>
 
+				<button
+					v-show="property.shared"
+					:class="{ 'bg-blue-400': property.shared}"
+					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
+				>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
+						/>
+						<path
+							class="primary"
+							d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
+						/>
+					</svg>
+				</button>
 			</Property>
 			<div class="flex justify-start m-2 px-2">
 				<button
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
 					@click="addPropertyToPerson(person)"
 				>
-						<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M3 6l9 4v12l-9-4V6zm14-3v2c0 1.1-2.24 2-5 2s-5-.9-5-2V3c0 1.1 2.24 2 5 2s5-.9 5-2z"/><polygon class="secondary" points="21 6 12 10 12 22 21 18"/></svg>					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="primary"
+							d="M3 6l9 4v12l-9-4V6zm14-3v2c0 1.1-2.24 2-5 2s-5-.9-5-2V3c0 1.1 2.24 2 5 2s5-.9 5-2z"
+						/>
+						<polygon class="secondary" points="21 6 12 10 12 22 21 18" />
+					</svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
+						<path
+							class="secondary"
+							fill-rule="evenodd"
+							d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
+						/>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<!-- Vehicles Section -->
+		<div class="mt-6">
+			<h2 class="text-xl">Vehicles</h2>
+			<Vehicle
+				class="mb-4"
+				v-for="(vehicle, index) in person.vehicles"
+				:key="index"
+				:vehicle="vehicle"
+			>
+				<button
+					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
+					@click="removeVehicleFromPerson({person_index: person_index, vehicle_index: index})"
+				>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M20 18a3 3 0 0 0-6 0 1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5.33a1 1 0 0 1 .95.68l1.67 5c.03.1.05.21.05.32v3a1 1 0 0 1-1 1h-1zm-.39-5l-1-3H16v3h3.61zM7 20a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+						/>
+						<path
+							class="primary"
+							d="M10 18a3 3 0 0 0-6 0H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v12h-4z"
+						/>
+					</svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
+						<path
+							class="secondary"
+							fill-rule="evenodd"
+							d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
+						/>
+					</svg>
+
+				</button>
+				<!-- Link to next person  -->
+				<button
+					v-show="!vehicle.shared"
+					:class="{ 'bg-blue-400': vehicle.shared}"
+					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
+					@click="linkVehicleToNextPerson({person_index: person_index, vehicle: vehicle})"
+				>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
+						/>
+						<path
+							class="primary"
+							d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
+						/>
+					</svg>
+				</button>
+
+				<button
+					v-show="vehicle.shared"
+					:class="{ 'bg-blue-400': vehicle.shared}"
+					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
+				>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
+						/>
+						<path
+							class="primary"
+							d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
+						/>
+					</svg>
+				</button>
+			</Vehicle>
+			<div class="flex justify-start m-2 px-2">
+				<button
+					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
+					@click="addVehicleToPerson(person)"
+				>
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="secondary"
+							d="M20 18a3 3 0 0 0-6 0 1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5.33a1 1 0 0 1 .95.68l1.67 5c.03.1.05.21.05.32v3a1 1 0 0 1-1 1h-1zm-.39-5l-1-3H16v3h3.61zM7 20a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+						/>
+						<path
+							class="primary"
+							d="M10 18a3 3 0 0 0-6 0H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v12h-4z"
+						/>
+					</svg>
+					
+					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
 						<path
 							class="secondary"
 							fill-rule="evenodd"
@@ -359,9 +544,7 @@
 			</div>
 		</div>
 		<!-- ugly hack to trigger re-render when nested arrays are updated -->
-		<div class="invisible">
-			{{person.adr_count}}
-		</div>
+		<div class="invisible">{{person.adr_count}}</div>
 	</div>
 </template>
 
@@ -371,13 +554,15 @@ import FormField from "@/components/application/FormField.vue";
 import Address from "@/components/application/Address.vue";
 import Employer from "@/components/application/Employer.vue";
 import Property from "@/components/application/Property.vue";
+import Vehicle from "@/components/application/Vehicle.vue";
 export default {
 	name: "Person",
 	components: {
 		FormField,
 		Address,
 		Employer,
-		Property
+		Property,
+		Vehicle
 	},
 	props: {
 		people: Array,
@@ -385,14 +570,18 @@ export default {
 		person_index: Number
 	},
 	methods: {
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions([
-			'addAddressToPerson', 
-			'removeAddressFromPerson', 
-			'addEmployerToPerson', 
-			'removeEmployerFromPerson',
-			'addPropertyToPerson',
-			'removePropertyFromPerson',
+			"addAddressToPerson",
+			"removeAddressFromPerson",
+			"addEmployerToPerson",
+			"removeEmployerFromPerson",
+			"addPropertyToPerson",
+			"removePropertyFromPerson",
+			"linkPropertyToNextPerson",
+			"addVehicleToPerson",
+			"removeVehicleFromPerson",
+			"linkVehicleToNextPerson"
 		]),
 		test() {
 			alert("works");

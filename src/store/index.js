@@ -267,6 +267,12 @@ export default new Vuex.Store({
 							end_date: '',
 						}],
 						properties:[],
+						vehicles:[],
+						credit_cards: [],
+						other_loans: [],
+						cash: [],
+						other_assets:[],
+						domestic_expenses:[],
 					},
 				],
 				businesses: []
@@ -335,6 +341,12 @@ export default new Vuex.Store({
 					}
 				],
 				properties:[],
+				vehicles:[],
+				credit_cards: [],
+				other_loans: [],
+				cash: [],
+				other_assets:[],
+				domestic_expenses:[],
 			}
 
 			Object.assign(empty_person, state.person)
@@ -478,9 +490,47 @@ export default new Vuex.Store({
 		removePropertyFromPerson(state, payload){
 			var person = state.applications[state.selected_application_index]
 			.people[payload.person_index]
+			person.properties[payload.property_index].shared = false
 			person.properties.splice(payload.property_index, 1)
 			person.adr_count--
 		},
+		linkPropertyToNextPerson(state, payload){
+			var next = payload.person_index + 1
+			var person = state.applications[state.selected_application_index]
+			.people[next]
+			person.properties.push(payload.property)
+			payload.property.shared = true
+		},
+		addVehicleToPerson(state, payload){
+			var new_vehicle = {
+				description: '',
+				is_trading: true,
+				market_value: '',
+				trade_value: '',
+				finance_lender: '',
+				finance_start_date: '',
+				finance_balance: '',
+				finance_payment: '',
+				shared: false,
+			}
+			var vehicle_array = payload.vehicles
+			vehicle_array.push(new_vehicle)
+			payload.adr_count++
+		},
+		removeVehicleFromPerson(state, payload){
+			var person = state.applications[state.selected_application_index]
+			.people[payload.person_index]
+			person.vehicles[payload.vehicle_index].shared = false
+			person.vehicles.splice(payload.vehicle_index, 1)
+			person.adr_count--
+		},
+		linkVehicleToNextPerson(state, payload){
+			var next = payload.person_index + 1
+			var person = state.applications[state.selected_application_index]
+			.people[next]
+			person.vehicles.push(payload.vehicle)
+			payload.vehicle.shared = true
+		}
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -540,9 +590,24 @@ export default new Vuex.Store({
 			commit('addPropertyToPerson', person)
 			dispatch('saveApplications')
 		},
-		// addPropertyToPerson({commit}, person){
-
-		// }
+		linkPropertyToNextPerson({commit, dispatch}, payload){
+			commit('linkPropertyToNextPerson', payload)
+			dispatch('saveApplications')
+		},
+		removeVehicleFromPerson({commit, dispatch}, payload){
+			if (confirm('Are you sure you want to permanently remove this vehicle?')) {
+				commit('removeVehicleFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
+		addVehicleToPerson({commit, dispatch}, person){
+			commit('addVehicleToPerson', person)
+			dispatch('saveApplications')
+		},
+		linkVehicleToNextPerson({commit, dispatch}, payload){
+			commit('linkVehicleToNextPerson', payload)
+			dispatch('saveApplications')
+		},
 	},
 	modules: {}
 });

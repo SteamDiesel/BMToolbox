@@ -37,6 +37,7 @@
 				v-for="(person, index) in application.people"
 				:key="index"
 				:person_index="index"
+				:people="application.people"
 				:person="person"
 			>
 				<button
