@@ -193,8 +193,47 @@ export default new Vuex.Store({
 			},
 			
 		],
+		application:{
+			// Created in mutation
+		},
 		selected_application_index: 0,
-
+		person: {
+			title: '',
+			first_name: '',
+			alias: '',
+			middle_names: '',
+			surname: '',
+			mobile_phone: '',
+			home_phone: '',
+			work_phone: '',
+			email_address: '',
+			gender: '',
+			date_of_birth: '',
+			abn_established_date: '',
+			abn_gst_date: '',
+			abn: '',
+			licence_number: '',
+			licence_state: '',
+			licence_card: '',
+			licence_expiry: '',
+			passport_number: '',
+			passport_country: '',
+			passport_expiry: '',
+			marital_status: '',
+			partner_id: '',
+			visa_status: '',
+			visa_class: '',
+			visa_expiry: '',
+			adr_count: 0,
+			addresses: [],
+			employers: [],
+			properties:[],
+			vehicles:[],
+			credit_cards: [],
+			other_loans: [],
+			other_assets:[],
+			domestic_expenses:[],
+		},
 		address: {
 			address: '',
 			years: 0,
@@ -246,6 +285,16 @@ export default new Vuex.Store({
 			monthly_payment: '',
 			shared: false
 		},
+		other_loan:{
+			lender: '',
+			borrow_amount: '',
+			current_balance: '',
+			monthly_payment: '',
+			start_date: '',
+			term: '',
+			refinance: false,
+			apr: '',
+		},
 		unsaved_changes: false
 	},
 	getters: {
@@ -254,10 +303,6 @@ export default new Vuex.Store({
 		},
 	},
 	mutations: {
-		unshareObject(object){
-			object.shared = false
-		},
-
 
 		pushToArray(state, payload){
 			
@@ -277,6 +322,9 @@ export default new Vuex.Store({
 				break;
 				case 'credit_card':
 					Object.assign(object, state.credit_card)
+				break;
+				case 'other_loan':
+					Object.assign(object, state.other_loan)
 				break;
 			}
 			
@@ -323,6 +371,10 @@ export default new Vuex.Store({
 					person.credit_cards.push(payload.object)
 					payload.object.shared = true
 				break;
+				case 'other_loan':
+					person.other_loans.push(payload.object)
+					payload.object.shared = true
+				break;
 			}
 			
 		},
@@ -330,77 +382,23 @@ export default new Vuex.Store({
 			state.selected_application_index = index
 
 		},
-		newApplication(state){
+
+		createEmptyApplication(state){
 			var new_app = {
-				people: [
-					{
-						title: '',
-						first_name: '',
-						alias: '',
-						middle_names: '',
-						surname: '',
-						mobile_phone: '',
-						home_phone: '',
-						work_phone: '',
-						email_address: '',
-						gender: '',
-						date_of_birth: '',
-						abn_established_date: '',
-						abn_gst_date: '',
-						abn: '',
-						licence_number: '',
-						licence_state: '',
-						licence_card: '',
-						licence_expiry: '',
-						passport_number: '',
-						passport_country: '',
-						passport_expiry: '',
-						marital_status: '',
-						partner_id: '',
-						visa_status: '',
-						visa_class: '',
-						visa_expiry: '',
-						adr_count: 0,
-						addresses: [
-							{
-								address: '',
-								years: 0,
-								months: 0,
-								status: '',
-							}
-						],
-						employers: [{
-							current: true,
-							employer: '',
-							position: '',
-							status: '',
-							contact_name: '',
-							contact_phone: '',
-							address: '',
-							notes: '',
-							years: 0,
-							months: 0,
-							start_date: '',
-							end_date: '',
-						}],
-						properties:[],
-						vehicles:[],
-						credit_cards: [],
-						other_loans: [],
-						cash: [],
-						other_assets:[],
-						domestic_expenses:[],
-					},
-				],
-				businesses: []
+				people: [],
+				businesses: [],
+				comments:[]
 			}
+			// Object.assign(new_app, state.application)
+			// window.console.log(new_app)
 			state.applications.unshift(new_app)
 			var $index = state.applications.indexOf(new_app)
 			state.selected_application_index = $index
 		},
+
 		addPersonToApplication(state) {
-			var ar = state.applications[state.selected_application_index].people
-			var empty_person = {
+			let ar = state.applications[state.selected_application_index].people
+			let empty_person = {
 				title: '',
 				first_name: '',
 				alias: '',
@@ -428,30 +426,8 @@ export default new Vuex.Store({
 				visa_class: '',
 				visa_expiry: '',
 				adr_count: 0,
-				addresses: [
-					{
-						address: '',
-						years: 0,
-						months: 0,
-						status: '',
-					}
-				],
-				employers: [
-					{
-						current: true,
-						employer: '',
-						position: '',
-						status: '',
-						contact_name: '',
-						contact_phone: '',
-						address: '',
-						notes: '',
-						years: 0,
-						months: 0,
-						start_date: '',
-						end_date: '',
-					}
-				],
+				addresses: [],
+				employers: [],
 				properties:[],
 				vehicles:[],
 				credit_cards: [],
@@ -459,8 +435,6 @@ export default new Vuex.Store({
 				other_assets:[],
 				domestic_expenses:[],
 			}
-
-			Object.assign(empty_person, state.person)
 			ar.push(empty_person)
 		},
 		removePersonFromApplication(state, person) {
@@ -543,50 +517,6 @@ export default new Vuex.Store({
 
 
 
-
-
-
-
-
-
-
-		// addVehicleToPerson(state, payload){
-		// 	var new_vehicle = {
-		// 		description: '',
-		// 		is_trading: true,
-		// 		market_value: '',
-		// 		trade_value: '',
-		// 		finance_lender: '',
-		// 		finance_start_date: '',
-		// 		finance_balance: '',
-		// 		finance_payment: '',
-		// 		shared: false,
-		// 	}
-		// 	var vehicle_array = payload.vehicles
-		// 	vehicle_array.push(new_vehicle)
-		// 	payload.adr_count++
-		// },
-		// removeVehicleFromPerson(state, payload){
-		// 	var person = state.applications[state.selected_application_index]
-		// 	.people[payload.person_index]
-		// 	person.vehicles[payload.vehicle_index].shared = false
-		// 	person.vehicles.splice(payload.vehicle_index, 1)
-		// 	person.adr_count--
-		// },
-		// linkVehicleToNextPerson(state, payload){
-		// 	var next = payload.person_index + 1
-		// 	var person = state.applications[state.selected_application_index]
-		// 	.people[next]
-		// 	person.vehicles.push(payload.vehicle)
-		// 	payload.vehicle.shared = true
-		// },
-
-
-
-
-
-
-
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -624,7 +554,7 @@ export default new Vuex.Store({
 		},
 		dropFromArray({commit, dispatch}, payload){
 			if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
-				commit('unshareObject', payload.object)
+				payload.object.shared = false
 				commit('dropFromArray', payload)
 				dispatch('saveApplications')
 			}
@@ -634,90 +564,10 @@ export default new Vuex.Store({
 			dispatch('saveApplications')
 		},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		removePropertyFromPerson({commit, dispatch}, payload){
-			if (confirm('Are you sure you want to permanently remove this property?')) {
-				commit('removePropertyFromPerson', payload)
-				dispatch('saveApplications')
-			}
-		},
-		addPropertyToPerson({commit, dispatch}, person){
-			commit('addPropertyToPerson', person)
-			dispatch('saveApplications')
-		},
-		linkPropertyToNextPerson({commit, dispatch}, payload){
-			commit('linkPropertyToNextPerson', payload)
-			dispatch('saveApplications')
-		},
-		removeVehicleFromPerson({commit, dispatch}, payload){
-			if (confirm('Are you sure you want to permanently remove this vehicle?')) {
-				commit('removeVehicleFromPerson', payload)
-				dispatch('saveApplications')
-			}
-		},
-		addVehicleToPerson({commit, dispatch}, person){
-			commit('addVehicleToPerson', person)
-			dispatch('saveApplications')
-		},
-		linkVehicleToNextPerson({commit, dispatch}, payload){
-			commit('linkVehicleToNextPerson', payload)
-			dispatch('saveApplications')
-		},
-		removeCreditCardFromPerson({commit, dispatch}, payload){
-			if (confirm('Are you sure you want to permanently remove this vehicle?')) {
-				commit('removeCreditCardFromPerson', payload)
-				dispatch('saveApplications')
-			}
-		},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		createNewApplication({commit}){
+			commit('createEmptyApplication')
+			commit('addPersonToApplication')
+		}
 
 
 		

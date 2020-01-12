@@ -14,16 +14,16 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
 	name: "NewApplicationButton",
 	methods: {
 		activate(){
-			this.newApplication()
+			this.createNewApplication()
 			this.$router.push('application')
 		},
-		...mapMutations([
-			"newApplication"
+		...mapActions([
+			"createNewApplication"
 		])
 	}
 };

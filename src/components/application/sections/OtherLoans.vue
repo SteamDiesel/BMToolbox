@@ -1,15 +1,15 @@
 <template>
 	<div class="mt-6">
-			<h2 class="text-xl">Vehicles</h2>
-			<Vehicle
+			<h2 class="text-xl">Other Loans</h2>
+			<OtherLoan
 				class="mb-4"
-				v-for="(vehicle, index) in person.vehicles"
+				v-for="(other_loan, index) in person.other_loans"
 				:key="index"
-				:vehicle="vehicle"
+				:other_loan="other_loan"
 			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
-				@click="dropFromArray({array: person.vehicles, type: 'vehicle', index: index, person: person, object: vehicle})"
+				@click="dropFromArray({array: person.other_loans, object: other_loan, type: 'other_loan', index: index, person: person})"
 				>
 					<svg viewBox="0 0 24 24" class="h-6 w-6">
 						<path
@@ -32,14 +32,15 @@
 				</button>
 				<!-- Link to next person  -->
 				<button
-					v-show="!vehicle.shared"
-					:class="{ 'bg-blue-400': vehicle.shared}"
+					v-show="!other_loan.shared"
+					:class="{ 'bg-blue-400': other_loan.shared}"
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="linkObjectToNextPerson(
 						{person_index: person_index, 
-						type: 'vehicle', 
-						object: vehicle}
-						)">
+						type: 'other_loan', 
+						object: other_loan}
+						)"
+				>
 					<svg viewBox="0 0 24 24" class="h-6 w-6">
 						<path
 							class="secondary"
@@ -53,8 +54,8 @@
 				</button>
 
 				<button
-					v-show="vehicle.shared"
-					:class="{ 'bg-blue-400': vehicle.shared}"
+					v-show="other_loan.shared"
+					:class="{ 'bg-blue-400': other_loan.shared}"
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
 				>
 					<svg viewBox="0 0 24 24" class="h-6 w-6">
@@ -68,11 +69,11 @@
 						/>
 					</svg>
 				</button>
-			</Vehicle>
+			</OtherLoan>
 			<div class="flex justify-start m-2 px-2">
 				<button
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
-					@click="pushToArray({person: person, type: 'vehicle', array: person.vehicles})"
+					@click="pushToArray({person: person, type: 'other_loan', array: person.other_loans})"
 				>
 					<svg viewBox="0 0 24 24" class="h-5 w-5">
 						<path
@@ -100,12 +101,12 @@
 <script>
 import { mapMutations, mapActions } from "vuex";
 
-import Vehicle from "@/components/application/Vehicle.vue";
+import OtherLoan from "@/components/application/OtherLoan.vue";
 
 export default {
-	name: "Vehicles",
+	name: "OtherLoans",
 	components: {
-		Vehicle
+		OtherLoan
 	},
 	props: {
 		people: Array,
@@ -113,6 +114,7 @@ export default {
 		person_index: Number
 	},
 	methods: {
+	
 		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions([
 			"pushToArray",

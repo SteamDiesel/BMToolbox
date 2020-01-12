@@ -15,15 +15,15 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<!-- <FormField 
+			<FormField 
 			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.market_value)">
+			@copy="copyClipboard('#'+credit_card.credit_limit)">
 				<template v-slot:label>
 					Limit
 				</template>
 				<input
-					:id="'#'+vehicle.market_value"
-					v-model="vehicle.market_value"
+					:id="'#'+credit_card.credit_limit"
+					v-model="credit_card.credit_limit"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -31,13 +31,13 @@
 			</FormField>
 			<FormField 
 			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_lender)">
+			@copy="copyClipboard('#'+credit_card.balance)">
 				<template v-slot:label>
 					Balance
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_lender"
-					v-model="vehicle.first_mortgage_lender"
+					:id="'#'+credit_card.balance"
+					v-model="credit_card.balance"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -45,18 +45,18 @@
 			</FormField>
 			<FormField 
 			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_balance)">
+			@copy="copyClipboard('#'+credit_card.monthly_payment)">
 				<template v-slot:label>
 					Monthly payment
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_balance"
-					v-model="vehicle.first_mortgage_balance"
+					:id="'#'+credit_card.monthly_payment"
+					v-model="credit_card.monthly_payment"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
-			</FormField> -->
+			</FormField>
 			<div class="w-1/5 flex justify-around items-center">
 				<slot></slot>
 			</div>
