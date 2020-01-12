@@ -200,6 +200,14 @@ export default new Vuex.Store({
 			years: 0,
 			months: 0,
 			status: '',
+			shared: false
+		},
+		credit_card: {
+			lender: '',
+			credit_limit: '',
+			balance: '',
+			monthly_payment: '',
+			shared: false
 		},
 		unsaved_changes: false
 	},
@@ -344,7 +352,6 @@ export default new Vuex.Store({
 				vehicles:[],
 				credit_cards: [],
 				other_loans: [],
-				cash: [],
 				other_assets:[],
 				domestic_expenses:[],
 			}
@@ -530,7 +537,67 @@ export default new Vuex.Store({
 			.people[next]
 			person.vehicles.push(payload.vehicle)
 			payload.vehicle.shared = true
-		}
+		},
+
+
+		unshareObject(object){
+			object.shared = false
+		},
+
+
+		pushToArray(state, payload){
+			// payload 
+			// - array - the target array
+			// - object - reference the empty object model in store
+			// - type - string describing which one
+			var object = {}
+			switch(payload.type){
+				case 'address':
+					Object.assign(object, state.address)
+				break;
+				case 'credit_card':
+					Object.assign(object, state.credit_card)
+				break;
+			}
+			
+
+			var array = payload.array
+			array.push(object)
+			payload.adr_count++
+		},
+
+
+
+
+		dropFromArray(state, payload){
+			var array = payload.array // - array - the target array
+			array.splice(payload.index, 1) // - index - find which item to drop
+			payload.person.adr_count++// - person - just to update the arbitrary property to
+			// trigger a re-render because I'm a hack
+		},
+
+
+
+
+		linkObjectToNextPerson(state, payload){
+			var next = payload.person_index + 1
+			// person_index - to find which person in the selected application is intended
+
+			var person = state.applications[state.selected_application_index]
+			.people[next]
+
+			switch (payload.type){// - type - string describing which one
+				case 'address':
+					person.addresses.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'credit_card':
+					person.credit_cards.push(payload.object)
+					payload.object.shared = true
+				break;
+			}
+			
+		},
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -554,16 +621,16 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
-		removeAddressFromPerson({commit, dispatch}, payload){
-			if (confirm('Are you sure you want to permanently remove this address?')) {
-				commit('removeAddressFromPerson', payload)
-				dispatch('saveApplications')
-			}
-		},
-		addAddressToPerson({commit, dispatch}, payload){
-			commit('addAddressToPerson', payload)
-			dispatch('saveApplications')
-		},
+		// removeAddressFromPerson({commit, dispatch}, payload){
+		// 	if (confirm('Are you sure you want to permanently remove this address?')) {
+		// 		commit('removeAddressFromPerson', payload)
+		// 		dispatch('saveApplications')
+		// 	}
+		// },
+		// addAddressToPerson({commit, dispatch}, payload){
+		// 	commit('addAddressToPerson', payload)
+		// 	dispatch('saveApplications')
+		// },
 		deleteApplication({commit, dispatch}, index){
 			if (confirm('Are you sure you want to permanently remove this application?')) {
 				commit('deleteApplication', index)
@@ -606,6 +673,27 @@ export default new Vuex.Store({
 		},
 		linkVehicleToNextPerson({commit, dispatch}, payload){
 			commit('linkVehicleToNextPerson', payload)
+			dispatch('saveApplications')
+		},
+		removeCreditCardFromPerson({commit, dispatch}, payload){
+			if (confirm('Are you sure you want to permanently remove this vehicle?')) {
+				commit('removeCreditCardFromPerson', payload)
+				dispatch('saveApplications')
+			}
+		},
+		pushToArray({commit, dispatch}, payload){
+			commit('pushToArray', payload)
+			dispatch('saveApplications')
+		},
+		dropFromArray({commit, dispatch}, payload){
+			if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
+				commit('unshareObject', payload.object)
+				commit('dropFromArray', payload)
+				dispatch('saveApplications')
+			}
+		},
+		linkObjectToNextPerson({commit, dispatch}, payload){
+			commit('linkObjectToNextPerson', payload)
 			dispatch('saveApplications')
 		},
 	},
