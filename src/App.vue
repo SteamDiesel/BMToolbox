@@ -1,8 +1,8 @@
 <template>
 	<div class="min-h-screen text-gray-600 bg-gray-100" id="app">
-		<div id="nav" class="bg-gray-300">
+		<div id="nav" class=" bg-gray-300">
 			<div class="container mx-auto flex justify-between h-full items-center pl-2 sm:pl-0">
-				<div class="text-xl font-semibold">{{user_preferences.user_name}} @ {{user_preferences.user_business_name}}</div>
+				<div class="md:text-xl font-semibold">{{user_preferences.user_name}} @ {{user_preferences.user_business_name}}</div>
 				<div class="font-semibold flex">
 					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/home">
 						<svg viewBox="0 0 24 24" class="h-10 w-10"><path class="primary" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm2 3a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-8 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-4 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/><rect width="2" height="6" x="15" y="13" class="secondary" rx="1"/></svg>
@@ -30,7 +30,9 @@
 				</div>
 			</div>
 		</div>
-		<router-view />
+		<transition name="fade" mode="out-in">
+			<router-view />
+		</transition>
 	</div>
 </template>
 <script>
@@ -73,6 +75,12 @@ export default {
 }
 .danger-secondary {
 	fill: #502020;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 

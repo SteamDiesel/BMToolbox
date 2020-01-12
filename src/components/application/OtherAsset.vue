@@ -2,14 +2,14 @@
 	<div class="hover:bg-blue-100">
 		<div class="flex flex-wrap">
 			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.description)">
+			class="w-3/5"
+			@copy="copyClipboard('#'+other_asset.description)">
 				<template v-slot:label>
-					Lender
+					Description
 				</template>
 				<input
-					:id="'#'+vehicle.description"
-					v-model="vehicle.description"
+					:id="'#'+other_asset.description"
+					v-model="other_asset.description"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -17,41 +17,13 @@
 			</FormField>
 			<FormField 
 			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.market_value)">
+			@copy="copyClipboard('#'+other_asset.value)">
 				<template v-slot:label>
-					Loan Amount
+					Value
 				</template>
 				<input
-					:id="'#'+vehicle.market_value"
-					v-model="vehicle.market_value"
-					@change="saveApplicationsToLocal"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_lender)">
-				<template v-slot:label>
-					Current Balance
-				</template>
-				<input
-					:id="'#'+vehicle.first_mortgage_lender"
-					v-model="vehicle.first_mortgage_lender"
-					@change="saveApplicationsToLocal"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_balance)">
-				<template v-slot:label>
-					Monthly payment
-				</template>
-				<input
-					:id="'#'+vehicle.first_mortgage_balance"
-					v-model="vehicle.first_mortgage_balance"
+					:id="'#'+other_asset.value"
+					v-model="other_asset.value"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -73,7 +45,7 @@ export default {
 		FormField
 	},
 	props: {
-		vehicle: Object
+		other_asset: Object
 	},
 	methods:{
 		...mapMutations(['saveApplicationsToLocal']),

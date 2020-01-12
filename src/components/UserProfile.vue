@@ -250,6 +250,8 @@
 						@click.prevent="clear"
 						class="bg-red-500 font-semibold text-orange-100 hover:bg-red-600 p-2 shadow-lg rounded-full"
 					>Delete all data</button>
+					
+
 				</div>
 			</div>
 		</div>
@@ -257,6 +259,7 @@
 </template>
 
 <script>
+
 import { mapState, mapMutations } from "vuex";
 export default {
 	// Author is Jason Lloyd Law
@@ -268,9 +271,12 @@ export default {
 		...mapState(["user_preferences"])
 	},
 	methods: {
+		
 		clear() {
-			localStorage.clear();
-			window.console.log("local storage cleared");
+			if(confirm('Are you sure you want to delete all local storage? There is no way to recover this data if it is deleted.')){
+				localStorage.clear();
+				window.console.log("local storage cleared");
+			}
 		},
 		...mapMutations(["savePreferences", "getPreferencesFromLocalStorage"])
 	},

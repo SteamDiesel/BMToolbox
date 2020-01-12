@@ -1,17 +1,26 @@
 <template>
 	<div class="mt-6">
-			<h2 class="text-xl">Credit Cards</h2>
-			<CreditCard
+			<h2 class="text-xl">Other Assets</h2>
+			<OtherAsset
 				class="mb-4"
-				v-for="(credit_card, index) in person.credit_cards"
+				v-for="(other_asset, index) in person.other_assets"
 				:key="index"
-				:credit_card="credit_card"
+				:other_asset="other_asset"
 			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
-				@click="dropFromArray({array: person.credit_cards, type: 'credit_card', index: index, person: person, object: credit_card})"
+				@click="dropFromArray({array: person.other_assets, object: other_asset, type: 'other_asset', index: index, person: person})"
 				>
-					<svg  viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm13 12a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2zm-6 0a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2z"/><rect width="20" height="4" x="2" y="7" class="secondary"/></svg>
+					<svg viewBox="0 0 24 24" class="h-6 w-6">
+						<path
+							class="secondary"
+							d="M20 18a3 3 0 0 0-6 0 1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5.33a1 1 0 0 1 .95.68l1.67 5c.03.1.05.21.05.32v3a1 1 0 0 1-1 1h-1zm-.39-5l-1-3H16v3h3.61zM7 20a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+						/>
+						<path
+							class="primary"
+							d="M10 18a3 3 0 0 0-6 0H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v12h-4z"
+						/>
+					</svg>
 					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
 						<path
 							class="secondary"
@@ -23,13 +32,13 @@
 				</button>
 				<!-- Link to next person  -->
 				<button
-					v-show="!credit_card.shared"
-					:class="{ 'bg-blue-400': credit_card.shared}"
+					v-show="!other_asset.shared"
+					:class="{ 'bg-blue-400': other_asset.shared}"
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
 					@click="linkObjectToNextPerson(
 						{person_index: person_index, 
-						type: 'credit_card', 
-						object: credit_card}
+						type: 'other_asset', 
+						object: other_asset}
 						)"
 				>
 					<svg viewBox="0 0 24 24" class="h-6 w-6">
@@ -45,8 +54,8 @@
 				</button>
 
 				<button
-					v-show="credit_card.shared"
-					:class="{ 'bg-blue-400': credit_card.shared}"
+					v-show="other_asset.shared"
+					:class="{ 'bg-blue-400': other_asset.shared}"
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
 				>
 					<svg viewBox="0 0 24 24" class="h-6 w-6">
@@ -60,23 +69,23 @@
 						/>
 					</svg>
 				</button>
-			</CreditCard>
+			</OtherAsset>
 			<div class="flex justify-start m-2 px-2">
-
-				<!-- plus button  -->
 				<button
 					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
-					@click="pushToArray({person: person, type: 'credit_card', array: person.credit_cards})"
+					@click="pushToArray({person: person, type: 'other_asset', array: person.other_assets})"
 				>
-
-
-
-
-					<svg  viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm13 12a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2zm-6 0a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2z"/><rect width="20" height="4" x="2" y="7" class="secondary"/></svg>
+					<svg viewBox="0 0 24 24" class="h-5 w-5">
+						<path
+							class="secondary"
+							d="M20 18a3 3 0 0 0-6 0 1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5.33a1 1 0 0 1 .95.68l1.67 5c.03.1.05.21.05.32v3a1 1 0 0 1-1 1h-1zm-.39-5l-1-3H16v3h3.61zM7 20a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+						/>
+						<path
+							class="primary"
+							d="M10 18a3 3 0 0 0-6 0H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v12h-4z"
+						/>
+					</svg>
 					
-
-
-					<!-- plus icon -->
 					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
 						<path
 							class="secondary"
@@ -92,12 +101,12 @@
 <script>
 import { mapMutations, mapActions } from "vuex";
 
-import CreditCard from "@/components/application/CreditCard.vue";
+import OtherAsset from "@/components/application/OtherAsset.vue";
 
 export default {
-	name: "Vehicles",
+	name: "Properties",
 	components: {
-		CreditCard
+		OtherAsset
 	},
 	props: {
 		people: Array,
@@ -105,7 +114,6 @@ export default {
 		person_index: Number
 	},
 	methods: {
-	
 		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions([
 			"pushToArray",

@@ -31,7 +31,7 @@
 			</button> -->
 		</div>
 
-		<div class="lg:flex xl:justify-around">
+		<div class="lg:flex lg:justify-around">
 			<Person
 				class="m-1 lg:w-1/2"
 				v-for="(person, index) in application.people"

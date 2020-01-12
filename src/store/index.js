@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import VueRouter from "vue-router";
+import { uuid } from "vue-uuid";
 
 Vue.use(Vuex);
 
@@ -294,6 +294,12 @@ export default new Vuex.Store({
 			term: '',
 			refinance: false,
 			apr: '',
+			shared: false,
+		},
+		other_asset: {
+			description: '',
+			value: '',
+			shared: '',
 		},
 		unsaved_changes: false
 	},
@@ -326,10 +332,14 @@ export default new Vuex.Store({
 				case 'other_loan':
 					Object.assign(object, state.other_loan)
 				break;
+				case 'other_asset':
+					Object.assign(object, state.other_asset)
+				break;
 			}
 			
 
 			var array = payload.array
+			object.uuid = uuid.v4()
 			array.push(object)
 			payload.adr_count++
 		},
@@ -375,6 +385,11 @@ export default new Vuex.Store({
 					person.other_loans.push(payload.object)
 					payload.object.shared = true
 				break;
+				case 'other_asset':
+					person.other_assets.push(payload.object)
+					payload.object.shared = true
+				break;
+				
 			}
 			
 		},
@@ -387,10 +402,9 @@ export default new Vuex.Store({
 			var new_app = {
 				people: [],
 				businesses: [],
-				comments:[]
+				comments: [],
+				uuid: uuid.v4()
 			}
-			// Object.assign(new_app, state.application)
-			// window.console.log(new_app)
 			state.applications.unshift(new_app)
 			var $index = state.applications.indexOf(new_app)
 			state.selected_application_index = $index
@@ -434,6 +448,7 @@ export default new Vuex.Store({
 				other_loans: [],
 				other_assets:[],
 				domestic_expenses:[],
+				uuid: uuid.v4()
 			}
 			ar.push(empty_person)
 		},
@@ -515,10 +530,44 @@ export default new Vuex.Store({
 		},
 
 
-
-
 	},
 	actions: {
+		saveByUUID(object){
+			if(object.uuid != ''){
+				try{
+					localStorage.setItem(object.uuid, JSON.stringify(object))
+					window.console.log('Object Saved by existing UUID.')
+				} catch {
+					window.console.log('Unable to save object to local storage.')
+				}
+			} else {
+				object.uuid = uuid.v4()
+				try{
+					localStorage.setItem(object.uuid, JSON.stringify(object))
+					window.console.log('Object Saved by a newly attached UUID.')
+				} catch {
+					window.console.log('Unable to save object to local storage.')
+				}
+			}
+		},
+
+		getByUUID({state}, payload){
+			switch(payload.type){
+				case 'application':
+					state.selected_application = JSON.parse(localStorage.getItem(payload.uuid));
+					window.console.log('got application from browser local storage.')
+					break;
+				case 'person':
+					var item = JSON.parse(localStorage.getItem(payload.uuid));
+					window.console.log('got application from browser local storage.')
+					break;
+				default:
+					window.console.log('failed to retrieve item from browser local storage.')
+					break;
+			}
+			payload.array.push(item)
+		},
+
 		initialize({commit, dispatch}) {
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
@@ -563,7 +612,7 @@ export default new Vuex.Store({
 			commit('linkObjectToNextPerson', payload)
 			dispatch('saveApplications')
 		},
-
+		
 		createNewApplication({commit}){
 			commit('createEmptyApplication')
 			commit('addPersonToApplication')
