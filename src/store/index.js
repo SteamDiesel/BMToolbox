@@ -202,6 +202,29 @@ export default new Vuex.Store({
 			status: '',
 			shared: false
 		},
+		property:{
+			description: '',
+			market_value: '',
+			rental_income: '',
+			shared: false,
+			first_mortgage_lender: '',
+			first_mortgage_balance: '',
+			first_mortgage_payment: '',
+			second_mortgage_lender: '',
+			second_mortgage_balance: '',
+			second_mortgage_payment: '',
+		},
+		vehicle: {
+			description: '',
+			is_trading: true,
+			market_value: '',
+			trade_value: '',
+			finance_lender: '',
+			finance_start_date: '',
+			finance_balance: '',
+			finance_payment: '',
+			shared: false,
+		},
 		employer: {
 			current: true,
 			employer: '',
@@ -235,12 +258,9 @@ export default new Vuex.Store({
 			object.shared = false
 		},
 
-		
+
 		pushToArray(state, payload){
-			// payload 
-			// - array - the target array
-			// - object - reference the empty object model in store
-			// - type - string describing which one
+			
 			var object = {}
 			switch(payload.type){
 				case 'address':
@@ -248,6 +268,12 @@ export default new Vuex.Store({
 				break;
 				case 'employer':
 					Object.assign(object, state.employer)
+				break;
+				case 'property':
+					Object.assign(object, state.property)
+				break;
+				case 'vehicle':
+					Object.assign(object, state.vehicle)
 				break;
 				case 'credit_card':
 					Object.assign(object, state.credit_card)
@@ -262,27 +288,35 @@ export default new Vuex.Store({
 
 
 		dropFromArray(state, payload){
-			var array = payload.array // - array - the target array
-			array.splice(payload.index, 1) // - index - find which item to drop
-			payload.person.adr_count++// - person - just to update the arbitrary property to
+			var array = payload.array 
+			array.splice(payload.index, 1) 
+			payload.person.adr_count++
+			// - person - just to update an arbitrary property to
 			// trigger a re-render because I'm a hack
 		},
 
 
 		linkObjectToNextPerson(state, payload){
 			var next = payload.person_index + 1
-			// person_index - to find which person in the selected application is intended
 
 			var person = state.applications[state.selected_application_index]
 			.people[next]
 
-			switch (payload.type){// - type - string describing which one
+			switch (payload.type){
 				case 'address':
 					person.addresses.push(payload.object)
 					payload.object.shared = true
 				break;
 				case 'employer':
 					person.employers.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'property':
+					person.properties.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'vehicle':
+					person.vehicles.push(payload.object)
 					payload.object.shared = true
 				break;
 				case 'credit_card':
@@ -516,79 +550,36 @@ export default new Vuex.Store({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-		addPropertyToPerson(state, payload){
-			var new_property = {
-				description: '',
-				market_value: '',
-				rental_income: '',
-				shared: false,
-				first_mortgage_lender: '',
-				first_mortgage_balance: '',
-				first_mortgage_payment: '',
-				second_mortgage_lender: '',
-				second_mortgage_balance: '',
-				second_mortgage_payment: '',
-			}
-			var property_array = payload.properties
-			property_array.push(new_property)
-			payload.adr_count++
-		},
-		removePropertyFromPerson(state, payload){
-			var person = state.applications[state.selected_application_index]
-			.people[payload.person_index]
-			person.properties[payload.property_index].shared = false
-			person.properties.splice(payload.property_index, 1)
-			person.adr_count--
-		},
-		linkPropertyToNextPerson(state, payload){
-			var next = payload.person_index + 1
-			var person = state.applications[state.selected_application_index]
-			.people[next]
-			person.properties.push(payload.property)
-			payload.property.shared = true
-		},
-		addVehicleToPerson(state, payload){
-			var new_vehicle = {
-				description: '',
-				is_trading: true,
-				market_value: '',
-				trade_value: '',
-				finance_lender: '',
-				finance_start_date: '',
-				finance_balance: '',
-				finance_payment: '',
-				shared: false,
-			}
-			var vehicle_array = payload.vehicles
-			vehicle_array.push(new_vehicle)
-			payload.adr_count++
-		},
-		removeVehicleFromPerson(state, payload){
-			var person = state.applications[state.selected_application_index]
-			.people[payload.person_index]
-			person.vehicles[payload.vehicle_index].shared = false
-			person.vehicles.splice(payload.vehicle_index, 1)
-			person.adr_count--
-		},
-		linkVehicleToNextPerson(state, payload){
-			var next = payload.person_index + 1
-			var person = state.applications[state.selected_application_index]
-			.people[next]
-			person.vehicles.push(payload.vehicle)
-			payload.vehicle.shared = true
-		},
+		// addVehicleToPerson(state, payload){
+		// 	var new_vehicle = {
+		// 		description: '',
+		// 		is_trading: true,
+		// 		market_value: '',
+		// 		trade_value: '',
+		// 		finance_lender: '',
+		// 		finance_start_date: '',
+		// 		finance_balance: '',
+		// 		finance_payment: '',
+		// 		shared: false,
+		// 	}
+		// 	var vehicle_array = payload.vehicles
+		// 	vehicle_array.push(new_vehicle)
+		// 	payload.adr_count++
+		// },
+		// removeVehicleFromPerson(state, payload){
+		// 	var person = state.applications[state.selected_application_index]
+		// 	.people[payload.person_index]
+		// 	person.vehicles[payload.vehicle_index].shared = false
+		// 	person.vehicles.splice(payload.vehicle_index, 1)
+		// 	person.adr_count--
+		// },
+		// linkVehicleToNextPerson(state, payload){
+		// 	var next = payload.person_index + 1
+		// 	var person = state.applications[state.selected_application_index]
+		// 	.people[next]
+		// 	person.vehicles.push(payload.vehicle)
+		// 	payload.vehicle.shared = true
+		// },
 
 
 
