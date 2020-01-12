@@ -163,7 +163,7 @@
 import {mapMutations} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
-	name: 'Address',
+	name: 'Employer',
 	components:{
 		FormField
 	},

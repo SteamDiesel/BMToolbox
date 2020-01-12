@@ -202,6 +202,20 @@ export default new Vuex.Store({
 			status: '',
 			shared: false
 		},
+		employer: {
+			current: true,
+			employer: '',
+			position: '',
+			status: '',
+			contact_name: '',
+			contact_phone: '',
+			address: '',
+			notes: '',
+			years: 0,
+			months: 0,
+			start_date: '',
+			end_date: '',
+		},
 		credit_card: {
 			lender: '',
 			credit_limit: '',
@@ -217,6 +231,67 @@ export default new Vuex.Store({
 		},
 	},
 	mutations: {
+		unshareObject(object){
+			object.shared = false
+		},
+
+		
+		pushToArray(state, payload){
+			// payload 
+			// - array - the target array
+			// - object - reference the empty object model in store
+			// - type - string describing which one
+			var object = {}
+			switch(payload.type){
+				case 'address':
+					Object.assign(object, state.address)
+				break;
+				case 'employer':
+					Object.assign(object, state.employer)
+				break;
+				case 'credit_card':
+					Object.assign(object, state.credit_card)
+				break;
+			}
+			
+
+			var array = payload.array
+			array.push(object)
+			payload.adr_count++
+		},
+
+
+		dropFromArray(state, payload){
+			var array = payload.array // - array - the target array
+			array.splice(payload.index, 1) // - index - find which item to drop
+			payload.person.adr_count++// - person - just to update the arbitrary property to
+			// trigger a re-render because I'm a hack
+		},
+
+
+		linkObjectToNextPerson(state, payload){
+			var next = payload.person_index + 1
+			// person_index - to find which person in the selected application is intended
+
+			var person = state.applications[state.selected_application_index]
+			.people[next]
+
+			switch (payload.type){// - type - string describing which one
+				case 'address':
+					person.addresses.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'employer':
+					person.employers.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'credit_card':
+					person.credit_cards.push(payload.object)
+					payload.object.shared = true
+				break;
+			}
+			
+		},
 		selectApplication(state, index){
 			state.selected_application_index = index
 
@@ -333,15 +408,10 @@ export default new Vuex.Store({
 						employer: '',
 						position: '',
 						status: '',
-						industry: '',
 						contact_name: '',
 						contact_phone: '',
 						address: '',
 						notes: '',
-						wage: '',
-						commission: '',
-						bonus: '',
-						allowance: '',
 						years: 0,
 						months: 0,
 						start_date: '',
@@ -365,50 +435,8 @@ export default new Vuex.Store({
 				ar.splice(ar.indexOf(person), 1)
 			}
 		},
-		addEmployerToPerson(state, payload){
-			var new_employer = {
-				current: true,
-				employer: '',
-				position: '',
-				status: '',
-				contact_name: '',
-				contact_phone: '',
-				address: '',
-				notes: '',
-				years: 0,
-				months: 0,
-				start_date: '',
-				end_date: '',
-			}
-			var employer_array = payload.employers
-			employer_array.push(new_employer)
-			payload.adr_count++
-		},
-		removeEmployerFromPerson(state, payload){
-			var person = state.applications[state.selected_application_index].people[payload.person_index]
-			person.employers.splice(payload.employer_index, 1)
-			person.adr_count--
-		},
-		addAddressToPerson(state, person) {
-			var new_address = {}
-			if (person.addresses) {
-				var address_array = person.addresses
-				Object.assign(new_address, state.address)
-				address_array.push(new_address)
-				person.adr_count++
-			} else {
-				person.addresses = []
-				Object.assign(new_address, state.address)
-				person.addresses.push(new_address)
-				person.adr_count++
-			}
-		},
-		
-		removeAddressFromPerson(state, payload) {
-			var person = state.applications[state.selected_application_index].people[payload.person_index]
-			person.addresses.splice(payload.address_index, 1)
-			person.adr_count--
-		},
+
+
 		addBusinessToApplication() {
 			window.alert('not built yet')
 		},
@@ -477,6 +505,29 @@ export default new Vuex.Store({
 		deleteApplication(state, index){
 			state.applications.splice(index, 1)
 		},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		addPropertyToPerson(state, payload){
 			var new_property = {
 				description: '',
@@ -540,64 +591,11 @@ export default new Vuex.Store({
 		},
 
 
-		unshareObject(object){
-			object.shared = false
-		},
-
-
-		pushToArray(state, payload){
-			// payload 
-			// - array - the target array
-			// - object - reference the empty object model in store
-			// - type - string describing which one
-			var object = {}
-			switch(payload.type){
-				case 'address':
-					Object.assign(object, state.address)
-				break;
-				case 'credit_card':
-					Object.assign(object, state.credit_card)
-				break;
-			}
-			
-
-			var array = payload.array
-			array.push(object)
-			payload.adr_count++
-		},
 
 
 
 
-		dropFromArray(state, payload){
-			var array = payload.array // - array - the target array
-			array.splice(payload.index, 1) // - index - find which item to drop
-			payload.person.adr_count++// - person - just to update the arbitrary property to
-			// trigger a re-render because I'm a hack
-		},
 
-
-
-
-		linkObjectToNextPerson(state, payload){
-			var next = payload.person_index + 1
-			// person_index - to find which person in the selected application is intended
-
-			var person = state.applications[state.selected_application_index]
-			.people[next]
-
-			switch (payload.type){// - type - string describing which one
-				case 'address':
-					person.addresses.push(payload.object)
-					payload.object.shared = true
-				break;
-				case 'credit_card':
-					person.credit_cards.push(payload.object)
-					payload.object.shared = true
-				break;
-			}
-			
-		},
 	},
 	actions: {
 		initialize({commit, dispatch}) {
@@ -612,25 +610,7 @@ export default new Vuex.Store({
 			}
 			dispatch('saveApplicationsLoop')
 		},
-		addEmployerToPerson({commit}, payload){
-			commit('addEmployerToPerson', payload)
-		},
-		removeEmployerFromPerson({commit, dispatch}, payload){
-			if (confirm('Are you sure you want to permanently remove this employer?')) {
-				commit('removeEmployerFromPerson', payload)
-				dispatch('saveApplications')
-			}
-		},
-		// removeAddressFromPerson({commit, dispatch}, payload){
-		// 	if (confirm('Are you sure you want to permanently remove this address?')) {
-		// 		commit('removeAddressFromPerson', payload)
-		// 		dispatch('saveApplications')
-		// 	}
-		// },
-		// addAddressToPerson({commit, dispatch}, payload){
-		// 	commit('addAddressToPerson', payload)
-		// 	dispatch('saveApplications')
-		// },
+		
 		deleteApplication({commit, dispatch}, index){
 			if (confirm('Are you sure you want to permanently remove this application?')) {
 				commit('deleteApplication', index)
@@ -647,6 +627,57 @@ export default new Vuex.Store({
 		saveApplications({commit}){
 			commit('saveApplicationsToLocal')
 		},
+		pushToArray({commit, dispatch}, payload){
+			commit('pushToArray', payload)
+			dispatch('saveApplications')
+		},
+		dropFromArray({commit, dispatch}, payload){
+			if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
+				commit('unshareObject', payload.object)
+				commit('dropFromArray', payload)
+				dispatch('saveApplications')
+			}
+		},
+		linkObjectToNextPerson({commit, dispatch}, payload){
+			commit('linkObjectToNextPerson', payload)
+			dispatch('saveApplications')
+		},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		removePropertyFromPerson({commit, dispatch}, payload){
 			if (confirm('Are you sure you want to permanently remove this property?')) {
 				commit('removePropertyFromPerson', payload)
@@ -681,21 +712,24 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
-		pushToArray({commit, dispatch}, payload){
-			commit('pushToArray', payload)
-			dispatch('saveApplications')
-		},
-		dropFromArray({commit, dispatch}, payload){
-			if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
-				commit('unshareObject', payload.object)
-				commit('dropFromArray', payload)
-				dispatch('saveApplications')
-			}
-		},
-		linkObjectToNextPerson({commit, dispatch}, payload){
-			commit('linkObjectToNextPerson', payload)
-			dispatch('saveApplications')
-		},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 	},
 	modules: {}
 });

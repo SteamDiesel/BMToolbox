@@ -250,64 +250,9 @@
 			</FormField>
 		</div>
 		<Addresses :people="people" :person="person" :person_index="person_index"/>
+		<Employers :people="people" :person="person" :person_index="person_index"/>
 		
-		<!-- Employer Section  -->
-		<div class="mt-6">
-			<h2 class="text-xl">Employment History</h2>
-			<Employer
-				class="mb-4"
-				v-for="(employer, index) in person.employers"
-				:key="index"
-				:employer="employer"
-			>
-				<button
-					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"
-					@click="removeEmployerFromPerson({person_index: person_index, employer_index: index})"
-				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5">
-						<path
-							class="secondary"
-							d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"
-						/>
-						<path
-							class="primary"
-							d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"
-						/>
-					</svg>
-					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 left-0">
-						<path
-							class="secondary"
-							fill-rule="evenodd"
-							d="M17 11a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h10z"
-						/>
-					</svg>
-				</button>
-			</Employer>
-			<div class="flex justify-start m-2 px-2">
-				<button
-					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
-					@click="addEmployerToPerson(person)"
-				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5">
-						<path
-							class="secondary"
-							d="M5 9h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2zm12 2v3h3v-3h-3zm0 5v3h3v-3h-3zm-5 0v3h3v-3h-3zm0-5v3h3v-3h-3z"
-						/>
-						<path
-							class="primary"
-							d="M9 4h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H9v-6H5v6H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h1a2 2 0 1 1 4 0z"
-						/>
-					</svg>
-					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
-						<path
-							class="secondary"
-							fill-rule="evenodd"
-							d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
-						/>
-					</svg>
-				</button>
-			</div>
-		</div>
+		
 		<!-- Properties Section -->
 		<div class="mt-6">
 			<h2 class="text-xl">Real Estate</h2>
@@ -561,7 +506,7 @@
 
 
 
-				
+
 					<svg  viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm13 12a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2zm-6 0a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2h-2z"/><rect width="20" height="4" x="2" y="7" class="secondary"/></svg>
 					
 
@@ -868,7 +813,8 @@
 import { mapMutations, mapActions } from "vuex";
 import FormField from "@/components/application/FormField.vue";
 import Addresses from "@/components/application/sections/Addresses.vue";
-import Employer from "@/components/application/Employer.vue";
+import Employers from "@/components/application/sections/Employers.vue";
+// import Employer from "@/components/application/Employer.vue";
 import Property from "@/components/application/Property.vue";
 import Vehicle from "@/components/application/Vehicle.vue";
 import CreditCard from "@/components/application/CreditCard.vue";
@@ -880,7 +826,7 @@ export default {
 	components: {
 		FormField,
 		Addresses,
-		Employer,
+		Employers,
 		Property,
 		Vehicle,
 		CreditCard,
