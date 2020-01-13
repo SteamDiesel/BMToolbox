@@ -301,7 +301,7 @@ export default {
 			var rvint = this.loan_calculator.rv * int;
 			var pmt =
 				(this.naf * y * int) / (y - 1) +
-				this.loan_calculator.monthly_fee +
+				+this.loan_calculator.monthly_fee +
 				rvint;
 			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
 		},
@@ -312,7 +312,7 @@ export default {
 			var rvint = this.loan_calculator.rv * int;
 			var pmt =
 				(this.naf * y * int) / (y - 1) +
-				this.loan_calculator.monthly_fee / 2 +
+				+this.loan_calculator.monthly_fee / 2 +
 				rvint;
 			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
 		},
@@ -323,7 +323,7 @@ export default {
 			var rvint = this.loan_calculator.rv * int;
 			var pmt =
 				(this.naf * y * int) / (y - 1) +
-				this.loan_calculator.monthly_fee / 4 +
+				+this.loan_calculator.monthly_fee / 4 +
 				rvint;
 			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
 		}
