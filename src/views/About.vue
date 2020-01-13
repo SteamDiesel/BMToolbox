@@ -58,7 +58,7 @@
 
 		<div class="mt-16 md:flex md:items-center">
 			<div class="w-full md:w-1/5 mx-4 flex justify-center">
-				<img class="w-1/2 md:w-full rounded-full" src="@/assets/Jason Law.jpg" alt="Jason Law" />
+				<img class="w-1/2 md:w-full rounded-full" src="@/assets/Jason Lloyd Law.jpg" alt="Jason Lloyd Law" />
 			</div>
 			<div>
 				<h1 class="text-2xl">Contact</h1>
@@ -71,21 +71,22 @@
 				</p>
 				<p class="mt-5">
 					To be fair, there haven't been many good alternatives to pen and paper in this domain. 
-					Hopefully this app can change some minds.	
+					This app is intended to change that.	
 				</p>
 				<p class="mt-5">
-					So I'm building the features into this system that I use, let me know if you think 
-					something is missing.
+					I'm building the features into this system that I use, please share it with other Business Managers or Asset Finance Brokers if you have found it useful.
 				</p>
 				<p class="mt-5">
 					You can find me on
 					<a
 						class="hover:underline text-indigo-500 font-semibold"
 						href="https://www.linkedin.com/in/jason-bdfi/"
+						target="_blank"
 					>LinkedIn</a>, or at my developer portfolio
 					<a
 						class="hover:underline text-indigo-500 font-semibold"
 						href="https://steamdiesel.dev/"
+						target="_blank"
 					>SteamDiesel.dev</a>.
 				</p>
 			</div>
