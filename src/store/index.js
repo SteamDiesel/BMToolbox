@@ -13,18 +13,18 @@ export default new Vuex.Store({
 			custom_one_label: 'Custom Field 01',
 			trade_value: 0,
 			trade_payout: 0,
-			sign_deposit: 2000,
+			sign_deposit: 500,
 			further_deposit: 0,
-			origination_fee: 975,
+			origination_fee: 990,
 			brokerage: 0,
 			custom_two: 0,
 			custom_two_label: 'Custom Field 02',
 			custom_three: 0,
 			custom_three_label: 'Custom Field 03',
-			lender_fee: 398,
+			lender_fee: 450,
 			monthly_fee: 0,
-			term: 48,
-			apr: 5.99,
+			term: 60,
+			apr: 7.9,
 			rv: 0,
 			rv_percent: 0,
 			weekly_big: true,
@@ -34,7 +34,7 @@ export default new Vuex.Store({
 			is_saved: false,
 		},
 		user_preferences: {
-			user_name: 'Anonymous User',
+			user_name: 'Anonymous',
 			user_role: '',
 			user_email: '',
 			user_phone: '',
@@ -45,6 +45,7 @@ export default new Vuex.Store({
 			user_email_sign_off: '',
 			user_email_signature_image_url: '',
 			require_confirmation_prompts: true,
+			show_copy_button: true,
 
 			vehicle_price: 30000,
 			custom_one: 0,
@@ -62,7 +63,7 @@ export default new Vuex.Store({
 			lender_fee: 450,
 			monthly_fee: 0,
 			term: 60,
-			apr: 6.99,
+			apr: 7.9,
 			rv: 0,
 			rv_percent: 0,
 			weekly_big: true,
@@ -72,128 +73,7 @@ export default new Vuex.Store({
 		},
 
 		loan_calc_history: [],
-		applications: [
-			{
-				people: [
-					{
-						title: '',
-						first_name: '',
-						alias: '',
-						middle_names: '',
-						surname: '',
-						mobile_phone: '',
-						home_phone: '',
-						work_phone: '',
-						email_address: '',
-						gender: '',
-						date_of_birth: '',
-						abn_established_date: '',
-						abn_gst_date: '',
-						abn: '',
-						licence_number: '',
-						licence_state: '',
-						licence_card: '',
-						licence_expiry: '',
-						passport_number: '',
-						passport_country: '',
-						passport_expiry: '',
-						marital_status: '',
-						partner_id: '',
-						visa_status: '',
-						visa_class: '',
-						visa_expiry: '',
-						adr_count: 0,
-						addresses: [
-							{
-								address: '',
-								years: 0,
-								months: 0,
-								status: '',
-							}
-						],
-						employers: [{
-							current: true,
-							employer: '',
-							position: '',
-							status: '',
-							contact_name: '',
-							contact_phone: '',
-							address: '',
-							notes: '',
-							years: 0,
-							months: 0,
-							start_date: '',
-							end_date: '',
-						}],
-					},
-				],
-				businesses: []
-			},
-			{
-				people: [
-					{
-						title: 'Mr',
-						first_name: 'Jason',
-						alias: '',
-						middle_names: '',
-						surname: 'Law',
-						mobile_phone: '0400 696 332',
-						home_phone: '',
-						work_phone: '',
-						email_address: 'jason@bdfi.com.au',
-						gender: 'male',
-						date_of_birth: '',
-						abn_established_date: '',
-						abn_gst_date: '',
-						abn: '',
-						licence_number: '',
-						licence_state: '',
-						licence_card: '',
-						licence_expiry: '',
-						passport_number: '',
-						passport_country: '',
-						passport_expiry: '',
-						marital_status: '',
-						partner_id: '',
-						visa_status: '',
-						visa_class: '',
-						visa_expiry: '',
-						adr_count: 0,
-						addresses: [
-							{
-								address: '1 Eagle Street, Brisbane QLD 4000',
-								years: 1,
-								months: 6,
-								status: 'Mortgage',
-							},
-							{
-								address: 'Suite 2405, 24 Mary Street, Brisbane QLD 4000',
-								years: 1,
-								months: 6,
-								status: 'Rented',
-							},
-
-						],
-						employers: [{
-							current: true,
-							employer: '',
-							position: '',
-							status: '',
-							contact_name: '',
-							contact_phone: '',
-							address: '',
-							notes: '',
-							years: 0,
-							months: 0,
-							start_date: '',
-							end_date: '',
-						}],
-					},
-				],
-				businesses: []
-			},
-			
-		],
+		applications: [],
 		application:{
 			// Created in mutation
 		},
@@ -302,6 +182,27 @@ export default new Vuex.Store({
 			value: '',
 			shared: '',
 		},
+		domestic_expenses:{
+			food: '',
+			fuel: '',
+			electricity: '',
+			gas: '',
+			internet:'',
+			phone: '',
+			council_rates: '',
+			motor_insurance: '',
+			health_insurance: '',
+			home_contents_insurance: '',
+			child_care: '',
+			child_support: '',
+			custom_one_label: '',
+			custom_one_value: '', 
+			custom_two_label: '',
+			custom_two_value: '', 
+			custom_three_label: '',
+			custom_three_value: '', 
+			shared: false
+		},
 		unsaved_changes: false
 	},
 	getters: {
@@ -335,6 +236,9 @@ export default new Vuex.Store({
 				break;
 				case 'other_asset':
 					Object.assign(object, state.other_asset)
+				break;
+				case 'domestic_expenses':
+					Object.assign(object, state.domestic_expenses)
 				break;
 			}
 			
@@ -388,6 +292,10 @@ export default new Vuex.Store({
 				break;
 				case 'other_asset':
 					person.other_assets.push(payload.object)
+					payload.object.shared = true
+				break;
+				case 'domestic_expenses':
+					person.domestic_expenses.push(payload.object)
 					payload.object.shared = true
 				break;
 				
@@ -578,6 +486,9 @@ export default new Vuex.Store({
 			if(apps){
 				window.console.log('getting apps')
 				commit('getApplicationsFromLocal')
+			} else {
+				commit('createEmptyApplication')
+				commit('addPersonToApplication')
 			}
 			dispatch('saveApplicationsLoop')
 		},

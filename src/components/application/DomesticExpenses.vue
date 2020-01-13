@@ -1,66 +1,121 @@
 <template>
 	<div class="hover:bg-blue-100">
 		<div class="flex flex-wrap">
+
 			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.description)">
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
 				<template v-slot:label>
-					Lender
+					Food / Groceries
 				</template>
 				<input
-					:id="'#'+vehicle.description"
-					v-model="vehicle.description"
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
+			
 			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.market_value)">
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
 				<template v-slot:label>
-					Loan Amount
+					Other
 				</template>
 				<input
-					:id="'#'+vehicle.market_value"
-					v-model="vehicle.market_value"
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
+			
 			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_lender)">
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
 				<template v-slot:label>
-					Current Balance
+					Other
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_lender"
-					v-model="vehicle.first_mortgage_lender"
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField 
-			class="w-1/5"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_balance)">
-				<template v-slot:label>
-					Monthly payment
-				</template>
-				<input
-					:id="'#'+vehicle.first_mortgage_balance"
-					v-model="vehicle.first_mortgage_balance"
-					@change="saveApplicationsToLocal"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
+			
 			<div class="w-1/5 flex justify-around items-center">
 				<slot></slot>
 			</div>
 		</div>
+		<div class="flex flex-wrap">
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
+				<template v-slot:label>
+					Other
+				</template>
+				<input
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+			
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
+				<template v-slot:label>
+					Other
+				</template>
+				<input
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+			
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
+				<template v-slot:label>
+					Other
+				</template>
+				<input
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.food)">
+				<template v-slot:label>
+					Other
+				</template>
+				<input
+					:id="'#'+expenses.food"
+					v-model="expenses.food"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+			
+			
+		</div>
+
 	</div>
 </template>
 
@@ -68,12 +123,12 @@
 import {mapMutations} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
-	name: 'Vehicle',
+	name: 'DomesticExpensesCard',
 	components:{
 		FormField
 	},
 	props: {
-		vehicle: Object
+		expenses: Object
 	},
 	methods:{
 		...mapMutations(['saveApplicationsToLocal']),

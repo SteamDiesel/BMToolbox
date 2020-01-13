@@ -85,6 +85,17 @@
 				</div>
 				<div class="sm:w-1/3">
 					<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
+						<label class="font-semibold whitespace-no-wrap">Show Copy Button</label>
+						<ToggleSwitch
+						@toggle="user_preferences.show_copy_button = !user_preferences.show_copy_button"
+						:value="user_preferences.show_copy_button"
+						:is_true="'on'"
+						:is_false="'off'"
+						/>
+					</div>
+					
+				
+					<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
 						<label class="font-semibold whitespace-no-wrap">Confirm Delete Prompts</label>
 						<ToggleSwitch
 						@toggle="user_preferences.require_confirmation_prompts = !user_preferences.require_confirmation_prompts"
