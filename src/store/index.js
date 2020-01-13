@@ -120,6 +120,8 @@ export default new Vuex.Store({
 			years: 0,
 			months: 0,
 			status: '',
+			rent: '',
+			board: '',
 			shared: false
 		},
 		property:{
@@ -355,7 +357,18 @@ export default new Vuex.Store({
 				vehicles:[],
 				credit_cards: [],
 				other_loans: [],
-				other_assets:[],
+				other_assets:[
+					{
+						description: 'Savings',
+						value: '',
+						shared: false,
+					},
+					{
+						description: 'Contents',
+						value: '',
+						shared: false,
+					},
+				],
 				domestic_expenses:[],
 				uuid: uuid.v4()
 			}
@@ -450,13 +463,14 @@ export default new Vuex.Store({
 					window.console.log('Unable to save object to local storage.')
 				}
 			} else {
-				object.uuid = uuid.v4()
-				try{
-					localStorage.setItem(object.uuid, JSON.stringify(object))
-					window.console.log('Object Saved by a newly attached UUID.')
-				} catch {
-					window.console.log('Unable to save object to local storage.')
-				}
+				window.console.log('unable to save resource without a uuid.')
+				// object.uuid = uuid.v4()
+				// try{
+				// 	localStorage.setItem(object.uuid, JSON.stringify(object))
+				// 	window.console.log('Object Saved by a newly attached UUID.')
+				// } catch {
+				// 	window.console.log('Unable to save object to local storage.')
+				// }
 			}
 		},
 
@@ -477,7 +491,7 @@ export default new Vuex.Store({
 			payload.array.push(item)
 		},
 
-		initialize({commit, dispatch}) {
+		initialize({commit}) {
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
@@ -490,7 +504,7 @@ export default new Vuex.Store({
 				commit('createEmptyApplication')
 				commit('addPersonToApplication')
 			}
-			dispatch('saveApplicationsLoop')
+			// dispatch('saveApplicationsLoop')
 		},
 		
 		deleteApplication({state, commit, dispatch}, index){
@@ -509,7 +523,7 @@ export default new Vuex.Store({
 				commit('saveApplicationsToLocal')
 
 				dispatch('saveApplicationsLoop')
-			}, 58000)
+			}, 236000)
 		},
 		saveApplications({commit}){
 			commit('saveApplicationsToLocal')

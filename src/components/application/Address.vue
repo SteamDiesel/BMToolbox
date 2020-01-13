@@ -50,19 +50,56 @@
 				/>
 			</FormField>
 			<FormField 
-			class="w-1/2"
+			class="w-1/4"
 			@copy="copyClipboard('#'+address.status)">
 				<template v-slot:label>
 					Status
 				</template>
-				<input
-					:id="'#'+address.status"
-					v-model="address.status"
-					@change="saveApplicationsToLocal"
-					type="text"
-					class="form-input text-center"
-				/>
+				<select v-model="address.status" class="form-input text-center">
+				<!-- inline object literal -->
+					<option :value="'Boarding'">Boarding</option>
+					<option :value="'Renting'">Renting</option>
+					<option :value="'Mortgage'">Mortgage</option>
+					<option :value="'Owner'">Owner</option>
+				</select>	
+				<!-- <DropdownMenu @select="test" :options="['Boarding', 'Renting', 'Mortgage']">
+					<span v-if="address.status">{{address.status}}</span>
+					<span v-if="!address.status">Select</span>
+				</DropdownMenu> -->
+
 			</FormField>
+			<template v-if="index == 0">
+				<FormField 
+				v-if="address.status == 'Renting'"
+				class="w-1/4"
+				@copy="copyClipboard('#'+address.rent)">
+					<template v-slot:label>
+						Rent
+					</template>
+					<input
+						:id="'#'+address.rent"
+						v-model="address.rent"
+						@change="saveApplicationsToLocal"
+						type="text"
+						class="form-input text-center"
+					/>
+				</FormField>
+				<FormField 
+				v-if="address.status == 'Boarding'"
+				class="w-1/4"
+				@copy="copyClipboard('#'+address.board)">
+					<template v-slot:label>
+						Board
+					</template>
+					<input
+						:id="'#'+address.board"
+						v-model="address.board"
+						@change="saveApplicationsToLocal"
+						type="text"
+						class="form-input text-center"
+					/>
+				</FormField>
+			</template>
 		</div>
 
 	</div>
@@ -71,13 +108,16 @@
 <script>
 import {mapMutations} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
+// import DropdownMenu from '@/components/buttons/DropdownMenu.vue'
 export default {
 	name: 'Address',
 	components:{
-		FormField
+		FormField,
+		// DropdownMenu
 	},
 	props: {
-		address: Object
+		address: Object,
+		index: Number
 	},
 	methods:{
 		...mapMutations(['saveApplicationsToLocal']),

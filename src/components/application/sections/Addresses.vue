@@ -5,6 +5,7 @@
 			class="mb-4"
 			v-for="(address, index) in person.addresses"
 			:key="index"
+			:index="index"
 			:address="address"
 		>
 			<button

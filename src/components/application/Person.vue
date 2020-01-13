@@ -249,27 +249,31 @@
 				/>
 			</FormField>
 		</div>
+		
+		
 		<Addresses :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<Employers :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<Properties :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<Vehicles :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<CreditCards :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<OtherLoans :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<OtherAssets :people="people" :person="person" :person_index="person_index"/>
+		
+		
 		<DomesticExpenses :people="people" :person="person" :person_index="person_index"/>
 		
-		
-		<!-- Properties Section -->
-		
-		<!-- Vehicles Section -->
-		
-		<!-- Credit Cards -->
-		
-		<!-- Other Loans -->
-		
-		<!-- Other Assets -->
-		
-		<!-- Domestic Expenses -->
 		
 		<!-- ugly hack to trigger re-render when nested arrays are updated -->
 		<div class="invisible">{{person.adr_count}}</div>
