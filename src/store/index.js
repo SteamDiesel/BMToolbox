@@ -44,6 +44,7 @@ export default new Vuex.Store({
 			user_brand_image_url: '',
 			user_email_sign_off: '',
 			user_email_signature_image_url: '',
+			require_confirmation_prompts: true,
 
 			vehicle_price: 30000,
 			custom_one: 0,
@@ -581,8 +582,13 @@ export default new Vuex.Store({
 			dispatch('saveApplicationsLoop')
 		},
 		
-		deleteApplication({commit, dispatch}, index){
-			if (confirm('Are you sure you want to permanently remove this application?')) {
+		deleteApplication({state, commit, dispatch}, index){
+			if(state.user_preferences.require_confirmation_prompts){
+				if (confirm('Are you sure you want to permanently remove this application?')) {
+					commit('deleteApplication', index)
+					dispatch('saveApplications')
+				}
+			} else {
 				commit('deleteApplication', index)
 				dispatch('saveApplications')
 			}
@@ -601,12 +607,19 @@ export default new Vuex.Store({
 			commit('pushToArray', payload)
 			dispatch('saveApplications')
 		},
-		dropFromArray({commit, dispatch}, payload){
-			if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
+		dropFromArray({state, commit, dispatch}, payload){
+			if(state.user_preferences.require_confirmation_prompts){
+				if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
+					payload.object.shared = false
+					commit('dropFromArray', payload)
+					dispatch('saveApplications')
+				}
+			} else {
 				payload.object.shared = false
 				commit('dropFromArray', payload)
 				dispatch('saveApplications')
 			}
+			
 		},
 		linkObjectToNextPerson({commit, dispatch}, payload){
 			commit('linkObjectToNextPerson', payload)

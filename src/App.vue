@@ -2,7 +2,13 @@
 	<div class="min-h-screen text-gray-600 bg-gray-100" id="app">
 		<div id="nav" class=" bg-gray-300">
 			<div class="container mx-auto flex justify-between h-full items-center pl-2 sm:pl-0">
-				<div class="md:text-xl font-semibold">{{user_preferences.user_name}} @ {{user_preferences.user_business_name}}</div>
+				
+				<div class="md:text-xl font-semibold flex">
+					<img v-if="user_preferences.user_brand_image_url" class="h-12 max-w-24" :src="user_preferences.user_brand_image_url"> 
+					<div class="flex items-center ml-2">
+						{{user_preferences.user_name}} @ {{user_preferences.user_business_name}}
+					</div>
+				</div>
 				<div class="font-semibold flex">
 					<router-link class="rounded-t-lg px-2 py-1 ml-2" to="/home">
 						<svg viewBox="0 0 24 24" class="h-10 w-10"><path class="primary" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm2 3a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-8 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-4 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/><rect width="2" height="6" x="15" y="13" class="secondary" rx="1"/></svg>

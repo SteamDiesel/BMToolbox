@@ -41,7 +41,7 @@
 				:person="person"
 			>
 				<button
-					@click="removePersonFromApplication(person)"
+					@click="dropFromArray({array: application.people, object: person, type: 'person', index: index, person: person})"
 					class="bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print"
 				>
 					<svg viewBox="0 0 24 24" class="h-5 w-5">
@@ -65,7 +65,7 @@
 // @ is an alias to /src
 import Person from "@/components/application/Person.vue";
 
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
 	name: "home",
 	components: {
@@ -80,7 +80,8 @@ export default {
 			"addPersonToApplication",
 			"addBusinessToApplication",
 			"removePersonFromApplication"
-		])
+		]),
+		...mapActions(['dropFromArray'])
 	}
 };
 </script>

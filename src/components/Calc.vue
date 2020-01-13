@@ -278,7 +278,7 @@ export default {
 				+this.loan_calculator.brokerage +
 				+this.loan_calculator.custom_two +
 				+this.loan_calculator.custom_three +
-				+this.loan_calculator.lender_fee +
+				+this.loan_calculator.lender_fee -
 				+this.loan_calculator.rv
 			);
 		},

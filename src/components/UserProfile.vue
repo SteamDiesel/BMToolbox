@@ -64,6 +64,36 @@
 							class="appearance-none bg-transparent border-none w-full text-right text-gray-700 mr-3 px-2 leading-tight focus:outline-none"
 						/>
 					</div>
+					<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
+						<label class="font-semibold whitespace-no-wrap">Email Image URL</label>
+						<input
+							v-model="user_preferences.user_email_signature_image_url"
+							type="text"
+							class="appearance-none bg-transparent border-none w-full text-right text-gray-700 mr-3 px-2 leading-tight focus:outline-none"
+						/>
+					</div>
+					<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
+						<label class="font-semibold whitespace-no-wrap">Email Sign-off</label>
+						<input
+							v-model="user_preferences.user_email_sign_off"
+							type="text"
+							class="appearance-none bg-transparent border-none w-full text-right text-gray-700 mr-3 px-2 leading-tight focus:outline-none"
+						/>
+					</div>
+					
+
+				</div>
+				<div class="sm:w-1/3">
+					<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
+						<label class="font-semibold whitespace-no-wrap">Confirm Delete Prompts</label>
+						<ToggleSwitch
+						@toggle="user_preferences.require_confirmation_prompts = !user_preferences.require_confirmation_prompts"
+						:value="user_preferences.require_confirmation_prompts"
+						:is_true="'on'"
+						:is_false="'off'"
+						/>
+					</div>
+					
 				</div>
 			</div>
 			<div class="sm:flex sm:justify-center mx-16 sm:mx-0 mt-12">
@@ -239,7 +269,7 @@
 			<div class="mt-12 flex justify-end">
 				<button
 					@click.prevent="savePreferences"
-					class="bg-orange-600 font-semibold text-orange-100 hover:bg-orange-500 p-2 shadow-lg rounded-full"
+					class="bg-teal-500 font-semibold text-orange-100 hover:bg-teal-400 py-2 px-4 shadow-lg rounded-full"
 				>Save All Changes</button>
 			</div>
 			<div class="mt-12 mx-4 rounded-lg border border-red-500 p-16">
@@ -261,9 +291,14 @@
 <script>
 
 import { mapState, mapMutations } from "vuex";
+import ToggleSwitch from '@/components/buttons/ToggleSwitch.vue'
 export default {
+	name: 'UserProfile',
 	// Author is Jason Lloyd Law
 	// contact me at jason.lloyd.law@gmail.com or call me on 0400 696 332
+	components:{
+		ToggleSwitch
+	},
 	data() {
 		return {};
 	},
