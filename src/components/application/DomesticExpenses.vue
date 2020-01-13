@@ -19,13 +19,13 @@
 			
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.fuel)">
 				<template v-slot:label>
-					Other
+					Fuel / Transport
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.fuel"
+					v-model="expenses.fuel"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -34,13 +34,13 @@
 			
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.electricity)">
 				<template v-slot:label>
-					Other
+					Electricity
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.electricity"
+					v-model="expenses.electricity"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -55,13 +55,13 @@
 
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.gas)">
 				<template v-slot:label>
-					Other
+					Gas
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.gas"
+					v-model="expenses.gas"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -70,13 +70,13 @@
 			
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.internet)">
 				<template v-slot:label>
-					Other
+					Internet
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.internet"
+					v-model="expenses.internet"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -85,13 +85,13 @@
 			
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.phone)">
 				<template v-slot:label>
-					Other
+					Phone
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.phone"
+					v-model="expenses.phone"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -100,13 +100,88 @@
 
 			<FormField 
 			class="w-1/4"
-			@copy="copyClipboard('#'+expenses.food)">
+			@copy="copyClipboard('#'+expenses.council_rates)">
 				<template v-slot:label>
-					Other
+					Council rates
 				</template>
 				<input
-					:id="'#'+expenses.food"
-					v-model="expenses.food"
+					:id="'#'+expenses.council_rates"
+					v-model="expenses.council_rates"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.motor_insurance)">
+				<template v-slot:label>
+					Car Insurance
+				</template>
+				<input
+					:id="'#'+expenses.motor_insurance"
+					v-model="expenses.motor_insurance"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.health_insurance)">
+				<template v-slot:label>
+					Health Insurance
+				</template>
+				<input
+					:id="'#'+expenses.health_insurance"
+					v-model="expenses.health_insurance"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.home_contents_insurance)">
+				<template v-slot:label>
+					Home Insurance
+				</template>
+				<input
+					:id="'#'+expenses.home_contents_insurance"
+					v-model="expenses.home_contents_insurance"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.child_care)">
+				<template v-slot:label>
+					Child Care
+				</template>
+				<input
+					:id="'#'+expenses.child_care"
+					v-model="expenses.child_care"
+					@change="saveApplicationsToLocal"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+
+			<FormField 
+			class="w-1/4"
+			@copy="copyClipboard('#'+expenses.child_support)">
+				<template v-slot:label>
+					Child Support
+				</template>
+				<input
+					:id="'#'+expenses.child_support"
+					v-model="expenses.child_support"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"

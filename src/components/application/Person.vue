@@ -251,6 +251,9 @@
 		</div>
 		
 		
+		<Kids :people="people" :person="person" :person_index="person_index"/>
+
+
 		<Addresses :people="people" :person="person" :person_index="person_index"/>
 		
 		
@@ -284,6 +287,7 @@
 import { mapMutations, mapActions } from "vuex";
 import FormField from "@/components/application/FormField.vue";
 import Addresses from "@/components/application/sections/Addresses.vue";
+import Kids from "@/components/application/sections/Kids.vue";
 import Employers from "@/components/application/sections/Employers.vue";
 import Properties from "@/components/application/sections/Properties.vue";
 import Vehicles from "@/components/application/sections/Vehicles.vue";
@@ -296,6 +300,7 @@ export default {
 	name: "Person",
 	components: {
 		FormField,
+		Kids,
 		Addresses,
 		Employers,
 		Properties,

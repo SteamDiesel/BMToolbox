@@ -106,6 +106,7 @@ export default new Vuex.Store({
 			visa_class: '',
 			visa_expiry: '',
 			adr_count: 0,
+			kids:[],
 			addresses: [],
 			employers: [],
 			properties:[],
@@ -114,6 +115,10 @@ export default new Vuex.Store({
 			other_loans: [],
 			other_assets:[],
 			domestic_expenses:[],
+		},
+		kid: {
+			age: '',
+			shared: false,
 		},
 		address: {
 			address: '',
@@ -218,6 +223,9 @@ export default new Vuex.Store({
 			
 			var object = {}
 			switch(payload.type){
+				case 'kid':
+					Object.assign(object, state.kid)
+				break;
 				case 'address':
 					Object.assign(object, state.address)
 				break;
@@ -268,6 +276,10 @@ export default new Vuex.Store({
 			.people[next]
 
 			switch (payload.type){
+				case 'kid':
+					person.kids.push(payload.object)
+					payload.object.shared = true
+				break;
 				case 'address':
 					person.addresses.push(payload.object)
 					payload.object.shared = true
@@ -351,24 +363,14 @@ export default new Vuex.Store({
 				visa_class: '',
 				visa_expiry: '',
 				adr_count: 0,
+				kids:[],
 				addresses: [],
 				employers: [],
 				properties:[],
 				vehicles:[],
 				credit_cards: [],
 				other_loans: [],
-				other_assets:[
-					{
-						description: 'Savings',
-						value: '',
-						shared: false,
-					},
-					{
-						description: 'Contents',
-						value: '',
-						shared: false,
-					},
-				],
+				other_assets:[],
 				domestic_expenses:[],
 				uuid: uuid.v4()
 			}
