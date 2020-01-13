@@ -39,6 +39,9 @@
 		<transition name="fade" mode="out-in">
 			<router-view />
 		</transition>
+		<div class="text-gray-400 text-center w-full mt-12">
+			© 2020 Jason Lloyd Law
+		</div>
 	</div>
 </template>
 <script>
