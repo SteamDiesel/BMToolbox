@@ -250,6 +250,9 @@ export default new Vuex.Store({
 				case 'domestic_expenses':
 					Object.assign(object, state.domestic_expenses)
 				break;
+				case 'quote':
+					Object.assign(object, payload.quote)
+				break;
 			}
 			
 
@@ -324,6 +327,7 @@ export default new Vuex.Store({
 		createEmptyApplication(state){
 			var new_app = {
 				people: [],
+				quotes: [],
 				businesses: [],
 				comments: [],
 				uuid: uuid.v4()
@@ -556,9 +560,19 @@ export default new Vuex.Store({
 		createNewApplication({commit}){
 			commit('createEmptyApplication')
 			commit('addPersonToApplication')
+		},
+
+		createManyApplications({commit}){
+			var remaining = 300
+			setTimeout(()=>{
+				while (remaining > 0) {
+					commit('createEmptyApplication')
+					commit('addPersonToApplication')
+					remaining--
+				}
+			},20)
+			
 		}
-
-
 		
 	},
 	modules: {}
