@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full shadow-md hover:shadow-lg rounded-lg p-6 mb-5 flex justify-between items-center"
+		class="w-full p-4 flex justify-between items-center"
 	>
 		<div class>
 			<div v-if="card.name" class="font-semibold">{{card.name}}</div>
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-	name: "HistoryCard",
+	name: "LoanCard",
 	props: {
 		card: Object
 	}

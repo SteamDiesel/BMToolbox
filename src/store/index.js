@@ -210,15 +210,22 @@ export default new Vuex.Store({
 			custom_three_value: '', 
 			shared: false
 		},
-		unsaved_changes: false
+		unsaved_changes: false,
+		app_import_field: '',
 	},
 	getters: {
 		application: state => {
 			return state.applications[state.selected_application_index]
 		},
+		import_stage: state => {
+			return JSON.parse(state.app_import_field);
+		}
 	},
 	mutations: {
-
+		importApplication(state){
+			var app = JSON.parse(state.app_import_field);
+			state.applications.unshift(app)
+		},
 		pushToArray(state, payload){
 			
 			var object = {}
@@ -326,6 +333,35 @@ export default new Vuex.Store({
 
 		createEmptyApplication(state){
 			var new_app = {
+				status: '',
+				vehicle: {
+					type: '',
+					build_date:'',
+					compliance_date: '',
+					first_registered_date: '',
+					factory_warranty_months: '',
+					factory_warranty_km: '',
+					odometer: '',
+					year:'',
+					model_year:'',
+					make: '',
+					model:'',
+					badge:'',
+					body: '',
+					doors: '',
+					colour: '',
+					transmission: '',
+					engine: '',
+					engine_size: '',
+					fuel_type: '',
+					vin:'',
+					engine_number:'',
+					plate_number: '',
+					nvic: '',
+					book_value_01: '',
+					book_value_02: '',
+				},
+				checklist:[],
 				people: [],
 				quotes: [],
 				businesses: [],
@@ -389,7 +425,7 @@ export default new Vuex.Store({
 
 
 		addBusinessToApplication() {
-			window.alert('not built yet')
+			window.alert('You will be able to add businesses in a future update, coming very soon... ')
 		},
 		setUserPreferencesFromLocal(state) {
 				state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
@@ -572,7 +608,9 @@ export default new Vuex.Store({
 				}
 			},20)
 			
-		}
+		},
+		
+		
 		
 	},
 	modules: {}
