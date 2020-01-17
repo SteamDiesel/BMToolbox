@@ -88,6 +88,7 @@ export default {
 			"removePersonFromApplication"
 		]),
 		...mapActions(['dropFromArray'])
-	}
+	},
+	
 };
 </script>

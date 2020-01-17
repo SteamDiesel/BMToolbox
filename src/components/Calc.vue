@@ -357,14 +357,13 @@ export default {
 			}
 		},
 		setRv() {
-			this.loan_calculator.rv =
-				(this.loan_calculator.rv_percent / 100) *
-				this.loan_calculator.vehicle_price;
+			var value = (this.loan_calculator.rv_percent / 100) * this.loan_calculator.vehicle_price;
+			this.loan_calculator.rv = +(Math.round(value + "e+" + 2) + "e-" + 2);
 		},
 		setRvPercent() {
-			this.loan_calculator.rv_percent =
-				(this.loan_calculator.rv / this.loan_calculator.vehicle_price) * 100;
-		}
+			var percent = (this.loan_calculator.rv / this.loan_calculator.vehicle_price) * 100;
+			this.loan_calculator.rv_percent = +(Math.round(percent + "e+" + 2) + "e-" + 2);
+		},
 	}
 };
 </script>

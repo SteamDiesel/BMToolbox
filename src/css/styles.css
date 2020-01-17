@@ -4,10 +4,10 @@
 @tailwind components;
 
 .form-input {
-	@apply appearance-none tracking-wide bg-transparent border-none w-full text-gray-700 px-1 leading-tight ;
+	@apply appearance-none tracking-wide bg-transparent border-none w-full text-gray-700 px-1 leading-tight;
 }
 .form-input:focus {
-	@apply outline-none bg-blue-100;
+	@apply outline-none bg-blue-300;
 }
 
 @tailwind utilities;
