@@ -35,7 +35,7 @@
 		</div>
 		
 
-		<div class="lg:flex lg:justify-around">
+		<div class="lg:flex lg:justify-around break-after">
 			<Person
 				class="m-1 lg:w-1/2"
 				v-for="(person, index) in application.people"
@@ -58,7 +58,7 @@
 				</button>
 			</Person>
 		</div>
-		<div class="text-sm text-gray-400">
+		<div class="text-xs text-gray-400">
 			<!-- <textarea :value="JSON.stringify(application)" name="application" cols="200" rows="40"></textarea> -->
 			{{application}}
 		</div>

@@ -52,6 +52,9 @@
 				Fortnightly: {{quote.loan_calculator.fortnightly}},
 				Monthly: {{quote.loan_calculator.monthly}},
 			</div>
+			<div class="text-xs" :title="quote.timestamp | dateTimeFormat">
+				{{quote.timestamp | fromNow}}
+			</div>
 		</div>
 		<div>
 			<slot></slot>

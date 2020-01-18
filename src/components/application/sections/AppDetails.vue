@@ -110,7 +110,7 @@
 </template>
 
 <script>
-
+import moment from 'moment'
 import QuoteCard from "@/components/QuoteCard.vue";
 import PurposeGoods from "@/components/application/PurposeGoods.vue";
 import AppLoanCalc from "@/components/application/AppLoanCalc.vue";
@@ -181,7 +181,8 @@ export default {
 			var new_quote = {
 				loan_calculator: loan_calc,
 				vehicle: veh,
-				details: deets
+				details: deets,
+				timestamp: moment()
 			}
 			var quote = {}
 			Object.assign(quote, new_quote);

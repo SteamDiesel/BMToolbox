@@ -4,11 +4,12 @@
 			<div
 				v-for="(entry, index) in entries"
 				:key="index"
+				:id="'#comment' + index"
 				class="flex hover:bg-blue-100 m-2 p-1 bg-gray-200"
 			>
 				<div class="w-1/5">
 					<div class="text-sm">{{entry.type}}</div>
-					<div class="text-sm">{{entry.timestamp}}</div>
+					<div class="text-xs" :title="entry.timestamp | dateTimeFormat">{{entry.timestamp | fromNow}}</div>
 				</div>
 				<div class="w-4/5">
 					<div>{{entry.notes}}</div>
@@ -42,6 +43,7 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
+import moment from 'moment'
 import FormField from "@/components/application/FormField.vue";
 export default {
 	name: "ContactLog",
@@ -62,18 +64,27 @@ export default {
 		};
 	},
 	computed: {
+		
 		...mapState(["user_preferences"])
 	},
 	methods: {
+		focusOnLast(){
+			var lastIndex = this.entries.length - 1
+			window.console.log(lastIndex)
+			this.$nextTick(function(){
+				document.getElementById('#comment' + lastIndex).scrollIntoView(false)
+			})
+		},
 		post() {
-			var entry = {};
-			this.entry.timestamp = "";
-			this.entry.posted_by = this.user_preferences.user_name;
-			Object.assign(entry, this.entry);
-			this.pushToArray({ type: "contact", entry: entry, array: this.entries });
-			this.entry.timestamp = "";
-			this.entry.type = "";
-			this.entry.notes = "";
+			var entry = {}
+			this.entry.timestamp = moment()
+			this.entry.posted_by = this.user_preferences.user_name
+			Object.assign(entry, this.entry)
+			this.pushToArray({ type: "contact", entry: entry, array: this.entries })
+			this.entry.timestamp = ""
+			this.entry.type = ""
+			this.entry.notes = ""
+			this.focusOnLast()
 		},
 		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions(["pushToArray"]),
@@ -87,6 +98,9 @@ export default {
 				alert("Oops, unable to copy");
 			}
 		}
+	},
+	mounted(){
+		this.focusOnLast()
 	}
 };
 </script>

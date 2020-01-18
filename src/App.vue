@@ -1,6 +1,6 @@
 <template>
 	<div class="min-h-screen text-gray-600 bg-gray-100" id="app">
-		<div id="nav" class=" bg-gray-300">
+		<div id="nav" class=" bg-gray-300 no-print">
 			<div class="container mx-auto flex justify-between h-full items-center pl-2 sm:pl-0">
 				
 				<div class="md:text-xl font-semibold flex">
@@ -39,7 +39,7 @@
 		<transition name="fade" mode="out-in">
 			<router-view />
 		</transition>
-		<div class="text-gray-400 text-center w-full mt-12">
+		<div class="text-gray-400 text-center w-full mt-12 no-print">
 			© 2020 Jason Lloyd Law
 		</div>
 	</div>
@@ -101,6 +101,12 @@ export default {
 		}
 		.container {
 			contain: none !important;
+			padding: none !important;
+			margin: none !important;
 		}
+		.break-after {
+			page-break-after: always;
+		}
+
 	}
 </style>
