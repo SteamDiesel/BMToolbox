@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { uuid } from "vue-uuid";
+import Axios from 'axios'
+
+
 
 Vue.use(Vuex);
 
@@ -215,6 +218,8 @@ export default new Vuex.Store({
 		},
 		unsaved_changes: false,
 		app_import_field: '',
+		visitor_log_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/visitor-log',
+		// visitor_log_url: 'http://backend.test/api/lite-bdfi-app/visitor-log',
 	},
 	getters: {
 		application: state => {
@@ -610,7 +615,7 @@ export default new Vuex.Store({
 			payload.array.push(item)
 		},
 
-		initialize({commit}) {
+		initialize({commit, dispatch}) {
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
@@ -623,7 +628,23 @@ export default new Vuex.Store({
 				commit('createEmptyApplication')
 				commit('addPersonToApplication')
 			}
-			// dispatch('saveApplicationsLoop')
+			dispatch('postUserVisitorDetailsToServer')
+		},
+		postUserVisitorDetailsToServer({state}){
+			// window.console.log('logging visit')
+			Axios.post(state.visitor_log_url, {
+				user_name: state.user_preferences.user_name,
+				user_email: state.user_preferences.user_email,
+				user_phone: state.user_preferences.user_phone,
+				user_business_name: state.user_preferences.user_business_name,
+				user_business_address: state.user_preferences.user_business_address
+			})
+			// .then((response) => {
+			// 	window.console.log(response.data)
+			// })
+			// .catch(error => {
+			// 	window.console.log(error)
+			// })
 		},
 		
 		deleteApplication({state, commit, dispatch}, index){

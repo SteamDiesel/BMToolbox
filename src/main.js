@@ -4,9 +4,13 @@ import router from './router'
 import store from './store'
 import UUID from 'vue-uuid';
 import moment from 'moment'
+
+
  
+// Vue.use(UUID, moment, VueAxios, axios);
 Vue.use(UUID);
 Vue.use(moment);
+
 
 Vue.config.productionTip = false
 
