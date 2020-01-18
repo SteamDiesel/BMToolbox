@@ -6,7 +6,7 @@
 		<div class="lg:flex">
 			
 			<!-- left side -->
-			<div class="lg:w-1/2">
+			<div class="m-1 lg:w-1/2">
 				
 
 				<div class="bg-gray-200 p-2">
@@ -72,10 +72,26 @@
 				</div>
 			</div>
 			
-			<!-- right side -->
-			
-			<div class="lg:w-1/2">
 
+
+			<!-- right side -->
+			<div class="m-1 lg:w-1/2">
+				<div class="bg-gray-200 p-2">
+						<h2 class="text-xl">Notes</h2>
+						
+						<Notes>
+							<textarea
+								:id="'#'+application.notes"
+								v-model="application.notes"
+								@change="saveApplicationsToLocal"
+								
+								type="text"
+								class="form-input text-left w-full h-24 hover:bg-blue-200"
+							/>
+						</Notes>
+
+					</div>
+				
 
 			</div>
 
@@ -89,6 +105,7 @@
 import QuoteCard from "@/components/QuoteCard.vue";
 import PurposeGoods from "@/components/application/PurposeGoods.vue";
 import AppLoanCalc from "@/components/application/AppLoanCalc.vue";
+import Notes from "@/components/application/Notes.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -96,7 +113,8 @@ export default {
 	components:{
 		QuoteCard,
 		PurposeGoods,
-		AppLoanCalc
+		AppLoanCalc,
+		Notes
 	},
 	computed: {
 		details(){
@@ -164,6 +182,7 @@ export default {
 			"addBusinessToApplication",
 			"removePersonFromApplication",
 			"addVehicleToApplication",
+			"saveApplicationsToLocal"
 		]),
 		...mapActions(['dropFromArray','pushToArray'])
 	}

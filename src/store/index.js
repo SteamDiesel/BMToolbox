@@ -336,7 +336,7 @@ export default new Vuex.Store({
 
 		createEmptyApplication(state){
 			var new_app = {
-				version: 0,
+				version: 1,
 				status: '',
 				vehicle: {
 					type: '',
@@ -405,7 +405,7 @@ export default new Vuex.Store({
 				people: [],
 				quotes: [],
 				businesses: [],
-				comments: [],
+				notes: '',
 				uuid: uuid.v4()
 			}
 			state.applications.unshift(new_app)
