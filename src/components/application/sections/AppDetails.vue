@@ -1,27 +1,28 @@
 <template>
-	<div class="mt-2 w-full">
+	<div class="mt-2 w-full h-auto">
 		<div class="flex w-full justify-end">
 			<!-- toolbar -->
 		</div>
 		<div class="lg:flex">
 			
 			<!-- left side -->
-			<div class="m-1 lg:w-1/2">
+			<div class="h-full m-1 lg:w-1/2 mt-2">
 				
-
+				<!-- Loan Parameters  -->
 				<div class="bg-gray-200 p-2">
 					<h2 class="text-xl">Loan Parameters</h2>
 					
 					<AppLoanCalc v-if="application.loan_calculator" :calc="application.loan_calculator"/>
 
 				</div>
+				<!-- Vehicle Details  -->
 				<div class="bg-gray-200 mt-2 p-2">
 					<h2 class="text-xl">Vehicle</h2>
 					
 					<PurposeGoods v-if="application.vehicle" :vehicle="application.vehicle"/>
 
 				</div>
-				
+				<!-- Deal Details  -->
 				<div class="bg-gray-200 mt-2 p-2">
 					<h2 class="text-xl">Deal Details</h2>
 					
@@ -43,7 +44,7 @@
 					</div>
 
 				</div>
-
+				<!-- Quote History  -->
 				<div class=" bg-gray-200 mt-2 p-2">
 					<div class="flex justify-between">
 						<h2 class="text-xl">Quote History</h2>
@@ -75,22 +76,30 @@
 
 
 			<!-- right side -->
-			<div class="m-1 lg:w-1/2">
+			<div class="h-full m-1 lg:w-1/2 mt-2">
+				<!-- Notes  -->
 				<div class="bg-gray-200 p-2">
-						<h2 class="text-xl">Notes</h2>
-						
-						<Notes>
-							<textarea
-								:id="'#'+application.notes"
-								v-model="application.notes"
-								@change="saveApplicationsToLocal"
-								
-								type="text"
-								class="form-input text-left w-full h-24 hover:bg-blue-200"
-							/>
-						</Notes>
+					<h2 class="text-xl">Notes</h2>
+					
+					<Notes>
+						<textarea
+							:id="'#'+application.notes"
+							v-model="application.notes"
+							@change="saveApplicationsToLocal"
+							
+							type="text"
+							class="form-input text-left w-full h-24 hover:bg-blue-200"
+						/>
+					</Notes>
 
-					</div>
+				</div>
+				<!-- Contact Log  -->
+				<div class="mt-2 bg-gray-200 p-2">
+					<h2 class="text-xl">Contact History</h2>
+					
+					<ContactLog class="h-full" :entries="application.contact_log" />
+
+				</div>
 				
 
 			</div>
@@ -106,6 +115,7 @@ import QuoteCard from "@/components/QuoteCard.vue";
 import PurposeGoods from "@/components/application/PurposeGoods.vue";
 import AppLoanCalc from "@/components/application/AppLoanCalc.vue";
 import Notes from "@/components/application/Notes.vue";
+import ContactLog from "@/components/application/ContactLog.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -114,7 +124,8 @@ export default {
 		QuoteCard,
 		PurposeGoods,
 		AppLoanCalc,
-		Notes
+		Notes,
+		ContactLog
 	},
 	computed: {
 		details(){

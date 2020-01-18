@@ -263,6 +263,9 @@ export default new Vuex.Store({
 				case 'quote':
 					Object.assign(object, payload.quote)
 				break;
+				case 'contact':
+					Object.assign(object, payload.entry)
+				break;
 			}
 			
 
