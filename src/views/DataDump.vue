@@ -1,6 +1,6 @@
 <template>
-	<div class="pt-12 pb-24 container mx-auto px-4 sm:px-2">
-		<div>
+	<div class="pt-12 pb-24 mx-2 px-4 sm:px-2">
+		<div class="break-after mb-24">
 			<h1 class="text-2xl">Storing your data</h1>
 			<p class="mt-5">
 				The easy ways to backup this data:
@@ -13,13 +13,25 @@
 				Also, if you're really adventurous, you could use the data in your own tools. 
 			</p>
 		</div>
-		<div class="mt-24">
+		<div class="mb-24 break-after">
 			<h1 class="text-2xl">User Preferences:</h1>
-			{{user_preferences}}
+			<p class="text-xs">
+				{{user_preferences}}
+			</p>
+			
 		</div>
-		<div class="mt-24">
+		<div class="mb-24">
 			<h1 class="text-2xl">Application Data:</h1>
-			{{applications}}
+			<div v-for="(app, index) in applications" :key="index" class="break-after mb-16">
+				<h2>
+					<span v-for="(p, index) in app.people" :key="index">{{p.first_name}} {{p.surname}} </span> <br>
+
+				</h2>
+				<p class="text-xs">
+					{{app}}
+				</p>
+			</div>
+			
 		</div>
 	</div>
 </template>

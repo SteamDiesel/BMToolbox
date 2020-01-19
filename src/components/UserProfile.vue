@@ -277,13 +277,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="mt-12 flex justify-end">
+			<div class="mt-12 p-10">
+				<p>
+					When you save these details your personal and business information entered here will be stored with bdfi. <br>
+					This information will be used to contact you for feeback and to communicate added fatures, system changes and updates. <br>
+					By saving your details you agree to be contacted and have your information, including session and usage data, sent to bdfi on a regular basis. <br>
+					Your client's application data is not stored on our network in the free version of this app. <br>
+					For more information on how your data is managed in this app <a href="/about" class="hover:underline text-indigo-500 font-semibold">visit the about page.</a>
+				</p>
+			</div>
+			<div class="flex justify-center">
 				<button
-					@click.prevent="savePreferences"
+					@click.prevent="saveDetails"
 					class="bg-teal-500 font-semibold text-orange-100 hover:bg-teal-400 py-2 px-4 shadow-lg rounded-full"
 				>Save All Changes</button>
 			</div>
-			<div class="mt-12 mx-4 rounded-lg border border-red-500 p-16">
+			<div class="mt-16 mx-4 rounded-lg border border-red-500 p-16">
 				<h2 class="text-2xl font-semibold text-red-500">Danger Zone</h2>
 				<p>Actions in here can't be reversed. Proceed with caution.</p>
 				<div class="w-full flex justify-around items-center p-16">
@@ -301,7 +310,7 @@
 
 <script>
 
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import ToggleSwitch from '@/components/buttons/ToggleSwitch.vue'
 export default {
 	name: 'UserProfile',
@@ -324,7 +333,8 @@ export default {
 				window.console.log("local storage cleared");
 			}
 		},
-		...mapMutations(["savePreferences", "getPreferencesFromLocalStorage"])
+		...mapMutations(["getPreferencesFromLocalStorage"]),
+		...mapActions(['saveDetails'])
 	},
 	mounted() {}
 };

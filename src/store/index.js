@@ -37,6 +37,7 @@ export default new Vuex.Store({
 			is_saved: false,
 		},
 		user_preferences: {
+			session_uuid: '',
 			user_name: 'Anonymous',
 			user_role: '',
 			user_email: '',
@@ -219,7 +220,9 @@ export default new Vuex.Store({
 		unsaved_changes: false,
 		app_import_field: '',
 		visitor_log_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/visitor-log',
-		// visitor_log_url: 'http://backend.test/api/lite-bdfi-app/visitor-log',
+		details_update_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/user-details-update',
+		// visitor_l	og_url: 'http://backend.test/api/lite-bdfi-app/visitor-log',
+		// details_update_url: 'http://backend.t	est/api/lite-bdfi-app/user-details-update',
 	},
 	getters: {
 		application: state => {
@@ -574,6 +577,9 @@ export default new Vuex.Store({
 		deleteApplication(state, index){
 			state.applications.splice(index, 1)
 		},
+		setSessionUUID(state){
+			state.user_preferences.session_uuid = uuid.v4()
+		},
 
 
 	},
@@ -619,7 +625,10 @@ export default new Vuex.Store({
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
+			} else {
+				commit('setSessionUUID')
 			}
+
 			var apps = localStorage.getItem('applications')
 			if(apps){
 				window.console.log('getting apps')
@@ -639,12 +648,25 @@ export default new Vuex.Store({
 				user_business_name: state.user_preferences.user_business_name,
 				user_business_address: state.user_preferences.user_business_address
 			})
-			// .then((response) => {
-			// 	window.console.log(response.data)
-			// })
-			// .catch(error => {
-			// 	window.console.log(error)
-			// })
+		},
+		saveDetails({state, commit}){
+			commit('savePreferences')
+			Axios.post(state.details_update_url, {
+				session_uuid: state.user_preferences.session_uuid,
+				email: state.user_preferences.user_email,
+				first_name: state.user_preferences.user_name,
+				surname: state.user_preferences.user_name,
+				country: '',
+				phone_number: state.user_preferences.user_phone,
+				business_name: state.user_preferences.user_business_name,
+				role: state.user_preferences.user_role,
+				business_address: state.user_preferences.user_business_address,
+				brand_image_url: state.user_preferences.user_brand_image_url,
+				email_image_url: state.user_preferences.user_email_signature_image_url,
+				show_copy_button: state.user_preferences.show_copy_button,
+				confirm_delete_prompts: state.user_preferences.require_confirmation_prompts,
+			})
+			
 		},
 		
 		deleteApplication({state, commit, dispatch}, index){

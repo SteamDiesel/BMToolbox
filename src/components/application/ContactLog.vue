@@ -100,7 +100,10 @@ export default {
 		}
 	},
 	mounted(){
-		this.focusOnLast()
+		if(this.entries.length > 2){
+			this.focusOnLast()
+		}
+		
 	}
 };
 </script>
