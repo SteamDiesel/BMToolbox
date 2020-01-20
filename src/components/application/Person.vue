@@ -276,6 +276,9 @@
 		
 		
 		<DomesticExpenses :people="people" :person="person" :person_index="person_index"/>
+
+
+		<BalanceSheet :people="people" :person="person" :person_index="person_index"/>
 		
 		
 		<!-- ugly hack to trigger re-render when nested arrays are updated -->
@@ -295,6 +298,7 @@ import CreditCards from "@/components/application/sections/CreditCards.vue";
 import OtherLoans from "@/components/application/sections/OtherLoans.vue";
 import OtherAssets from "@/components/application/sections/OtherAssets.vue";
 import DomesticExpenses from "@/components/application/sections/DomesticExpenses.vue";
+import BalanceSheet from "@/components/application/sections/BalanceSheet.vue";
 
 export default {
 	name: "Person",
@@ -309,6 +313,7 @@ export default {
 		OtherLoans,
 		OtherAssets,
 		DomesticExpenses,
+		BalanceSheet
 	},
 	props: {
 		people: Array,

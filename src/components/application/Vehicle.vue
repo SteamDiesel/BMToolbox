@@ -36,7 +36,7 @@
 					:id="'#'+vehicle.market_value"
 					v-model="vehicle.market_value"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -49,13 +49,13 @@
 		<div class="flex flex-wrap">
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_lender)">
+			@copy="copyClipboard('#'+vehicle.finance_lender)">
 				<template v-slot:label>
 					Secured Loan Lender
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_lender"
-					v-model="vehicle.first_mortgage_lender"
+					:id="'#'+vehicle.finance_lender"
+					v-model="vehicle.finance_lender"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
@@ -63,29 +63,29 @@
 			</FormField>
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_balance)">
+			@copy="copyClipboard('#'+vehicle.finance_balance)">
 				<template v-slot:label>
 					Loan Balance
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_balance"
-					v-model="vehicle.first_mortgage_balance"
+					:id="'#'+vehicle.finance_balance"
+					v-model="vehicle.finance_balance"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
 			<FormField 
 			class="w-1/3"
-			@copy="copyClipboard('#'+vehicle.first_mortgage_payment)">
+			@copy="copyClipboard('#'+vehicle.finance_payment)">
 				<template v-slot:label>
 					Loan Repayment
 				</template>
 				<input
-					:id="'#'+vehicle.first_mortgage_payment"
-					v-model="vehicle.first_mortgage_payment"
+					:id="'#'+vehicle.finance_payment"
+					v-model="vehicle.finance_payment"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
