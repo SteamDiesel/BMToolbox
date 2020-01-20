@@ -7,6 +7,8 @@
 				v-for="(employer, index) in person.employers"
 				:key="index"
 				:employer="employer"
+				:employers="person.employers"
+				:this_index="index"
 			>
 				<button
 					class="relative bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print text-xs"

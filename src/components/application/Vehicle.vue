@@ -5,7 +5,7 @@
 				
 				<button
 					@click="vehicle.is_trading = !vehicle.is_trading"
-					:class="{ 'bg-teal-400 font-semibold': vehicle.is_trading}" class="relative flex items-center bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
+					:class="{ 'bg-teal-400 font-semibold': vehicle.is_trading}" class="flex items-center bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
 				>
 					
 					<span v-show="!vehicle.is_trading" class="">Keeping</span>
