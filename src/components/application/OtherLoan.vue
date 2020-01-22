@@ -92,17 +92,13 @@
 			</FormField>
 			<FormField 
 			class="w-1/5"
-			@copy="copyClipboard('#'+other_loan.refinance)">
+			>
 				<template v-slot:label>
-					Payout
+					Paying out
 				</template>
-				<input
-					:id="'#'+other_loan.refinance"
-					v-model="other_loan.refinance"
-					@change="saveApplicationsToLocal"
-					type="text"
-					class="form-input text-center"
-				/>
+				<div class="flex justify-center">
+					<CheckBox :value="other_loan.refinance" @toggle="checkboxPayout" />
+				</div>
 			</FormField>
 			<FormField 
 			class="w-1/5"
@@ -125,15 +121,21 @@
 <script>
 import {mapMutations} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
+import CheckBox from '@/components/buttons/CheckBox.vue'
 export default {
 	name: 'OtherLoan',
 	components:{
-		FormField
+		FormField,
+		CheckBox
 	},
 	props: {
 		other_loan: Object
 	},
 	methods:{
+		checkboxPayout(){
+			this.other_loan.refinance = !this.other_loan.refinance
+			this.saveApplicationsToLocal()
+		},
 		...mapMutations(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);

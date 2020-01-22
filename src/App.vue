@@ -72,6 +72,13 @@ export default {
 .secondary {
 	fill: #20504f;
 }
+.stroke-primary {
+	stroke: #64d5ca;
+}
+
+.stroke-secondary {
+	stroke: #20504f;
+}
 
 .text-primary {
 	color: #64d5ca;

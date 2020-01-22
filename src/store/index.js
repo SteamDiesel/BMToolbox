@@ -118,10 +118,15 @@ export default new Vuex.Store({
 			credit_cards: [],
 			other_loans: [],
 			other_assets:[],
+			other_income:[],
 			domestic_expenses:[],
 			credit_defaults: [],
 			court_judgements: [],
 			bankruptcies: [],
+			
+				
+				
+				
 		},
 		kid: {
 			age: '',
@@ -530,12 +535,16 @@ export default new Vuex.Store({
 				kids:[],
 				addresses: [],
 				employers: [],
-				properties:[],
-				vehicles:[],
+				properties: [],
+				vehicles: [],
 				credit_cards: [],
 				other_loans: [],
-				other_assets:[],
-				domestic_expenses:[],
+				other_assets: [],
+				other_incomes: [],
+				domestic_expenses: [],
+				credit_defaults: [],
+				court_judgements: [],
+				bankruptcies: [],
 				uuid: uuid.v4()
 			}
 			ar.push(empty_person)
