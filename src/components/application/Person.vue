@@ -105,36 +105,48 @@
 		</div>
 		<div class="flex flex-wrap">
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.date_of_birth)">
-				<template v-slot:label>Date of Birth</template>
+				<template v-slot:label>Date of Birth <span :class="{'font-semibold text-red-600': age <= 17}" v-if="age">[{{age}}]</span> </template>
 				<input
 					:id="'#'+person.date_of_birth"
 					v-model="person.date_of_birth"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>
 
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.gender)">
 				<template v-slot:label>Gender</template>
-				<input
+				<select
 					:id="'#'+person.gender"
 					v-model="person.gender"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
-				/>
+				>
+					<option value="" selected>Select</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
 			</FormField>
 
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.marital_status)">
 				<template v-slot:label>Marital Status</template>
-				<input
+				<select
 					:id="'#'+person.marital_status"
 					v-model="person.marital_status"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
-				/>
+				>
+					<option value="" selected>Select</option>
+					<option value="Single">Single</option>
+					<option value="Defacto">Defacto</option>
+					<option value="Married">Married</option>
+					<option value="Separated">Separated</option>
+					<option value="Divorced">Divorced</option>
+					<option value="Widowed">Widowed</option>
+				</select>
 			</FormField>
 		</div>
 		<div class="flex flex-wrap">
@@ -150,13 +162,24 @@
 			</FormField>
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.licence_state)">
 				<template v-slot:label>Licence State</template>
-				<input
+				<select
 					:id="'#'+person.licence_state"
 					v-model="person.licence_state"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
-				/>
+				>
+					<option value="" selected>Select</option>
+					<option value="QLD">QLD</option>
+					<option value="NSW">NSW</option>
+					<option value="ACT">ACT</option>
+					<option value="VIC">VIC</option>
+					<option value="SA">SA</option>
+					<option value="WA">WA</option>
+					<option value="NT">NT</option>
+					<option value="TAS">TAS</option>
+					<option value="TAS">International</option>
+				</select>
 			</FormField>
 			<FormField
 				v-if="person.licence_state == 'NSW'"
@@ -186,16 +209,23 @@
 		<div class="flex flex-wrap">
 			<FormField class="w-1/3" @copy="copyClipboard('#'+person.visa_status)">
 				<template v-slot:label>Residency Status</template>
-				<input
+				<select
 					:id="'#'+person.visa_status"
 					v-model="person.visa_status"
 					@change="saveApplicationsToLocal"
 					type="text"
 					class="form-input text-center"
-				/>
+				>
+					<option value="" selected>Select</option>
+					<option value="Citizen">Citizen</option>
+					<option value="Permanent Resident">Permanent Resident</option>
+					<option value="Visa">Visa</option>
+					
+				</select>
+				
 			</FormField>
 
-			<FormField class="w-1/3" @copy="copyClipboard('#'+person.visa_class)">
+			<FormField v-if="person.visa_status == 'Visa'" class="w-1/3" @copy="copyClipboard('#'+person.visa_class)">
 				<template v-slot:label>Visa Sub-class</template>
 				<input
 					:id="'#'+person.visa_class"
@@ -206,13 +236,13 @@
 				/>
 			</FormField>
 
-			<FormField class="w-1/3" @copy="copyClipboard('#'+person.visa_expiry)">
+			<FormField v-if="person.visa_status == 'Visa'" class="w-1/3" @copy="copyClipboard('#'+person.visa_expiry)">
 				<template v-slot:label>Visa Expiry Date</template>
 				<input
 					:id="'#'+person.visa_expiry"
 					v-model="person.visa_expiry"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -244,7 +274,7 @@
 					:id="'#'+person.passport_expiry"
 					v-model="person.passport_expiry"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -287,6 +317,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapMutations, mapActions } from "vuex";
 import FormField from "@/components/application/FormField.vue";
 import Addresses from "@/components/application/sections/Addresses.vue";
@@ -319,6 +350,11 @@ export default {
 		people: Array,
 		person: Object,
 		person_index: Number
+	},
+	computed: {
+		age(){
+			return moment().diff(this.person.date_of_birth, 'years', false)
+		}
 	},
 	methods: {
 		...mapMutations(["saveApplicationsToLocal"]),

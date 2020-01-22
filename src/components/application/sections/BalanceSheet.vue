@@ -151,12 +151,28 @@
 					<div class="w-1/4 text-right mr-10 tracking-wider">{{+total_expenses | toCurrency}}</div>
 				</div>
 			</div>
+			<div class="w-full mt-4">
+				<div v-for="(quote, index) in application.quotes" :key="'quote'+index" class="w-full flex border-gray-400 border-b">
+					<div class="w-3/4 text-right">Surplus before repayment: </div>
+					<div class="w-1/4 text-right mr-10">{{+total_surplus | toCurrency}}</div>
+				</div>
+				<div class="w-full flex border-gray-400 border-b-2 font-semibold text-lg ">
+					<div class="w-3/4 text-right">Surplus after proposed repayment {{application.loan_calculator.monthly | toCurrency}}:</div>
+					<div class="w-1/4 text-right mr-10 tracking-wider">{{+total_surplus - +application.loan_calculator.monthly | toCurrency}}</div>
+				</div>
+				<div v-for="(quote, index) in application.quotes" :key="'quote'+index" class="w-full flex border-gray-400 border-b">
+					
+					<div class="w-3/4 text-right">Surplus after previously quoted payment {{+quote.loan_calculator.monthly | toCurrency}}: </div>
+					<div class="w-1/4 text-right mr-10">{{+total_surplus - +quote.loan_calculator.monthly | toCurrency}}</div>
+				</div>
+				
+			</div>
 			
 		</div>
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 
 // import DomesticExpensesCard from "@/components/application/DomesticExpenses.vue";
 
@@ -171,6 +187,7 @@ export default {
 		person_index: Number
 	},
 	computed: {
+		...mapGetters(['application']),
 		current_employers(){
 			return this.person.employers.filter((item)=>{
 				if(item.current){
@@ -261,14 +278,19 @@ export default {
 		rent_total(){
 			var $total = 0
 			for(let item of this.person.addresses){
-				$total = $total + +item.rent
+				if(item.status == 'Renting'){
+					$total = $total + +item.rent
+				}
+				
 			}
 			return $total
 		},
 		board_total(){
 			var $total = 0
 			for(let item of this.person.addresses){
-				$total = $total + +item.board
+				if(item.status == 'Boarding'){
+					$total = $total + +item.board
+				}
 			}
 			return $total
 		},
@@ -294,6 +316,10 @@ export default {
 
 			return $total
 		},
+
+		total_surplus(){
+			return +this.total_income - +this.total_expenses
+		}
 
 	},
 	methods: {
