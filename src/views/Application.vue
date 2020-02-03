@@ -57,6 +57,7 @@
 					</svg>
 				</button>
 			</Person>
+			
 		</div>
 		<div class="text-xs text-gray-400">
 			<!-- <textarea :value="JSON.stringify(application)" name="application" cols="200" rows="40"></textarea> -->

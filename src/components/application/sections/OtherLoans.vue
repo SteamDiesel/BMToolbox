@@ -1,6 +1,22 @@
 <template>
-	<div class="mt-6">
-			<h2 class="text-xl">Other Loans</h2>
+	<Section>
+		<Header title="Other Loans">
+			<button
+				class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
+				@click="pushToArray({person: person, type: 'other_loan', array: person.other_loans})"
+			>
+				<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M5 8h14a1 1 0 0 1 1 .92l1 12A1 1 0 0 1 20 22H4a1 1 0 0 1-1-1.08l1-12A1 1 0 0 1 5 8z"/><path class="secondary" d="M9 10a1 1 0 0 1-2 0V7a5 5 0 1 1 10 0v3a1 1 0 0 1-2 0V7a3 3 0 0 0-6 0v3z"/></svg>
+				
+				<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
+					<path
+						class="secondary"
+						fill-rule="evenodd"
+						d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
+					/>
+				</svg>
+			</button>
+		</Header>
+			
 			<OtherLoan
 				class="mb-4"
 				v-for="(other_loan, index) in person.other_loans"
@@ -62,34 +78,24 @@
 					</svg>
 				</button>
 			</OtherLoan>
-			<div class="flex justify-start m-2 px-2">
-				<button
-					class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
-					@click="pushToArray({person: person, type: 'other_loan', array: person.other_loans})"
-				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M5 8h14a1 1 0 0 1 1 .92l1 12A1 1 0 0 1 20 22H4a1 1 0 0 1-1-1.08l1-12A1 1 0 0 1 5 8z"/><path class="secondary" d="M9 10a1 1 0 0 1-2 0V7a5 5 0 1 1 10 0v3a1 1 0 0 1-2 0V7a3 3 0 0 0-6 0v3z"/></svg>
-					
-					<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
-						<path
-							class="secondary"
-							fill-rule="evenodd"
-							d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
-						/>
-					</svg>
-				</button>
-			</div>
-		</div>
+			
+		</Section>
 </template>
 
 <script>
 import { mapMutations, mapActions } from "vuex";
 
 import OtherLoan from "@/components/application/OtherLoan.vue";
+import Header from "@/components/application/sections/SectionHeader.vue";
+import Section from "@/components/application/sections/Section.vue";
+
 
 export default {
 	name: "OtherLoans",
 	components: {
-		OtherLoan
+		OtherLoan,
+		Header,
+		Section
 	},
 	props: {
 		people: Array,

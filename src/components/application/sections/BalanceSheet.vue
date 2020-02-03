@@ -1,6 +1,6 @@
 <template>
-	<div class="mt-6">
-			<h2 class="text-xl">Balance Sheet</h2>
+	<Section>
+			<Header title="Balance Sheet"></Header>
 			<div class="w-full mt-4">
 				<div class="w-full flex font-semibold  border-gray-400 border-b">
 					<div class="w-1/2">Asset Description</div>
@@ -28,7 +28,7 @@
 					<div class="w-1/4 text-right mr-10 tracking-wider">{{total_assets | toCurrency}}</div>
 				</div>
 			</div>
-			<div class="w-full mt-4">
+			<div class="w-full mt-4 mb-12">
 				<div class="w-full flex font-semibold  border-gray-400 border-b">
 					<div class="w-1/4">Liability Description</div>
 					<div class="w-1/4 text-center">Type</div>
@@ -72,7 +72,14 @@
 					<div class="w-1/4 text-right mr-10 tracking-wider">{{total_liabilities | toCurrency}}</div>
 				</div>
 			</div>
-			<h2 class="text-xl mt-8">Capacity Summary</h2>
+
+
+
+
+			<Header title="Capacity Summary"></Header>
+
+
+
 			<div class="w-full mt-4">
 				<div class="w-full flex font-semibold  border-gray-400 border-b">
 					<div class="w-1/2">Income Source</div>
@@ -168,18 +175,20 @@
 				
 			</div>
 			
-		</div>
+	</Section>
 </template>
 
 <script>
 import { mapMutations, mapActions, mapGetters } from "vuex";
 
-// import DomesticExpensesCard from "@/components/application/DomesticExpenses.vue";
+import Header from "@/components/application/sections/SectionHeader.vue";
+import Section from "@/components/application/sections/Section.vue";
 
 export default {
 	name: "BalanceSheet",
 	components: {
-		
+		Header,
+		Section
 	},
 	props: {
 		people: Array,

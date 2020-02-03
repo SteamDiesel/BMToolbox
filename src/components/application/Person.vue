@@ -295,20 +295,21 @@
 		
 		<Vehicles :people="people" :person="person" :person_index="person_index"/>
 		
-		
-		<CreditCards :people="people" :person="person" :person_index="person_index"/>
+				
+		<OtherAssets :people="people" :person="person" :person_index="person_index"/>
 		
 		
 		<OtherLoans :people="people" :person="person" :person_index="person_index"/>
 		
 		
-		<OtherAssets :people="people" :person="person" :person_index="person_index"/>
+		<CreditCards :people="people" :person="person" :person_index="person_index"/>
 		
 		
 		<DomesticExpenses :people="people" :person="person" :person_index="person_index"/>
 
 
 		<BalanceSheet :people="people" :person="person" :person_index="person_index"/>
+		
 		
 		
 		<!-- ugly hack to trigger re-render when nested arrays are updated -->

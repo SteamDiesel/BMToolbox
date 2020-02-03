@@ -1,6 +1,27 @@
 <template>
-	<div class="mt-6">
-		<h2 class="text-xl">Dependents</h2>
+	<Section>
+		<Header title="Dependents">
+			<button
+				class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
+				
+				@click="pushToArray({person: person, type: 'kid', array: person.kids})"
+			>
+
+			<!-- object icon -->
+				<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M12 13a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v3a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1 1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-3a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3zM7 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/><path class="secondary" d="M12 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm-3 1h6a3 3 0 0 1 3 3v3a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a3 3 0 0 1 3-3z"/></svg>
+
+
+				<!-- plus icon -->
+				<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
+					<path
+						class="secondary"
+						fill-rule="evenodd"
+						d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
+					/>
+				</svg>
+			</button>
+		</Header>
+		
 		<Kid
 			class="mb-4"
 			v-for="(kid, index) in person.kids"
@@ -58,39 +79,24 @@
 					</svg>
 				</button>
 		</Kid>
-		<div class="flex justify-start m-2 px-2">
-			<button
-				class="relative bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print"
-				
-				@click="pushToArray({person: person, type: 'kid', array: person.kids})"
-			>
-
-			<!-- object icon -->
-				<svg viewBox="0 0 24 24" class="h-5 w-5"><path class="primary" d="M12 13a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v3a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1 1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-3a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3zM7 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm10 0a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/><path class="secondary" d="M12 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm-3 1h6a3 3 0 0 1 3 3v3a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-3a3 3 0 0 1 3-3z"/></svg>
-
-
-				<!-- plus icon -->
-				<svg viewBox="0 0 24 24" class="h-5 w-5 absolute top-0 right-0">
-					<path
-						class="secondary"
-						fill-rule="evenodd"
-						d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"
-					/>
-				</svg>
-			</button>
-		</div>
-	</div>
+		
+	</Section>
 </template>
 
 <script>
 import { mapMutations, mapActions } from "vuex";
 
 import Kid from "@/components/application/Kid.vue";
+import Header from "@/components/application/sections/SectionHeader.vue";
+import Section from "@/components/application/sections/Section.vue";
+
 
 export default {
 	name: "Kids",
 	components: {
-		Kid
+		Kid,
+		Header,
+		Section
 	},
 	props: {
 		people: Array,

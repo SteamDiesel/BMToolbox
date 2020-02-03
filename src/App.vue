@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen text-gray-600 bg-gray-100" id="app">
+	<div class="min-h-screen text-sm text-gray-600 bg-gray-100" id="app">
 		<div id="nav" class=" bg-gray-300 no-print">
 			<div class="container mx-auto flex justify-between h-full items-center pl-2 sm:pl-0">
 				
