@@ -74,7 +74,7 @@ export default {
 	data() {
 		return {
 			show_vehicle: false,
-			show_loan: false,
+			show_loan: true,
 			show_applicants: false,
 		};
 	},
