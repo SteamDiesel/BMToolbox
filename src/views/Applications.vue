@@ -72,6 +72,6 @@ export default {
 </script>
 <style scoped>
 	.body-internal {
-		height: calc(100vh - 13rem);
+		height: calc(100vh - 12rem);
 	}
 </style>

@@ -10,15 +10,15 @@
 			</tr>
 			<tr class="border-b border-gray-400" v-for="(app, index) in applications" :key="index">
 				<td class="py-3 text-left px-3" ></td>
-				<td class="py-3 text-left px-3" >
-					<button class="hover:text-blue-600 hover:underline font-semibold" @click="openApp(index)">
+				<td class="py-3 text-left px-3 hover:text-blue-600 hover:underline font-semibold cursor-pointer"  @click="openApp(index)">
+					
 						<span v-for="(person, index) in app.people" :key="index">
 							{{person.first_name}} {{person.surname}}<span
 								class="mx-2"
 								v-if="index+1 < app.people.length"
 							>&</span>
 						</span>
-					</button>
+					
 					
 				</td>
 				<td class="py-3 text-left px-3" >

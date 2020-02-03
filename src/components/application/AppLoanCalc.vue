@@ -1,6 +1,6 @@
 <template>
 	<div class="p-2">
-		<div class="flex w-full">
+		<!-- <div class="flex w-full">
 			<div class="w-3/4">
 				Finance ${{balance_financed}} over {{calc.term}} months.
 				<div class="flex justify-between">
@@ -37,8 +37,8 @@
 				</button>
 				
 			</div>
-		</div>
-		<div v-if="show_edit" class="flex w-full">
+		</div> -->
+		<div class="flex w-full">
 			<div class="w-1-3">
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.vehicle_price)">
 					<template v-slot:label>Vehicle Price</template>

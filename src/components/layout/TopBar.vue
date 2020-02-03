@@ -1,8 +1,7 @@
 <template>
 	<div class="h-12">
 		<div class="fixed w-full ">
-			<div class="w-full bg-teal-400 h-1"></div>
-			<div id="nav" class="bg-gray-800 no-print h-12 px-3">
+			<div id="nav" class="bg-gray-800 border-t-4 border-teal-400 no-print h-12 px-3">
 				<div class="flex justify-between h-full items-center pl-2 sm:pl-0">
 					<div class="h-full text-gray-100 flex items-center text-sm font-semibold">
 						<router-link
@@ -73,6 +72,3 @@ export default {
 	}
 };
 </script>
-
-<style>
-</style>

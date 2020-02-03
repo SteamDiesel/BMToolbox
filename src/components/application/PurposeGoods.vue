@@ -1,82 +1,24 @@
 <template>
-	<div class="hover:bg-blue-100 pb-2">
-		<div class="p-2">
+	<div class="">
+		<div class="">
 			<div class="flex w-full">
-				<div class="w-3/4">
+				<div class="mb-6">
 					<div v-if="vehicle.stock_number">{{vehicle.stock_number}}</div>
 					<div
-						class="mt-2"
+						class=" font-semibold text-2xl"
 					>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} {{vehicle.badge}} {{vehicle.series}} {{vehicle.model_year}} {{vehicle.transmission}}</div>
-					<div class="mt-2">
+					<!-- <div class="mt-2">
 						<span v-if="vehicle.body">{{vehicle.body}},</span>
 						<span v-if="vehicle.doors && vehicle.doors.length <= 2">{{vehicle.doors}} doors,</span>
 						<span v-if="vehicle.seats && vehicle.seats.length <= 2">{{vehicle.seats}} seats,</span>
 						<span v-if="vehicle.colour">{{vehicle.colour}}</span>
-					</div>
-				</div>
-				<div class="w-1/4 flex justify-around items-center">
-					<button
-						:class="{ 'bg-blue-400': edit_details} "
-						class="appearance-none border-none bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
-						@click="toggle_edit"
-					>
-						<svg viewBox="0 0 24 24" class="h-5 w-5">
-							<path
-								class="primary"
-								d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z"
-							/>
-							<rect width="20" height="2" x="2" y="20" class="secondary" rx="1" />
-						</svg>
-					</button>
-					<button
-						:class="{ 'bg-blue-400': show_details} "
-						class="appearance-none border-none bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
-						@click="toggle_details"
-					>
-						<svg v-if="show_details" viewBox="0 0 24 24" class="h-5 w-5">
-							<circle cx="12" cy="12" r="10" class="primary" />
-							<path
-								class="secondary"
-								d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z"
-							/>
-						</svg>
-						<svg v-if="!show_details" viewBox="0 0 24 24" class="h-5 w-5">
-							<circle cx="12" cy="12" r="10" class="primary" />
-							<path
-								class="secondary"
-								d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
-							/>
-						</svg>
-					</button>
+					</div> -->
 				</div>
 			</div>
 
-			<div v-if="show_details" class="mt-2">
-				Engine: {{vehicle.engine}}
-				Engine size: {{vehicle.engine_size}}
-				Fuel type: {{vehicle.fuel_type}}
-			</div>
-			<div v-if="show_details" class="mt-2">Vehicle type: {{vehicle.type}}</div>
-			<div v-if="show_details" class="mt-2">
-				Build: {{vehicle.build_date}}, Compliance: {{vehicle.compliance_date}}
-				First registered: {{vehicle.first_registered_date}}
-				<br />Factory Warranty:
-				<span
-					v-if="vehicle.factory_warranty_months"
-				>{{vehicle.factory_warranty_months}} months,</span>
-				<span v-if="vehicle.factory_warranty_km">{{vehicle.factory_warranty_km}} km</span>
-			</div>
-			<div v-if="show_details" class="mt-2">
-				Odometer: {{vehicle.odometer}}
-				<br />
-				VIN: {{vehicle.vin}}
-				<br />
-				Engine_number: {{vehicle.engine_number}}
-				<br />
-				Registration Plate: {{vehicle.plate_number}}
-			</div>
+			
 		</div>
-		<div v-if="edit_details" class="flex flex-wrap">
+		<div class="flex flex-wrap p-4 bg-gray-100">
 			<FormField class="w-1/3" @copy="copyClipboard('#'+vehicle.stock_number)">
 				<template v-slot:label>Stock Number</template>
 				<input

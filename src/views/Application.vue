@@ -1,100 +1,126 @@
 <template>
-<div>
-	<div class="pb-12 container mx-auto">
-		<div>
-			<AppDetails/>
+	<div class="flex w-full">
+		<div
+			class="w-100 body-internal flex flex-col justify-start pt-4 items-center border-r-2 border-gray-300"
+		>
+			<div class="w-full flex justify-end">
+				<DropdownMenu class="w-32">
+					<span class="font-semibold text-blue-600 hover:underline">Actions</span>
+					<template v-slot:menu>
+						<div class="bg-gray-200 border-2 border-gray-500">
+							<!-- <div class="w-full p-6">menu item</div> -->
+							<hr />
+							<div class="w-full p-6">Delete</div>
+						</div>
+					</template>
+				</DropdownMenu>
+			</div>
+			<div class="w-full border-b-2 border-gray-300 p-12">
+				<div class="mb-4" v-for="(person, index) in application.people" :key="index">
+					<div class="text-xl font-semibold">{{person.first_name}} {{person.surname}}</div>
+					<div class="text-xs">{{person.mobile_phone}}</div>
+					<div class="text-xs">
+						<a :href="'mailto:'+person.email_address">{{person.email_address}}</a>
+					</div>
+				</div>
+			</div>
+			<div class="w-full p-12">
+				<AppDetails />
+			</div>
 		</div>
-		<div class="w-full h-full flex justify-start py-1 no-print">
-			<!-- Menu -->
-			<button
-				@click="addPersonToApplication"
-				class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
-			>
-				<svg viewBox="0 0 24 24" class="h-6 w-6">
-					<path class="primary" d="M9 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
-					<path
-						class="secondary"
-						d="M17 9V7a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2h-2a1 1 0 0 1 0-2h2zm-1 10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"
-					/>
-				</svg>
-			</button>
-			<button
-				@click="addBusinessToApplication"
-				class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
-			>
-				<svg viewBox="0 0 24 24" class="h-6 w-6">
-					<path
-						class="primary"
-						d="M21 21H3a1 1 0 0 1-1-1.06l1-16A1 1 0 0 1 4 3h2a1 1 0 0 1 1 .94l.39 6.26 2.9-2.9A1 1 0 0 1 12 8v2.59l3.3-3.3A1 1 0 0 1 17 8v2.59l3.3-3.3A1 1 0 0 1 22 8v12a1 1 0 0 1-1 1z"
-					/>
-					<path
-						class="secondary"
-						d="M7 13h3v2H7v-2zm5 0h3v2h-3v-2zm5 0h3v2h-3v-2zM7 17h3v2H7v-2zm5 0h3v2h-3v-2zm5 0h3v2h-3v-2z"
-					/>
-				</svg>
-			</button>
-		</div>
-		
+		<div class="w-full body-internal overflow-auto overflow-none bg-gray-200">
+			<div class="px-3">
+				<div class="flex">
+					<button @click="pageSwitch('loan')" :class="{'text-blue-600': show_loan}" class="px-6 py-4 font-semibold hover:text-blue-400">Loan</button>
+					<button @click="pageSwitch('vehicle')" :class="{'text-blue-600': show_vehicle}" class="px-6 py-4 font-semibold hover:text-blue-400">Vehicle</button>
+					<button @click="pageSwitch('applicants')" :class="{'text-blue-600': show_applicants}" class="px-6 py-4 font-semibold hover:text-blue-400">Applicants</button>
+				</div>
+				<div>
+					<hr />
+				</div>
+			</div>
+			<div>
+				
+			</div>
+			<transition name="fade" mode="out-in">
+			<VehiclePage v-if="show_vehicle" />
+			<LoanPage v-if="show_loan" />
+			<AppPage v-if="show_applicants" />
+			</transition>
 
-		<div class="lg:flex lg:justify-around break-after">
-			<Person
-				class="m-1 lg:w-1/2"
-				v-for="(person, index) in application.people"
-				:key="index"
-				:person_index="index"
-				:people="application.people"
-				:person="person"
-			>
-				<button
-					@click="dropFromArray({array: application.people, object: person, type: 'person', index: index, person: person})"
-					class="bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-full no-print"
-				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5">
-						<path class="primary" d="M9 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
-						<path
-							class="secondary"
-							d="M15 9h6a1 1 0 0 1 0 2h-6a1 1 0 0 1 0-2zm1 10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"
-						/>
-					</svg>
-				</button>
-			</Person>
-			
-		</div>
-		<div class="text-xs text-gray-400">
-			<!-- <textarea :value="JSON.stringify(application)" name="application" cols="200" rows="40"></textarea> -->
-			{{application}}
 		</div>
 	</div>
-</div>
-	
 </template>
 
 <script>
 // @ is an alias to /src
 
-import Person from "@/components/application/Person.vue";
 import AppDetails from "@/components/application/sections/AppDetails.vue";
+import AppPage from "@/components/application/pages/AppPage.vue";
+import LoanPage from "@/components/application/pages/LoanPage.vue";
+import VehiclePage from "@/components/application/pages/VehiclePage.vue";
+import DropdownMenu from "@/components/buttons/DropdownMenu.vue";
 
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
 	name: "home",
 	components: {
-		Person,
+		AppPage,
+		LoanPage,
+		VehiclePage,
 		AppDetails,
-		
+		DropdownMenu
+	},
+	data() {
+		return {
+			show_vehicle: false,
+			show_loan: false,
+			show_applicants: false,
+		};
 	},
 	computed: {
 		...mapState(["applications"]),
 		...mapGetters(["application"])
 	},
 	methods: {
+		pageSwitch(io){
+			switch(io){
+				case 'vehicle':
+					this.show_vehicle = true;
+					this.show_loan = false;
+					this.show_applicants = false;
+					break;
+				
+				case 'loan':
+					this.show_vehicle = false;
+					this.show_loan = true;
+					this.show_applicants = false;
+					break;
+				
+				case 'applicants':
+					this.show_vehicle = false;
+					this.show_loan = false;
+					this.show_applicants = true;
+					break;
+				
+			}
+		},
 		...mapMutations([
 			"addPersonToApplication",
 			"addBusinessToApplication",
 			"removePersonFromApplication"
 		]),
-		...mapActions(['dropFromArray'])
-	},
-	
+		...mapActions(["dropFromArray"])
+	}
 };
 </script>
+<style>
+.body-internal {
+	height: calc(100vh - 3rem);
+}
+@media print {
+	.overflow-none {
+		overflow: none;
+	}
+}
+</style>

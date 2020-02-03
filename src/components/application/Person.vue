@@ -1,5 +1,5 @@
 <template>
-	<div class="w-full bg-gray-200 p-2">
+	<div class="w-full bg-gray-100 p-2">
 		<div class="flex justify-end">
 			<slot />
 		</div>
