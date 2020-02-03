@@ -1,6 +1,6 @@
 <template>
 	<div @keyup.17="hotkey()" class="w-full">
-		<div class>
+		<div class="px-4">
 			<div class="sm:w-2/3 md:w-1/2 lg:w-1/3 mx-16 sm:mx-0">
 				<div class="md:flex md:justify-between border-gray-600 border-b border-b-2 mx-4 mt-6">
 					<label class="font-semibold whitespace-no-wrap">Name</label>
@@ -190,7 +190,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="lg:flex lg:justify-between mx-16 sm:mx-0 mt-24">
+			<div class="lg:flex lg:justify-between mx-16 mt-24">
 				<div class="lg:flex lg:flex-col lg:justify-end">
 					<p
 						@click="makeBig('week')"
@@ -234,6 +234,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
+	name: 'Calculator',
 	// Author is Jason Lloyd Law
 	// contact me at jason.lloyd.law@gmail.com or call me on 0400 696 332
 	data: function() {

@@ -1,7 +1,7 @@
 <template>
 	<div class="pb-12 container mx-auto">
 		<button @click="test">
-			import
+			Import Application
 		</button>
 		<textarea  class="w-full h-32" v-model="app_import_field" ></textarea>
 		<div>

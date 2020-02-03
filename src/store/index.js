@@ -393,6 +393,8 @@ export default new Vuex.Store({
 			var new_app = {
 				version: 1,
 				status: '',
+				stage: '',
+				is_active: true,
 				vehicle: {
 					type: '',
 					build_date:'',

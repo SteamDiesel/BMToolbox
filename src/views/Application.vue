@@ -1,4 +1,5 @@
 <template>
+<div>
 	<div class="pb-12 container mx-auto">
 		<div>
 			<AppDetails/>
@@ -64,10 +65,13 @@
 			{{application}}
 		</div>
 	</div>
+</div>
+	
 </template>
 
 <script>
 // @ is an alias to /src
+
 import Person from "@/components/application/Person.vue";
 import AppDetails from "@/components/application/sections/AppDetails.vue";
 
@@ -76,7 +80,8 @@ export default {
 	name: "home",
 	components: {
 		Person,
-		AppDetails
+		AppDetails,
+		
 	},
 	computed: {
 		...mapState(["applications"]),

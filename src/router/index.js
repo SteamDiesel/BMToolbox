@@ -17,7 +17,16 @@ const routes = [
     name: 'home',
     component: Home
   },
+
   
+  {
+    path: '/calculator',
+    name: 'calculator',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Calculator.vue')
+  },
   {
     path: '/application',
     name: 'application',
@@ -71,7 +80,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  linkActiveClass: 'bg-gray-100',
+  linkActiveClass: 'bg-gray-900 text-blue-200',
   base: process.env.BASE_URL,
   routes
 })
