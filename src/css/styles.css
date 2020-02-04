@@ -9,5 +9,17 @@
 .form-input:focus {
 	@apply outline-none bg-blue-300;
 }
+.btn-primary {
+	@apply bg-teal-300 font-semibold px-4 py-2 border border-teal-600 rounded;
+}
+.btn-primary:hover {
+	@apply bg-teal-200;
+}
+.btn-secondary {
+	@apply bg-transparent font-semibold px-4 py-2 border border-teal-600 rounded mr-4;
+}
+.btn-secondary:hover {
+	@apply bg-teal-200;
+}
 
 @tailwind utilities;

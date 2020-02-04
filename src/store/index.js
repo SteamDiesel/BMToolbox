@@ -9,6 +9,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		show_vehicle: false,
+		show_loan: true,
+		show_applicants: false,
+		show_history: false,
+		contact_log_types:[
+			'Called',
+			'SMS Sent',
+			'SMS Received',
+			'Email Sent',
+			'Email Received',
+			'Face to Face',
+		],
 		loan_calculator: {
 			name: "",
 			vehicle_price: 30000,
@@ -281,6 +293,39 @@ export default new Vuex.Store({
 			var app = JSON.parse(state.app_import_field);
 			state.applications.unshift(app)
 		},
+		appPageSwitch(state, io){
+			switch(io){
+				case 'vehicle':
+					state.show_vehicle = true;
+					state.show_loan = false;
+					state.show_applicants = false;
+					state.show_history = false;
+					break;
+				
+				case 'loan':
+					state.show_vehicle = false;
+					state.show_loan = true;
+					state.show_applicants = false;
+					state.show_history = false;
+					break;
+				
+				case 'applicants':
+					state.show_vehicle = false;
+					state.show_loan = false;
+					state.show_applicants = true;
+					state.show_history = false;
+					break;
+				
+				case 'history':
+					state.show_vehicle = false;
+					state.show_loan = false;
+					state.show_applicants = false;
+					state.show_history = true;
+					break;
+				
+			}
+		},
+
 		pushToArray(state, payload){
 			
 			var object = {}
@@ -330,8 +375,15 @@ export default new Vuex.Store({
 
 		dropFromArray(state, payload){
 			var array = payload.array 
-			array.splice(payload.index, 1) 
-			payload.person.adr_count++
+			array.splice(payload.index, 1)
+			if(payload.person){
+				payload.person.adr_count++
+			} 
+			if(payload.adr) {
+				payload.adr++
+			}
+			
+			
 			// - person - just to update an arbitrary property to
 			// trigger a re-render because I'm a hack
 		},

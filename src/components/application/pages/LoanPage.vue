@@ -2,18 +2,22 @@
 	<div class="flex w-full justify-between">
 
 
-		<div class="bg-gray-100 m-8 w-full p-2">
-			<h2 class="text-xl">Loan Parameters</h2>
+		<div class="bg-gray-100 ml-8 mr-4 my-5 w-full p-2">
+			<div class="flex justify-between">
+				<h2 class="text-xl">Loan Parameters</h2>
+				<button @click="saveQuote" class="font-semibold text-blue-600 mr-4">Save</button>
+			</div>
+			
 
 			<AppLoanCalc v-if="application.loan_calculator" :calc="application.loan_calculator" />
 		</div>
 
 
 		<!-- Quote History  -->
-		<div class="bg-gray-100 m-8 w-full p-2">
+		<div v-if="application.quotes" class="bg-gray-100 mr-8 ml-4 my-5 w-full p-2">
 			<div class="flex justify-between">
 				<h2 class="text-xl">Quote History</h2>
-				<button @click="saveQuote" class="font-semibold text-indigo-800">Save</button>
+				
 			</div>
 
 			<QuoteCard v-for="(quote, index) in application.quotes" :key="index" :quote="quote">
@@ -47,7 +51,7 @@ import moment from 'moment'
 import QuoteCard from "@/components/QuoteCard.vue";
 import AppLoanCalc from "@/components/application/AppLoanCalc.vue";
 
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
 	name: 'LoanPage',
@@ -114,16 +118,11 @@ export default {
 			}
 			var quote = {}
 			Object.assign(quote, new_quote);
-			this.pushToArray({person: this.application.people[0], type: 'quote', quote: quote, array: this.application.quotes})
+			this.pushToArray({adr: this.application.people[0].adr_count, type: 'quote', quote: quote, array: this.application.quotes})
 
 		},
-		...mapMutations([
-			"addPersonToApplication",
-			"addBusinessToApplication",
-			"removePersonFromApplication",
-			"addVehicleToApplication",
-			"saveApplicationsToLocal"
-		]),
+		
+
 		...mapActions(['dropFromArray','pushToArray'])
 	}
 

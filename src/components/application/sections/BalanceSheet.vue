@@ -167,7 +167,7 @@
 					<div class="w-3/4 text-right">Surplus after proposed repayment {{application.loan_calculator.monthly | toCurrency}}:</div>
 					<div class="w-1/4 text-right mr-10 tracking-wider">{{+total_surplus - +application.loan_calculator.monthly | toCurrency}}</div>
 				</div>
-				<div v-for="(quote, index) in application.quotes" :key="'quote'+index" class="w-full flex border-gray-400 border-b">
+				<div v-for="(quote, index) in application.quotes" :key="'quoteafter'+index" class="w-full flex border-gray-400 border-b">
 					
 					<div class="w-3/4 text-right">Surplus after previously quoted payment {{+quote.loan_calculator.monthly | toCurrency}}: </div>
 					<div class="w-1/4 text-right mr-10">{{+total_surplus - +quote.loan_calculator.monthly | toCurrency}}</div>

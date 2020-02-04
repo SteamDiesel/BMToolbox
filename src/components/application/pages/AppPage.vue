@@ -31,9 +31,9 @@
 			</button>
 		</div>
 
-		<div class="lg:flex lg:justify-around break-after m-4">
+		<div class="lg:flex for-printing lg:justify-around break-after m-4">
 			<Person
-				class="m-1 lg:w-1/2 mb-12"
+				class="m-1 max-w-2xl mb-12"
 				v-for="(person, index) in application.people"
 				:key="index"
 				:person_index="index"
@@ -90,4 +90,9 @@ export default {
 </script>
 
 <style>
+@media print {
+	.for-printing {
+		display: flex !important;
+	}
+}
 </style>

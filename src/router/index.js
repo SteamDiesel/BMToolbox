@@ -66,6 +66,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Preferences.vue')
   },
   {
+    path: '/print-application',
+    name: 'print-application',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PrintApplication.vue')
+  },
+  {
     path: '/data-dump',
     name: 'data-dump',
     component: () => import(/* webpackChunkName: "about" */ '../views/DataDump.vue')

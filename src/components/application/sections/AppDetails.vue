@@ -1,18 +1,29 @@
 <template>
 	<div class="w-full">
-		<h2 class="text-lg font-semibold">Details</h2>
+		<h2 class="font-semibold ">Deal Details</h2>
 
 		<div class="mt-2">
-			<div>
-				<span
-					v-if="application.vehicle.glasses_value"
-				>Glasses LVR: {{details.glasses_lvr}}% (${{application.vehicle.glasses_value}})</span>
-				<span
-					v-if="application.vehicle.redbook_value"
-				>Redbook LVR: {{details.redbook_lvr}}% (${{application.vehicle.redbook_value}})</span>
+			<div class="font-semibold">
+				{{application.vehicle.year}}
+				{{application.vehicle.make}}
+				{{application.vehicle.model}}
+				{{application.vehicle.badge}}
+				{{application.vehicle.series}}
+				{{application.vehicle.model_year}}
+				{{application.vehicle.transmission}}
 			</div>
 			<div>
-				<span>Deposit: </span>
+				<span v-if="application.vehicle.odometer">Odometer: {{application.vehicle.odometer}} <br></span>
+				<span v-if="application.vehicle.stock_number">Stock #: {{application.vehicle.stock_number}} <br></span>
+			</div>
+		</div>
+
+		<div class="mt-2">
+			
+			<div>
+				<span v-if="application.loan_calculator.full_naf">NAF: {{application.loan_calculator.full_naf | toCurrency}} <br></span>
+				<span v-if="application.loan_calculator.term">Structure: {{application.loan_calculator.term}} month / {{application.loan_calculator.rv | toCurrency }}RV  <br></span>
+				<span v-if="application.loan_calculator.weekly">{{application.loan_calculator.weekly | toCurrency}}/w {{application.loan_calculator.monthly | toCurrency}}/m <br></span>
 			</div>
 			<div>
 				<span v-if="details.total_deposit >= 0">Total Deposit: {{details.total_deposit | toCurrency}} [{{details.deposit_percent}}%]</span>
@@ -20,6 +31,14 @@
 					v-if="details.total_deposit <= 0"
 					class="font-semibold text-red-600"
 				>Negative Equity: ${{details.total_deposit}}</span>
+			</div>
+			<div>
+				<span
+					v-if="application.vehicle.glasses_value"
+				>Glasses LVR: {{details.glasses_lvr}}% (${{application.vehicle.glasses_value}})</span> <br>
+				<span
+					v-if="application.vehicle.redbook_value"
+				>Redbook LVR: {{details.redbook_lvr}}% (${{application.vehicle.redbook_value}})</span>
 			</div>
 		</div>
 	</div>

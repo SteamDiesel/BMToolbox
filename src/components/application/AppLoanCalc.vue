@@ -1,8 +1,8 @@
 <template>
 	<div class="p-2">
-		<!-- <div class="flex w-full">
-			<div class="w-3/4">
-				Finance ${{balance_financed}} over {{calc.term}} months.
+		<div class="flex w-full px-4">
+			<div class="w-full">
+				
 				<div class="flex justify-between">
 					<div
 						@click="makeBig('week')"
@@ -21,23 +21,8 @@
 					>${{monthly_pmt}}/m</div>
 				</div>
 			</div>
-			<div class="w-1/4 flex justify-around items-center">
-				<button
-					:class="{ 'bg-blue-400': show_edit} "
-					class="appearance-none border-none bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full no-print text-xs"
-					@click="show_edit = !show_edit"
-				>
-					<svg viewBox="0 0 24 24" class="h-5 w-5">
-						<path
-							class="primary"
-							d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z"
-						/>
-						<rect width="20" height="2" x="2" y="20" class="secondary" rx="1" />
-					</svg>
-				</button>
-				
-			</div>
-		</div> -->
+
+		</div>
 		<div class="flex w-full">
 			<div class="w-1-3">
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.vehicle_price)">
@@ -249,7 +234,7 @@
 						class="form-input text-center"
 					/>
 				</FormField>
-				<div class="flex flex-col justify-center items-center">
+				<div class="flex flex-col w-full pt-4 justify-center items-center">
 					<div
 						@click="makeBig('week')"
 						:class="{ 'text-2xl font-semibold': calc.weekly_big}"
