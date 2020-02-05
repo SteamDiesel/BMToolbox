@@ -123,7 +123,7 @@
 					<div class="w-1/4 text-center">Board</div>
 					<div class="w-1/4 text-right mr-10">{{board_total | toCurrency}}</div>
 				</div>
-				<div v-for="(prop, index) in rental_properties" :key="'rentale' + index" class="w-full flex border-gray-400 border-b">
+				<div v-for="(prop, index) in person.properties" :key="'rentale' + index" class="w-full flex border-gray-400 border-b">
 					<div class="w-1/2">{{prop.description}} </div>
 					<div class="w-1/4 text-center">Mortgage: {{prop.first_mortgage_lender}}</div>
 					<div class="w-1/4 text-right mr-10">{{+prop.first_mortgage_payment | toCurrency}}</div>
