@@ -289,8 +289,8 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-		importApplication(state){
-			var app = JSON.parse(state.app_import_field);
+		importApplication(state, payload){
+			var app = JSON.parse(payload);
 			state.applications.unshift(app)
 		},
 		appPageSwitch(state, io){

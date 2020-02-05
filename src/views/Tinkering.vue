@@ -1,9 +1,9 @@
 <template>
 	<div class="pb-12 container mx-auto">
-		<button @click="test">
-			Import Application
+		<button @click="importApplication(app_import_field)">
+			Import
 		</button>
-		<textarea  class="w-full h-32" v-model="app_import_field" ></textarea>
+		<textarea @change="check" class="w-full h-32" v-model="app_import_field" ></textarea>
 		<div>
 			<div class="lg:flex lg:justify-around">
 				<div v-for="(person, index) in import_staging.people" :key="index">
@@ -20,43 +20,34 @@
 			<div v-if="import_staging.comments">
 				{{import_staging.comments}}
 			</div>
-			<!-- {{app_import_field}} -->
-			{{import_staging}}
-			{{error_message}}
 
 		</div>
 	</div>
 </template>
-// 
-// <script>
 
-// import { mapState, mapMutations} from "vuex";
+
+<script>
+
+import { mapMutations } from "vuex";
+
 export default {
-	name: "home",
-	components: {
-		
-	},
+	name: "Tinkering",
+	components: {},
 	data(){
 		return {
 			app_import_field: '',
 			import_staging: '',
-			error_message: '',
 		}
 	},
 	computed: {
-		// import_stage() {
-		// 	return JSON.parse(this.app_import_field);
-		// }
-		// ...mapState(["import_stage", "app_import_field"])
+	
 	},
 	methods: {
-		test(){
-			window.console.log('fire')
+		check(){
 			var drp = JSON.parse(this.app_import_field)
 			this.import_staging = drp
-			// this.importApplication()
 		},
-		// ...mapMutations(["importApplication"])
+		...mapMutations(["importApplication"])
 	}
 };
 </script>

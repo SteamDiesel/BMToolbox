@@ -8,6 +8,7 @@
 				Board
 			</button>
 			<button
+				@click="show_import = !show_import"
 				class="bg-transparent font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded mr-4"
 			>
 			Import Application
@@ -24,12 +25,22 @@
 					All Archived
 				</button>
 			</div>
+			
 			<div v-if="is_table" class=" w-full h-full overflow-auto">
 				<AppsTable/>
 			</div>
 			<div v-if="!is_table" class=" w-full h-full overflow-auto items-center flex justify-center">
 				Stage Board View is under construction
 			</div>
+			<transition name="fade" mode="out-in">
+				<div v-if="show_import" class="bg-gray-200 absolute right-0 h-160 w-120 rounded border border-gray-500 m-4 p-4">
+					<ImportApp>
+						<button @click="show_import = !show_import" class="btn-secondary">
+							Close
+						</button>
+					</ImportApp>
+				</div>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -41,20 +52,23 @@ import NewApplicationButton from "@/components/buttons/NewApplicationButton.vue"
 // import SaveApplicationsButton from "@/components/buttons/SaveApplicationsButton.vue";
 import PageHeader from '@/components/layout/PageHeader.vue'
 import AppsTable from '@/components/tables/AppsTable.vue'
+import ImportApp from '@/components/ImportApp.vue'
 
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
 	name: "home",
 	data(){
 		return{
-			is_table: true
+			is_table: true,
+			show_import: false
 		}
 	},
 	components: {
 		// AppCard,
 		NewApplicationButton,
 		PageHeader,
-		AppsTable
+		AppsTable,
+		ImportApp
 		// SaveApplicationsButton
 	},
 	computed: {

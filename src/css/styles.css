@@ -16,7 +16,7 @@
 	@apply bg-teal-200;
 }
 .btn-secondary {
-	@apply bg-transparent font-semibold px-4 py-2 border border-teal-600 rounded mr-4;
+	@apply bg-transparent font-semibold px-4 py-2 border border-teal-600 rounded;
 }
 .btn-secondary:hover {
 	@apply bg-teal-200;
