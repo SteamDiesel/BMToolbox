@@ -32,6 +32,7 @@
 						v-model="calc.vehicle_price"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -43,6 +44,7 @@
 						v-model="calc.aftermarket"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -54,6 +56,7 @@
 						v-model="calc.warranty"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -65,6 +68,7 @@
 						v-model="calc.trade_value"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -76,6 +80,7 @@
 						v-model="calc.trade_payout"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -87,6 +92,7 @@
 						v-model="calc.sign_deposit"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -98,6 +104,7 @@
 						v-model="calc.further_deposit"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -123,6 +130,7 @@
 						v-model="calc.origination_fee"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="110"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -133,6 +141,7 @@
 						v-model="calc.brokerage"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="110"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -143,6 +152,7 @@
 						v-model="calc.credit_insurance"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -154,6 +164,7 @@
 						v-model="calc.gap_insurance"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -164,6 +175,7 @@
 						v-model="calc.lender_fee"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="50"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -174,6 +186,7 @@
 						v-model="calc.monthly_fee"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="5"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -198,6 +211,7 @@
 						v-model="calc.term"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="12"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -209,6 +223,7 @@
 						v-model="calc.apr"
 						@change="saveApplicationsToLocal"
 						type="number"
+						step="0.1"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -220,6 +235,7 @@
 						@change="saveApplicationsToLocal"
 						@keyup="setRvPercent"
 						type="number"
+						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -231,6 +247,7 @@
 						@change="saveApplicationsToLocal"
 						@keyup="setRv"
 						type="number"
+						step="2"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -252,6 +269,13 @@
 					>${{monthly_pmt}}/m</div>
 				</div>
 			</div>
+		</div>
+		<div class="flex w-full flex-wrap mt-12">
+			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 60, rv: 0})" >5y</button>
+			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 84, rv: 0})" >7y</button>
+			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 60, rv: 30})" >5y30%</button>
+			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 48, rv: 40})" >4y40%</button>
+			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 36, rv: 50})" >3y50%</button>
 		</div>
 	</div>
 </template>
@@ -350,6 +374,11 @@ export default {
 	},
 
 	methods: {
+		applyPreset(payload){
+			this.calc.term = payload.term;
+			this.calc.rv_percent = payload.rv;
+			this.setRv()
+		},
 		setVals(){
 			var calc = this.calc
 			calc.full_naf = +this.naf 

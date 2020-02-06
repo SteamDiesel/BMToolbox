@@ -1,6 +1,6 @@
 <template>
 	<div class="w-full">
-		<table class="w-full h-full table-fixed">
+		<table class="w-full h-full">
 			<thead class="w-full">
 				<tr class="text-xs uppercase bg-gray-200 w-full">
 					<th class="py-3 text-left px-3 border-t w-10 border-r border-gray-400"></th>
@@ -12,29 +12,28 @@
 			</thead>
 			<tbody>
 				<tr class="border-b border-gray-400" v-for="(app, index) in applications" :key="index">
-				<td class="py-3 text-left px-3" ></td>
-				<td class="py-3 text-left px-3 hover:text-blue-600 hover:underline font-semibold cursor-pointer"  @click="openApp(index)">
-					
+					<td class="py-3 text-left px-3" ></td>
+					<td class="py-3 text-left px-3 hover:text-blue-600 hover:underline font-semibold cursor-pointer"  @click="openApp(index)">
 						<span v-for="(person, index) in app.people" :key="index">
 							{{person.first_name}} {{person.surname}}<span
 								class="mx-2"
-								v-if="index+1 < app.people.length"
+								v-if="index + 1 < app.people.length"
 							>&</span>
 						</span>
-					
-					
-				</td>
-				<td class="py-3 text-left px-3" >
-					{{app.vehicle.year}} {{app.vehicle.make}} {{app.vehicle.model}} {{app.vehicle.badge}}
-					
-				</td>
-				<td class="py-3 text-left px-3" >
-					{{app.loan_calculator.full_naf}}
-				</td>
-				<td class="py-3 text-left px-3" >
-					{{app.status}}
-				</td>
-			</tr>
+					</td>
+					<td class="py-3 text-left px-3" >
+						{{app.vehicle.year}} 
+						{{app.vehicle.make}} 
+						{{app.vehicle.model}} 
+						{{app.vehicle.badge}}
+					</td>
+					<td class="py-3 text-left px-3" >
+						{{app.loan_calculator.full_naf}}
+					</td>
+					<td class="py-3 text-left px-3" >
+						{{app.status}}
+					</td>
+				</tr>
 			</tbody>
 			
 			
