@@ -1,9 +1,13 @@
 <template>
 	<div class="w-full bg-gray-100 p-2">
-		<div class="flex justify-end">
+		<div class="flex justify-between">
+			<Header title="Personal Details">
+			
+			</Header>
 			<slot />
 		</div>
-		<h2 class="text-xl">Personal Details</h2>
+		
+		
 		<div class="flex flex-wrap">
 			<FormField class="w-1/2" @copy="copyClipboard('#'+person.first_name)">
 				<template v-slot:label>First Name</template>
@@ -178,7 +182,7 @@
 					<option value="WA">WA</option>
 					<option value="NT">NT</option>
 					<option value="TAS">TAS</option>
-					<option value="TAS">International</option>
+					<option value="International">International</option>
 				</select>
 			</FormField>
 			<FormField
@@ -331,6 +335,8 @@ import OtherLoans from "@/components/application/sections/OtherLoans.vue";
 import OtherAssets from "@/components/application/sections/OtherAssets.vue";
 import DomesticExpenses from "@/components/application/sections/DomesticExpenses.vue";
 import BalanceSheet from "@/components/application/sections/BalanceSheet.vue";
+import Header from "@/components/application/sections/SectionHeader.vue";
+
 
 export default {
 	name: "Person",
@@ -345,7 +351,8 @@ export default {
 		OtherLoans,
 		OtherAssets,
 		DomesticExpenses,
-		BalanceSheet
+		BalanceSheet,
+		Header
 	},
 	props: {
 		people: Array,

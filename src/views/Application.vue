@@ -9,8 +9,12 @@
 					<template v-slot:menu>
 						<div class="bg-gray-200 border-2 border-gray-500">
 							
+							<router-link
+								to="/print-application"
+							>
+							<div  class="w-full p-6 font-semibold hover:bg-teal-100">Print</div>
+							</router-link>
 							
-							<a href="/print-application"><div  class="w-full p-6 font-semibold hover:bg-teal-100">Print</div></a>
 							<hr />
 							<div class="w-full p-6 font-semibold hover:bg-teal-100">Delete</div>
 						</div>
