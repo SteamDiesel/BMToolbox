@@ -1,27 +1,23 @@
 <template>
-	<div class="p-2">
-		<div class="flex w-full px-4">
-			<div class="w-full">
-				
-				<div class="flex justify-between">
-					<div
-						@click="makeBig('week')"
-						:class="{ 'text-2xl font-semibold': calc.weekly_big}"
-						class="cursor-pointer mt-3"
-					>${{weekly_pmt}}/w</div>
-					<div
-						@click="makeBig('fort')"
-						:class="{ 'text-2xl font-semibold': calc.fort_big}"
-						class="cursor-pointer mt-3"
-					>${{fort_pmt}}/f</div>
-					<div
-						@click="makeBig('month')"
-						:class="{ 'text-2xl font-semibold': calc.monthly_big}"
-						class="cursor-pointer mt-3"
-					>${{monthly_pmt}}/m</div>
-				</div>
+	<div class="p-2 w-120">
+		<div class="flex w-full px-4 h-24 items-center">	
+			<div class="w-full flex h-full justify-between items-center">
+				<div
+					@click="makeBig('week')"
+					:class="{ 'text-2xl font-semibold': calc.weekly_big}"
+					class="cursor-pointer mt-3 text-center"
+				>${{weekly_pmt}}/w</div>
+				<div
+					@click="makeBig('fort')"
+					:class="{ 'text-2xl font-semibold': calc.fort_big}"
+					class="cursor-pointer mt-3 text-center"
+				>${{fort_pmt}}/f</div>
+				<div
+					@click="makeBig('month')"
+					:class="{ 'text-2xl font-semibold': calc.monthly_big}"
+					class="cursor-pointer mt-3 text-center"
+				>${{monthly_pmt}}/m</div>
 			</div>
-
 		</div>
 		<div class="flex w-full">
 			<div class="w-1-3">
@@ -38,7 +34,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.aftermarket)">
-					<template v-slot:label>aftermarket</template>
+					<template v-slot:label>Aftermarket</template>
 					<input
 						:id="'#'+calc.aftermarket"
 						v-model="calc.aftermarket"
@@ -50,7 +46,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.warranty)">
-					<template v-slot:label>warranty</template>
+					<template v-slot:label>Warranty</template>
 					<input
 						:id="'#'+calc.warranty"
 						v-model="calc.warranty"
@@ -62,7 +58,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.trade_value)">
-					<template v-slot:label>trade_value</template>
+					<template v-slot:label>Trade Value</template>
 					<input
 						:id="'#'+calc.trade_value"
 						v-model="calc.trade_value"
@@ -74,7 +70,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.trade_payout)">
-					<template v-slot:label>trade_payout</template>
+					<template v-slot:label>Trade Payout</template>
 					<input
 						:id="'#'+calc.trade_payout"
 						v-model="calc.trade_payout"
@@ -86,7 +82,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.sign_deposit)">
-					<template v-slot:label>sign_deposit</template>
+					<template v-slot:label>Initial Deposit</template>
 					<input
 						:id="'#'+calc.sign_deposit"
 						v-model="calc.sign_deposit"
@@ -98,7 +94,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.further_deposit)">
-					<template v-slot:label>further_deposit</template>
+					<template v-slot:label>Deposit at Delivery</template>
 					<input
 						:id="'#'+calc.further_deposit"
 						v-model="calc.further_deposit"
@@ -124,7 +120,7 @@
 
 			<div class="w-1-3">
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.origination_fee)">
-					<template v-slot:label>origination_fee</template>
+					<template v-slot:label>Origination Fee</template>
 					<input
 						:id="'#'+calc.origination_fee"
 						v-model="calc.origination_fee"
@@ -135,7 +131,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.brokerage)">
-					<template v-slot:label>brokerage</template>
+					<template v-slot:label>Brokerage</template>
 					<input
 						:id="'#'+calc.brokerage"
 						v-model="calc.brokerage"
@@ -146,7 +142,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.credit_insurance)">
-					<template v-slot:label>credit_insurance</template>
+					<template v-slot:label>Credit Insurance</template>
 					<input
 						:id="'#'+calc.credit_insurance"
 						v-model="calc.credit_insurance"
@@ -158,7 +154,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.gap_insurance)">
-					<template v-slot:label>gap_insurance</template>
+					<template v-slot:label>Gap Insurance</template>
 					<input
 						:id="'#'+calc.gap_insurance"
 						v-model="calc.gap_insurance"
@@ -169,7 +165,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.lender_fee)">
-					<template v-slot:label>lender_fee</template>
+					<template v-slot:label>Lender Fee</template>
 					<input
 						:id="'#'+calc.lender_fee"
 						v-model="calc.lender_fee"
@@ -180,7 +176,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.monthly_fee)">
-					<template v-slot:label>monthly_fee</template>
+					<template v-slot:label>Monthly Fee</template>
 					<input
 						:id="'#'+calc.monthly_fee"
 						v-model="calc.monthly_fee"
@@ -191,7 +187,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+naf)">
-					<template v-slot:label>NAF</template>
+					<template v-slot:label>N.A.F.</template>
 					<input
 						:id="'#'+naf"
 						v-model="naf"
@@ -205,7 +201,7 @@
 
 			<div class="w-1-3">
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.term)">
-					<template v-slot:label>term</template>
+					<template v-slot:label>Term (months)</template>
 					<input
 						:id="'#'+calc.term"
 						v-model="calc.term"
@@ -217,7 +213,7 @@
 				</FormField>
 
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.apr)">
-					<template v-slot:label>apr</template>
+					<template v-slot:label>A.P.R.</template>
 					<input
 						:id="'#'+calc.apr"
 						v-model="calc.apr"
@@ -228,7 +224,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.rv)">
-					<template v-slot:label>rv</template>
+					<template v-slot:label>Residual Value</template>
 					<input
 						:id="'#'+calc.rv"
 						v-model="calc.rv"
@@ -240,7 +236,7 @@
 					/>
 				</FormField>
 				<FormField class="w-full" @copy="copyClipboard('#'+calc.rv_percent)">
-					<template v-slot:label>rv_percent</template>
+					<template v-slot:label>Residual Percent</template>
 					<input
 						:id="'#'+calc.rv_percent"
 						v-model="calc.rv_percent"

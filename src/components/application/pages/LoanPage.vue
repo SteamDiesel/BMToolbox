@@ -2,7 +2,7 @@
 	<div class="flex w-full justify-between">
 
 
-		<div class="bg-gray-100 ml-8 mr-4 my-5 w-full p-2">
+		<div class="bg-gray-100 ml-8 mr-4 my-5 w-3xl p-2">
 			<div class="flex justify-between">
 				<h2 class="text-xl">Loan Parameters</h2>
 				<button @click="saveQuote" class="font-semibold text-blue-600 mr-4">Save</button>
