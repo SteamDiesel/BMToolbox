@@ -1,14 +1,14 @@
 <template>
 	<div class="bg-gray-100 rounded-lg border-2 border-teal-500 w-100 h-100 flex flex-col items-center justify-between">
-		<!-- <div v-if="!authenticated" class="border border-2 rounded border-red-600">
-			You are not logged in
-		</div> -->
+		
 			<div class="flex justify-end w-full">
 				<button @click="toggleLogin" class="text-gray-500 m-4">
 					close
 				</button>
 			</div>
-		
+			<div class="flex justify-center font-semibold text-red-800">
+				{{error_message}}
+			</div>
 			<input class="form-input bg-gray-200 rounded-lg text-center w-64 h-12" type="text" 
 			v-model="email" placeholder="email">
 			

@@ -277,8 +277,8 @@ export default new Vuex.Store({
 		},
 		unsaved_changes: false,
 		app_import_field: '',
-		visitor_log_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/visitor-log',
-		details_update_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/user-details-update',
+		// visitor_log_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/visitor-log',
+		// details_update_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/user-details-update',
 		// visitor_log_url: 'http://backend.test/api/lite-bdfi-app/visitor-log',
 		// details_update_url: 'http://backend.test/api/lite-bdfi-app/user-details-update',
 		
@@ -750,7 +750,7 @@ export default new Vuex.Store({
 		},
 		postUserVisitorDetailsToServer({state}){
 			// window.console.log('logging visit')
-			Axios.post(state.visitor_log_url, {
+			Axios.post(state.env.visitor_log_url, {
 				user_name: state.user_preferences.user_name,
 				user_email: state.user_preferences.user_email,
 				user_phone: state.user_preferences.user_phone,
@@ -760,7 +760,7 @@ export default new Vuex.Store({
 		},
 		saveDetails({state, commit}){
 			commit('savePreferences')
-			Axios.post(state.details_update_url, {
+			Axios.post(state.env.details_update_url, {
 				session_uuid: state.user_preferences.session_uuid,
 				email: state.user_preferences.user_email,
 				first_name: state.user_preferences.user_name,
