@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import { uuid } from "vue-uuid";
 import Axios from 'axios'
 
+import auth from './modules/auth'
+import env from './modules/environment'
 
 
 Vue.use(Vuex);
@@ -279,6 +281,7 @@ export default new Vuex.Store({
 		details_update_url: 'https://api.steamdiesel.dev/api/lite-bdfi-app/user-details-update',
 		// visitor_log_url: 'http://backend.test/api/lite-bdfi-app/visitor-log',
 		// details_update_url: 'http://backend.test/api/lite-bdfi-app/user-details-update',
+		
 	},
 	getters: {
 		application: state => {
@@ -724,6 +727,10 @@ export default new Vuex.Store({
 		},
 
 		initialize({commit, dispatch}) {
+			var token = localStorage.getItem('session_token')
+			if(token){
+				dispatch('testAuthConnection')
+			}
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
@@ -835,5 +842,8 @@ export default new Vuex.Store({
 		
 		
 	},
-	modules: {}
+	modules: {
+		auth,
+		env
+	}
 });

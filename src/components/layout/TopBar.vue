@@ -2,7 +2,38 @@
 	<div class="h-12">
 		<div class="fixed w-full ">
 			<div id="nav" class="bg-gray-800 border-t-4 border-teal-400 no-print h-12 px-3">
-				<div class="flex justify-between h-full items-center pl-2 sm:pl-0">
+
+
+
+				<div v-if="!authenticated" class="flex justify-between h-full items-center pl-2 sm:pl-0">
+					<div class="h-full text-gray-100 flex items-center text-sm font-semibold">
+						<router-link
+							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
+							to="/home"
+						>BDFI</router-link>
+						<router-link
+							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
+							to="/calculator"
+						>Calculator</router-link>
+						
+					</div>
+					<div class="flex h-full items-center ">
+						<a href="http://lite-resources.bdfi.test/register">
+							<div class="btn-secondary py-1 mr-4">
+								Register
+							</div>
+						</a>
+						
+						<button @click="toggleLogin" class="btn-primary py-1">
+							Sign In
+						</button>
+					</div>
+				</div>
+
+
+
+
+				<div v-if="authenticated" class="flex justify-between h-full items-center pl-2 sm:pl-0">
 					<div class="h-full text-gray-100 flex items-center text-sm font-semibold">
 						<router-link
 							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
@@ -13,15 +44,6 @@
 							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
 							to="/calculator"
 						>Calculator</router-link>
-						<!-- <router-link class="rounded-t-lg px-2 py-1 ml-2" to="/application">
-					<svg viewBox="0 0 24 24" class="h-10 w-10">
-						<g>
-							<path class="primary" d="M22 10H2V6c0-1.1.9-2 2-2h7l2 2h7a2 2 0 0 1 2 2v2z" />
-							<rect width="20" height="12" x="2" y="8" class="secondary" rx="2" />
-						</g>
-					</svg>
-						</router-link>-->
-
 						<router-link
 							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
 							to="/applications"
@@ -54,21 +76,38 @@
 						</router-link>
 					</div>
 				</div>
+
+
+
 			</div>
 		</div>
+		
 	</div>
 </template>
 
 <script>
+
 import {
-	mapState
-	// mapMutations,
+	mapState,
+	mapMutations,
 	// mapActions
 } from "vuex";
 export default {
 	name: "TopBar",
+
+	data(){
+		return{
+			show_login: false
+		}
+	},
 	computed: {
-		...mapState(["user_preferences"])
+		...mapState({
+			authenticated: state => state.auth.authenticated,
+		})
+	},
+	methods:{
+		...mapMutations(["toggleLogin"])
 	}
 };
 </script>
+

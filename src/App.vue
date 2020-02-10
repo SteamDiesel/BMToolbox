@@ -1,25 +1,27 @@
 <template>
 	<div class="min-h-screen text-sm text-gray-600 bg-gray-100" id="app">
-		
 		<Main>
 			<transition name="fade" mode="out-in">
 				<router-view />
 			</transition>
 		</Main>
-
 	</div>
 </template>
 <script>
 import {
 	// mapState,
 	// mapMutations,
-	mapActions
+	mapActions, mapState
 } from "vuex";
 import Main from "@/components/layout/Main.vue";
-
 export default {
 	components: {
 		Main
+	},
+	computed:{
+		...mapState({
+			authenticated: state => state.auth.authenticated,
+		})
 	},
 	methods: {
 		// ...mapMutations(['initialize']),
@@ -35,7 +37,6 @@ export default {
 .primary {
 	fill: #64d5ca;
 }
-
 .secondary {
 	fill: #20504f;
 }
