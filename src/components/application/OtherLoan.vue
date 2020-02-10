@@ -25,7 +25,7 @@
 					:id="'#'+other_loan.borrow_amount"
 					v-model="other_loan.borrow_amount"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -39,7 +39,7 @@
 					:id="'#'+other_loan.current_balance"
 					v-model="other_loan.current_balance"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -52,8 +52,12 @@
 				<input
 					:id="'#'+other_loan.monthly_payment"
 					v-model="other_loan.monthly_payment"
+					@keyup.87="other_loan.monthly_payment = other_loan.monthly_payment * 4.33"
+					@keyup.70="other_loan.monthly_payment = other_loan.monthly_payment * 2.166"
+					@keyup.81="other_loan.monthly_payment = other_loan.monthly_payment * 0.33"
+					@keyup.89="other_loan.monthly_payment = other_loan.monthly_payment * 0.0833"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -64,6 +68,7 @@
 		<div class="flex flex-wrap">
 			<FormField 
 			class="w-1/5"
+			:no_copy=true
 			@copy="copyClipboard('#'+other_loan.start_date)">
 				<template v-slot:label>
 					Start Date
@@ -72,7 +77,7 @@
 					:id="'#'+other_loan.start_date"
 					v-model="other_loan.start_date"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -86,7 +91,7 @@
 					:id="'#'+other_loan.term"
 					v-model="other_loan.term"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -110,7 +115,7 @@
 					:id="'#'+other_loan.apr"
 					v-model="other_loan.apr"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>

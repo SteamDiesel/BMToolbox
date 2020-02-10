@@ -79,6 +79,10 @@
 					<input
 						:id="'#'+address.rent"
 						v-model="address.rent"
+						@keyup.87="address.rent = address.rent * 4.33"
+						@keyup.70="address.rent = address.rent * 2.166"
+						@keyup.81="address.rent = address.rent * 0.33"
+						@keyup.89="address.rent = address.rent * 0.0833"
 						@change="saveApplicationsToLocal"
 						type="text"
 						class="form-input text-center"
@@ -94,6 +98,10 @@
 					<input
 						:id="'#'+address.board"
 						v-model="address.board"
+						@keyup.87="address.board = address.board * 4.33"
+						@keyup.70="address.board = address.board * 2.166"
+						@keyup.81="address.board = address.board * 0.33"
+						@keyup.89="address.board = address.board * 0.0833"
 						@change="saveApplicationsToLocal"
 						type="text"
 						class="form-input text-center"

@@ -84,6 +84,10 @@
 				<input
 					:id="'#'+vehicle.finance_payment"
 					v-model="vehicle.finance_payment"
+					@keyup.87="vehicle.finance_payment = vehicle.finance_payment * 4.33"
+					@keyup.70="vehicle.finance_payment = vehicle.finance_payment * 2.166"
+					@keyup.81="vehicle.finance_payment = vehicle.finance_payment * 0.33"
+					@keyup.89="vehicle.finance_payment = vehicle.finance_payment * 0.0833"
 					@change="saveApplicationsToLocal"
 					type="number"
 					class="form-input text-center"

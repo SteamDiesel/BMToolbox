@@ -327,7 +327,7 @@
 					/>
 				</FormField>
 			</div>
-			<FormField class="min-w-36" no_copy="true" @copy="copyClipboard('#'+vehicle.type)">
+			<FormField class="min-w-36" :no_copy=true @copy="copyClipboard('#'+vehicle.type)">
 				<template v-slot:label>Vehicle Type</template>
 				<select
 					:id="'#'+vehicle.type"

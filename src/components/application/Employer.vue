@@ -38,7 +38,9 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-1/4" @copy="copyClipboard('#'+employer.status)">
+			<FormField class="w-1/4"
+			:no_copy=true
+			@copy="copyClipboard('#'+employer.status)">
 				<template v-slot:label>Type</template>
 				<select
 					:id="'#'+employer.status"
@@ -93,7 +95,8 @@
 
 		<div  v-if="!employer.current" class="flex flex-wrap">
 			<!-- Previous Employer  -->
-			<FormField class="w-1/6" @copy="copyClipboard('#'+employer.years)">
+			<FormField class="w-1/6" 
+			@copy="copyClipboard('#'+employer.years)">
 				<template v-slot:label>Years</template>
 				<input
 					:id="'#'+employer.years"
@@ -103,7 +106,8 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-1/6" @copy="copyClipboard('#'+employer.months)">
+			<FormField class="w-1/6"
+			@copy="copyClipboard('#'+employer.months)">
 				<template v-slot:label>Months</template>
 				<input
 					:id="'#'+employer.months"
@@ -137,7 +141,7 @@
 
 		<div v-if="employer.current" class="flex flex-wrap">
 			<!-- Current Employer -->
-			<FormField class="w-1/6" @copy="copyClipboard('#'+employer.years)">
+			<FormField class="w-1/6" :no_copy=true  @copy="copyClipboard('#'+employer.years)">
 				<template v-slot:label>Years</template>
 				<input
 					:id="'#'+employer.years"
@@ -147,7 +151,7 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-1/6" @copy="copyClipboard('#'+employer.months)">
+			<FormField class="w-1/6" :no_copy=true  @copy="copyClipboard('#'+employer.months)">
 				<template v-slot:label>Months</template>
 				<input
 					:id="'#'+employer.months"
@@ -157,7 +161,8 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-1/3" @copy="copyClipboard('#'+employer.start_date)">
+			<FormField class="w-1/3"
+			:no_copy=true @copy="copyClipboard('#'+employer.start_date)">
 				<template v-slot:label>Start Date</template>
 				<input
 					:id="'#'+employer.start_date"
@@ -176,6 +181,10 @@
 					<input
 						:id="'#'+employer.net_monthly_income"
 						v-model="employer.net_monthly_income"
+						@keyup.87="employer.net_monthly_income = employer.net_monthly_income * 4.33"
+						@keyup.70="employer.net_monthly_income = employer.net_monthly_income * 2.166"
+						@keyup.81="employer.net_monthly_income = employer.net_monthly_income * 0.33"
+						@keyup.89="employer.net_monthly_income = employer.net_monthly_income * 0.0833"
 						@change="saveApplicationsToLocal"
 						type="number"
 						class="form-input text-center font-semibold"
@@ -194,7 +203,9 @@
 			</div>
 			<div class="font-semibold mt-2">Payslip Calculator</div>
 			<div class="flex flex-wrap">
-				<FormField class="w-1/3" @copy="copyClipboard('#'+employer.payslip_start_date)">
+				<FormField class="w-1/3"
+					:no_copy=true 
+					@copy="copyClipboard('#'+employer.payslip_start_date)">
 					<template v-slot:label>YTD-Start Date</template>
 					<input
 						:id="'#'+employer.payslip_start_date"
@@ -204,7 +215,9 @@
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-1/3" @copy="copyClipboard('#'+employer.payslip_date)">
+				<FormField class="w-1/3"
+					:no_copy=true 
+					@copy="copyClipboard('#'+employer.payslip_date)">
 					<template v-slot:label>Payslip Date</template>
 					<input
 						:id="'#'+employer.payslip_date"
@@ -214,7 +227,9 @@
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-1/3" @copy="copyClipboard('#'+employer.payslip_net_ytd)">
+				<FormField class="w-1/3"
+					:no_copy=true
+					@copy="copyClipboard('#'+employer.payslip_net_ytd)">
 					<template v-slot:label>YTD Net Income</template>
 					<input
 						:id="'#'+employer.payslip_net_ytd"

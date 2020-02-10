@@ -25,7 +25,7 @@
 					:id="'#'+property.market_value"
 					v-model="property.market_value"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -38,8 +38,12 @@
 				<input
 					:id="'#'+property.rental_income"
 					v-model="property.rental_income"
+					@keyup.87="property.rental_income = property.rental_income * 4.33"
+					@keyup.70="property.rental_income = property.rental_income * 2.166"
+					@keyup.81="property.rental_income = property.rental_income * 0.33"
+					@keyup.89="property.rental_income = property.rental_income * 0.0833"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -73,7 +77,7 @@
 					:id="'#'+property.first_mortgage_balance"
 					v-model="property.first_mortgage_balance"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -86,8 +90,12 @@
 				<input
 					:id="'#'+property.first_mortgage_payment"
 					v-model="property.first_mortgage_payment"
+					@keyup.87="property.first_mortgage_payment = property.first_mortgage_payment * 4.33"
+					@keyup.70="property.first_mortgage_payment = property.first_mortgage_payment * 2.166"
+					@keyup.81="property.first_mortgage_payment = property.first_mortgage_payment * 0.33"
+					@keyup.89="property.first_mortgage_payment = property.first_mortgage_payment * 0.0833"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>

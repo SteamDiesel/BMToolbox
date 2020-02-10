@@ -205,7 +205,7 @@
 					:id="'#'+person.licence_expiry"
 					v-model="person.licence_expiry"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>

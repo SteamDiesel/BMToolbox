@@ -30,8 +30,8 @@
 					<td class="py-3 text-left px-3" >
 						{{app.loan_calculator.full_naf | toCurrency}}
 					</td>
-					<td class="py-3 text-left px-3" >
-						{{app.status}}
+					<td class="py-3 text-left px-3 font-semibold" :style="{'background-color': app.status.color}">
+						{{app.status.value}}
 					</td>
 				</tr>
 			</tbody>

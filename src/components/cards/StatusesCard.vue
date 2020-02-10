@@ -4,6 +4,7 @@
 		  <input type="text" placeholder="Value" v-model="status.value">
 		  <input type="color" v-model="status.color">
 	  </div>
+	  
   </div>
 </template>
 

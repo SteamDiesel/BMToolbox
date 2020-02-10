@@ -3,11 +3,10 @@
 		<div
 			class="w-100 body-internal hidden md:block flex flex-col justify-start pt-4 items-center border-r-2 border-gray-300"
 		>
-			<div class="w-full flex justify-end">
-				<div>
-					<h3>Status</h3>
-					<select name="" id="">
-						<option value="Lead">Lead</option>
+			<div class="w-full flex justify-between">
+				<div class="ml-8">
+					<select v-if="statuses" @change="saveApplicationsToLocal" v-model="application.status" class="form-input p-2 rounded w-32 font-semibold" :style="{'background-color': application.status.color}" name="" id="">
+						<option v-for="(status, index) in statuses" :key="index" :value="status" class="p-2" :style="{'background-color': status.color}">{{status.value}}</option>
 					</select>
 				</div>
 				
@@ -103,7 +102,16 @@ export default {
 	},
 	data() {
 		return {
-			
+			statuses: [
+				{value: 'Lead', color: '#f7fafc'},
+				{value: 'Application', color: '#f7fafc'},
+				{value: 'Submitted', color: '#f7fafc'},
+				{value: 'Approved', color: '#48bb78'},
+				{value: 'Docs Out', color: '#f7fafc'},
+				{value: 'Settlement', color: '#f7fafc'},
+				{value: 'Settled', color: '#4299e1'},
+				{value: 'Declined', color: '#a0aec0'},
+			]
 		};
 	},
 	computed: {
