@@ -39,8 +39,8 @@ export default {
 	components: {},
 	data(){
 		return {
-			email: 'jason@bdfi.com.au',
-			password: 'password'
+			email: '',
+			password: ''
 		}
 	},
 	computed: {
