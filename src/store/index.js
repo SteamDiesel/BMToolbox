@@ -23,6 +23,9 @@ export default new Vuex.Store({
 			'Email Received',
 			'Face to Face',
 		],
+		app_statuses:[
+			{value: '', color: ''}
+		],
 		loan_calculator: {
 			name: "",
 			vehicle_price: 30000,
@@ -64,7 +67,10 @@ export default new Vuex.Store({
 			user_email_signature_image_url: '',
 			require_confirmation_prompts: true,
 			show_copy_button: true,
-
+			app_statuses:[
+				{value: 'New Lead', color: '', order: ''},
+				{value: 'Contacted', color: '', order: ''}
+			],
 			vehicle_price: 30000,
 			custom_one: 0,
 			custom_one_label: 'Custom Field 01',

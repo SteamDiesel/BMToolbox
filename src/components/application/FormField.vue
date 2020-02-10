@@ -6,7 +6,7 @@
 			</label><br>
 			<slot/>
 			<div
-			v-if="user_preferences.show_copy_button"
+				v-if="user_preferences.show_copy_button && !no_copy"
 				@click="$emit('copy')"
 				class="cursor-pointer absolute bottom-0 right-0 no-print m-1"
 			>
@@ -24,6 +24,9 @@
 import { mapState } from 'vuex'
 export default {
 	name: 'FormField',
+	props: {
+		no_copy: Boolean
+	},
 	computed:{
 		...mapState(['user_preferences'])
 	}

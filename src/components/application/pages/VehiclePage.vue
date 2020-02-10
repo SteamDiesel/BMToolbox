@@ -1,7 +1,7 @@
 <template>
 	<div class="w-full">
 		<div class="bg-gray-200 p-8">
-			<PurposeGoods v-if="application.vehicle" :vehicle="application.vehicle" />
+			<PurposeGoods class="md:w-160" v-if="application.vehicle" :vehicle="application.vehicle" />
 		</div>
 	</div>
 </template>
