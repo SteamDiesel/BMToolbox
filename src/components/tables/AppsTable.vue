@@ -28,7 +28,7 @@
 						{{app.vehicle.badge}}
 					</td>
 					<td class="py-3 text-left px-3" >
-						{{app.loan_calculator.full_naf}}
+						{{app.loan_calculator.full_naf | toCurrency}}
 					</td>
 					<td class="py-3 text-left px-3" >
 						{{app.status}}
