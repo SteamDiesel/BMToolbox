@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import UUID from 'vue-uuid';
+import UUID from 'vue-uuid'
 import moment from 'moment'
-
+import './registerServiceWorker'
 
  
 // Vue.use(UUID, moment, VueAxios, axios);
