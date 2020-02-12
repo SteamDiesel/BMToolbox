@@ -56,40 +56,5 @@
 			</p>
 		</div>
 
-		<div class="mt-16 md:flex md:items-center">
-			<div class="w-full md:w-1/5 mx-4 flex justify-center">
-				<img class="w-1/2 md:w-full rounded-full" src="@/assets/Jason Lloyd Law.jpg" alt="Jason Lloyd Law" />
-			</div>
-			<div>
-				<h1 class="text-2xl">Contact</h1>
-				<p class="mt-5">
-					This is a project built by me, Jason Law.
-					<br />I've been a Business Manager Locum in the motor trade since 2012, an
-					asset finance broker since 2014 and a web developer since 2017.
-					<br />In 2012 it seemed weird that many Business Managers and Finance Brokers still take handwritten
-					applications... now it's 2020 and we've made very little progress.
-				</p>
-				<p class="mt-5">
-					To be fair, there haven't been many good alternatives to pen and paper in this domain. 
-					This app is intended to change that.	
-				</p>
-				<p class="mt-5">
-					I'm building the features into this system that I use, please share it with other Business Managers or Asset Finance Brokers if you have found it useful.
-				</p>
-				<p class="mt-5">
-					You can find me on
-					<a
-						class="hover:underline text-indigo-500 font-semibold"
-						href="https://www.linkedin.com/in/jason-bdfi/"
-						target="_blank"
-					>LinkedIn</a>, or at my developer portfolio
-					<a
-						class="hover:underline text-indigo-500 font-semibold"
-						href="https://steamdiesel.dev/"
-						target="_blank"
-					>SteamDiesel.dev</a>.
-				</p>
-			</div>
-		</div>
 	</div>
 </template>
