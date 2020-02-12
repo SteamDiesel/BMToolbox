@@ -7,9 +7,8 @@ module.exports = {
 		themeColor: '#2d3748',
 		msTileColor: '#2d3748',
 		appleMobileWebAppCapable: 'no',
-		appleMobileWebAppStatusBarStyle: 'black',
-		manifestPath: 'manifest.webmanifest',
-
+		appleMobileWebAppStatusBarStyle: 'default',
+		manifestPath: 'manifest.json',
 		workboxPluginMode: 'GenerateSW',
 	}
 }
