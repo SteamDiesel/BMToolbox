@@ -23,18 +23,14 @@ const routes = [
 	{
 		path: '/calculator',
 		name: 'calculator',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () => import(/* webpackChunkName: "about" */ '../views/Calculator.vue')
+
+		component: () => import(/* webpackChunkName: "calculator" */ '../views/Calculator.vue')
 	},
 	{
 		path: '/application',
 		name: 'application',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
+
+		component: () => import(/* webpackChunkName: "application" */ '../views/Application.vue'),
 		beforeEnter: (to, from, next) => {
 			if (!auth.state.authenticated) next('/home')
 			else next()
@@ -44,10 +40,8 @@ const routes = [
 	{
 		path: '/applications',
 		name: 'applications',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () => import(/* webpackChunkName: "about" */ '../views/Applications.vue'),
+
+		component: () => import(/* webpackChunkName: "apps" */ '../views/Applications.vue'),
 		beforeEnter: (to, from, next) => {
 			if (!auth.state.authenticated) next('/home')
 			else next()
@@ -56,27 +50,23 @@ const routes = [
 	{
 		path: '/tinkering',
 		name: 'tinkering',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () => import(/* webpackChunkName: "about" */ '../views/Tinkering.vue'),
-		// beforeEnter: (to, from, next) => {
-		// 	if (!auth.state.authenticated) next('/home')
-		// 	else next()
-		// }
+	
+		component: () => import(/* webpackChunkName: "tinkering" */ '../views/Tinkering.vue'),
+		beforeEnter: (to, from, next) => {
+			if (!auth.state.authenticated) next('/home')
+			else next()
+		}
 	},
 	{
 		path: '/about',
 		name: 'about',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
+		
 		component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
 	},
 	{
 		path: '/settings',
 		name: 'settings',
-		component: () => import(/* webpackChunkName: "about" */ '../views/Preferences.vue'),
+		component: () => import(/* webpackChunkName: "preferences" */ '../views/Preferences.vue'),
 		beforeEnter: (to, from, next) => {
 			if (!auth.state.authenticated) next('/home')
 			else next()
@@ -85,7 +75,7 @@ const routes = [
 	{
 		path: '/print-application',
 		name: 'print-application',
-		component: () => import(/* webpackChunkName: "about" */ '../views/PrintApplication.vue'),
+		component: () => import(/* webpackChunkName: "print-app" */ '../views/PrintApplication.vue'),
 		beforeEnter: (to, from, next) => {
 			if (!auth.state.authenticated) next('/home')
 			else next()
@@ -94,7 +84,7 @@ const routes = [
 	{
 		path: '/data-dump',
 		name: 'data-dump',
-		component: () => import(/* webpackChunkName: "about" */ '../views/DataDump.vue'),
+		component: () => import(/* webpackChunkName: "data-dump" */ '../views/DataDump.vue'),
 		beforeEnter: (to, from, next) => {
 			if (!auth.state.authenticated) next('/home')
 			else next()
