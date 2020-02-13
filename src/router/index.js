@@ -91,6 +91,12 @@ const routes = [
 		}
 	},
 	{
+		// This should catch the 404 redirect in the spa when installed as PWA App
+		path: '/index.html',
+		name: 'home',
+		component: Home
+	},
+	{
 		// This route must be last in the routes list.
 		path: '/*',
 		name: 'FourOhFour',

@@ -21,9 +21,6 @@ workbox.core.setCacheNameDetails({prefix: "litebdfiapp"});
 
 self.addEventListener('message', (event) => {
 	
-    if ( event.request.url.match( '^.*(\/_redirects\/).*$' ) ) {
-        return false;
-    }
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
