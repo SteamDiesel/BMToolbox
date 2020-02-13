@@ -10,12 +10,10 @@ module.exports = {
 		appleMobileWebAppStatusBarStyle: 'default',
 		manifestPath: 'manifest.json',
 		workboxPluginMode: 'InjectManifest',
-		
 		workboxOptions: {
 			// swSrc is required in InjectManifest mode.
-			swSrc: 'sw.js',
+			swSrc: 'service-worker.js',
 			// ...other Workbox options...
-			}
-		
+		}
 	}
 }

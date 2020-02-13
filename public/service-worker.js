@@ -11,11 +11,11 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-
-// importScripts(
-//   "/precache-manifest.js"
-// );
+// importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.0.0/workbox-sw.js');
+importScripts(
+  "/precache-manifest.381dea6a9b84e8d8e0a58f2f20d1139e.js"
+);
 
 workbox.core.setCacheNameDetails({prefix: "lite-bdfi-app"});
 
