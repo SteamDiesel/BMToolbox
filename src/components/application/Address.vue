@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 // import DropdownMenu from '@/components/buttons/DropdownMenu.vue'
 export default {
@@ -128,7 +128,7 @@ export default {
 		index: Number
 	},
 	methods:{
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

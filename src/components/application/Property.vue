@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
 	name: 'Property',
@@ -117,7 +117,7 @@ export default {
 		property: Object
 	},
 	methods:{
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

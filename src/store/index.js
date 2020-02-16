@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { uuid } from "vue-uuid";
-import Axios from 'axios'
-
+import axios from 'axios'
+import moment from 'moment'
 import auth from './modules/auth'
 import env from './modules/environment'
 
@@ -15,7 +15,7 @@ export default new Vuex.Store({
 		show_loan: true,
 		show_applicants: false,
 		show_history: false,
-		contact_log_types:[
+		contact_log_types: [
 			'Called',
 			'SMS Sent',
 			'SMS Received',
@@ -23,8 +23,8 @@ export default new Vuex.Store({
 			'Email Received',
 			'Face to Face',
 		],
-		app_statuses:[
-			{value: '', color: ''}
+		app_statuses: [
+			{ value: '', color: '' }
 		],
 		loan_calculator: {
 			name: "",
@@ -67,9 +67,9 @@ export default new Vuex.Store({
 			user_email_signature_image_url: '',
 			require_confirmation_prompts: true,
 			show_copy_button: true,
-			app_statuses:[
-				{value: 'New Lead', color: '', order: ''},
-				{value: 'Contacted', color: '', order: ''}
+			app_statuses: [
+				{ value: 'New Lead', color: '', order: '' },
+				{ value: 'Contacted', color: '', order: '' }
 			],
 			vehicle_price: 30000,
 			custom_one: 0,
@@ -98,7 +98,7 @@ export default new Vuex.Store({
 
 		loan_calc_history: [],
 		applications: [],
-		application:{
+		application: {
 			// Created in mutation
 		},
 		selected_application_index: 0,
@@ -130,23 +130,23 @@ export default new Vuex.Store({
 			visa_class: '',
 			visa_expiry: '',
 			adr_count: 0,
-			kids:[],
+			kids: [],
 			addresses: [],
 			employers: [],
-			properties:[],
-			vehicles:[],
+			properties: [],
+			vehicles: [],
 			credit_cards: [],
 			other_loans: [],
-			other_assets:[],
-			other_income:[],
-			domestic_expenses:[],
+			other_assets: [],
+			other_income: [],
+			domestic_expenses: [],
 			credit_defaults: [],
 			court_judgements: [],
 			bankruptcies: [],
-			
-				
-				
-				
+
+
+
+
 		},
 		kid: {
 			age: '',
@@ -161,7 +161,7 @@ export default new Vuex.Store({
 			board: '',
 			shared: false
 		},
-		property:{
+		property: {
 			description: '',
 			market_value: '',
 			rental_income: '',
@@ -215,7 +215,7 @@ export default new Vuex.Store({
 			monthly_payment: '',
 			shared: false
 		},
-		other_loan:{
+		other_loan: {
 			lender: '',
 			borrow_amount: '',
 			current_balance: '',
@@ -231,7 +231,7 @@ export default new Vuex.Store({
 			value: '',
 			shared: '',
 		},
-		domestic_expenses:{
+		domestic_expenses: {
 			groceries: '',
 			toiletries: '',
 			clothing: '',
@@ -283,7 +283,7 @@ export default new Vuex.Store({
 		},
 		unsaved_changes: false,
 		app_import_field: '',
-		
+
 	},
 	getters: {
 		application: state => {
@@ -294,82 +294,146 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-		importApplication(state, payload){
+		deleteApplication(state, index) {
+			state.applications.splice(index, 1)
+		},
+		saveApplicationsToLocal(state) {
+			try {
+				localStorage.setItem('applications', JSON.stringify(state.applications));
+				window.console.log('Applications data is saved to local storage.')
+			} catch {
+				window.console.log('Unable to save applications to local storage.')
+				alert('Unable to save applications to local storage.')
+			}
+		},
+		getApplicationsFromLocal(state) {
+			try {
+				state.applications = JSON.parse(localStorage.getItem('applications'));
+				window.console.log('Retrieved Applications data from browser local storage.')
+			} catch {
+				window.console.log('Unable to retrieve Applications data from browser local storage.')
+				alert('Unable to retrieve Applications data from your browser local storage.')
+			}
+		},
+		appVersionUpdate(state){
+			var app = state.applications[state.selected_application_index]
+			if(!app.status){
+					app.status = {value: 'Lead', color: '#f7fafc'}
+				}
+			if(app.version == 1){
+				app.is_archived = 0
+				app.created_at = ''
+				app.updated_at = ''
+				app.version = 2
+			}
+		},
+		updateTimestamps(state){
+			var stamp = new Date()
+			var app = state.applications[state.selected_application_index]
+			app.updated_at = stamp
+			if(app.created_at == ''){
+				app.created_at = stamp
+			}
+			
+		},
+		overwriteApplication(state, app){
+			try{
+				state.applications[state.selected_application_index] = app
+				window.console.log('Application was updated from server.')
+			} catch {
+				window.console.log('Application failed to update, contact support.')
+			}
+		},
+		overwriteAllApplications(state, apps){
+			try{
+				state.applications = apps
+				window.console.log('Applications have been populated by the server.')
+			} catch {
+				window.console.log('Applications failed to update, contact support.')
+			}
+		},
+
+		setApplications(state, apps){
+			state.applications = apps
+		},
+		importApplication(state, payload) {
 			var app = JSON.parse(payload);
+			//give the imported application a new uuid.
+			app.uuid = uuid.v4()
 			state.applications.unshift(app)
 		},
-		appPageSwitch(state, io){
-			switch(io){
+		appPageSwitch(state, io) {
+			switch (io) {
 				case 'vehicle':
 					state.show_vehicle = true;
 					state.show_loan = false;
 					state.show_applicants = false;
 					state.show_history = false;
 					break;
-				
+
 				case 'loan':
 					state.show_vehicle = false;
 					state.show_loan = true;
 					state.show_applicants = false;
 					state.show_history = false;
 					break;
-				
+
 				case 'applicants':
 					state.show_vehicle = false;
 					state.show_loan = false;
 					state.show_applicants = true;
 					state.show_history = false;
 					break;
-				
+
 				case 'history':
 					state.show_vehicle = false;
 					state.show_loan = false;
 					state.show_applicants = false;
 					state.show_history = true;
 					break;
-				
+
 			}
 		},
 
-		pushToArray(state, payload){
-			
+		pushToArray(state, payload) {
+
 			var object = {}
-			switch(payload.type){
+			switch (payload.type) {
 				case 'kid':
 					Object.assign(object, state.kid)
-				break;
+					break;
 				case 'address':
 					Object.assign(object, state.address)
-				break;
+					break;
 				case 'employer':
 					Object.assign(object, state.employer)
-				break;
+					break;
 				case 'property':
 					Object.assign(object, state.property)
-				break;
+					break;
 				case 'vehicle':
 					Object.assign(object, state.vehicle)
-				break;
+					break;
 				case 'credit_card':
 					Object.assign(object, state.credit_card)
-				break;
+					break;
 				case 'other_loan':
 					Object.assign(object, state.other_loan)
-				break;
+					break;
 				case 'other_asset':
 					Object.assign(object, state.other_asset)
-				break;
+					break;
 				case 'domestic_expenses':
 					Object.assign(object, state.domestic_expenses)
-				break;
+					break;
 				case 'quote':
 					Object.assign(object, payload.quote)
-				break;
+					break;
 				case 'contact':
 					Object.assign(object, payload.entry)
-				break;
+					break;
 			}
-			
+
 
 			var array = payload.array
 			object.uuid = uuid.v4()
@@ -378,94 +442,98 @@ export default new Vuex.Store({
 		},
 
 
-		dropFromArray(state, payload){
-			var array = payload.array 
+		dropFromArray(state, payload) {
+			var array = payload.array
 			array.splice(payload.index, 1)
-			if(payload.person){
+			if (payload.person) {
 				payload.person.adr_count++
-			} 
-			if(payload.adr) {
+			}
+			if (payload.adr) {
 				payload.adr++
 			}
-			
-			
+
+
 			// - person - just to update an arbitrary property to
 			// trigger a re-render because I'm a hack
 		},
 
 
-		linkObjectToNextPerson(state, payload){
+		linkObjectToNextPerson(state, payload) {
 			var next = payload.person_index + 1
 
 			var person = state.applications[state.selected_application_index]
-			.people[next]
+				.people[next]
 
-			switch (payload.type){
+			switch (payload.type) {
 				case 'kid':
 					person.kids.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'address':
 					person.addresses.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'employer':
 					person.employers.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'property':
 					person.properties.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'vehicle':
 					person.vehicles.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'credit_card':
 					person.credit_cards.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'other_loan':
 					person.other_loans.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'other_asset':
 					person.other_assets.push(payload.object)
 					payload.object.shared = true
-				break;
+					break;
 				case 'domestic_expenses':
 					person.domestic_expenses.push(payload.object)
 					payload.object.shared = true
-				break;
-				
+					break;
+
 			}
-			
+
 		},
-		selectApplication(state, index){
+		selectApplication(state, index) {
 			state.selected_application_index = index
 
 		},
+		
 
-		createEmptyApplication(state){
+		createEmptyApplication(state) {
+			//version 1 to version 2 change: added is_archived, added updated_at, added created_at, dropped is_active
 			var new_app = {
-				version: 1,
+				version: 2,
 				status: '',
 				stage: '',
-				is_active: true,
+				is_archived: 0,
+				created_at: '',
+				updated_at: '',
 				vehicle: {
 					type: '',
-					build_date:'',
+					build_date: '',
 					compliance_date: '',
 					first_registered_date: '',
 					factory_warranty_months: '',
 					factory_warranty_km: '',
 					odometer: '',
-					year:'',
-					model_year:'',
+					year: '',
+					model_year: '',
 					series: '',
 					make: '',
-					model:'',
-					badge:'',
+					model: '',
+					badge: '',
 					body: '',
 					doors: '',
 					seats: '',
@@ -474,8 +542,8 @@ export default new Vuex.Store({
 					engine: '',
 					engine_size: '',
 					fuel_type: '',
-					vin:'',
-					engine_number:'',
+					vin: '',
+					engine_number: '',
 					plate_number: '',
 					stock_number: '',
 					nvic: '',
@@ -513,9 +581,9 @@ export default new Vuex.Store({
 					hidden: false,
 					is_saved: false,
 				},
-				supporting_documents:[],
-				submissions:[],
-				contact_log:[],
+				supporting_documents: [],
+				submissions: [],
+				contact_log: [],
 				people: [],
 				quotes: [],
 				businesses: [],
@@ -526,23 +594,23 @@ export default new Vuex.Store({
 			var $index = state.applications.indexOf(new_app)
 			state.selected_application_index = $index
 		},
-		addVehicleToApplication(state){
+		addVehicleToApplication(state) {
 			window.console.log('works')
 			let app = state.applications[state.selected_application_index]
 			app.vehicle = {
 				type: '',
-				build_date:'',
+				build_date: '',
 				compliance_date: '',
 				first_registered_date: '',
 				factory_warranty_months: '',
 				factory_warranty_km: '',
 				odometer: '',
-				year:'',
-				model_year:'',
+				year: '',
+				model_year: '',
 				series: '',
 				make: '',
-				model:'',
-				badge:'',
+				model: '',
+				badge: '',
 				body: '',
 				doors: '',
 				seats: '',
@@ -551,8 +619,8 @@ export default new Vuex.Store({
 				engine: '',
 				engine_size: '',
 				fuel_type: '',
-				vin:'',
-				engine_number:'',
+				vin: '',
+				engine_number: '',
 				plate_number: '',
 				stock_number: '',
 				nvic: '',
@@ -591,7 +659,7 @@ export default new Vuex.Store({
 				visa_class: '',
 				visa_expiry: '',
 				adr_count: 0,
-				kids:[],
+				kids: [],
 				addresses: [],
 				employers: [],
 				properties: [],
@@ -620,31 +688,31 @@ export default new Vuex.Store({
 			window.alert('You will be able to add businesses in a future update, coming very soon... ')
 		},
 		setUserPreferencesFromLocal(state) {
-				state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
-				state.loan_calculator.vehicle_price = state.user_preferences.vehicle_price;
-				state.loan_calculator.custom_one = state.user_preferences.custom_one;
-				state.loan_calculator.custom_one_label = state.user_preferences.custom_one_label;
-				state.loan_calculator.trade_value = state.user_preferences.trade_value;
-				state.loan_calculator.trade_payout = state.user_preferences.trade_payout;
-				state.loan_calculator.sign_deposit = state.user_preferences.sign_deposit;
-				state.loan_calculator.further_deposit = state.user_preferences.further_deposit;
-				state.loan_calculator.origination_fee = state.user_preferences.origination_fee;
-				state.loan_calculator.brokerage = state.user_preferences.brokerage;
-				state.loan_calculator.custom_two = state.user_preferences.custom_two;
-				state.loan_calculator.custom_two_label = state.user_preferences.custom_two_label;
-				state.loan_calculator.custom_three = state.user_preferences.custom_three;
-				state.loan_calculator.custom_three_label = state.user_preferences.custom_three_label;
-				state.loan_calculator.lender_fee = state.user_preferences.lender_fee;
-				state.loan_calculator.monthly_fee = state.user_preferences.monthly_fee;
-				state.loan_calculator.term = state.user_preferences.term;
-				state.loan_calculator.apr = state.user_preferences.apr;
-				state.loan_calculator.rv = state.user_preferences.rv;
-				state.loan_calculator.rv_percent = state.user_preferences.rv_percent;
-				state.loan_calculator.weekly_big = state.user_preferences.weekly_big;
-				state.loan_calculator.fort_big = state.user_preferences.fort_big;
-				state.loan_calculator.monthly_big = state.user_preferences.monthly_big;
-				state.loan_calculator.hidden = state.user_preferences.hidden;
-				state.loan_calculator.is_saved = state.user_preferences.is_saved;
+			state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
+			state.loan_calculator.vehicle_price = state.user_preferences.vehicle_price;
+			state.loan_calculator.custom_one = state.user_preferences.custom_one;
+			state.loan_calculator.custom_one_label = state.user_preferences.custom_one_label;
+			state.loan_calculator.trade_value = state.user_preferences.trade_value;
+			state.loan_calculator.trade_payout = state.user_preferences.trade_payout;
+			state.loan_calculator.sign_deposit = state.user_preferences.sign_deposit;
+			state.loan_calculator.further_deposit = state.user_preferences.further_deposit;
+			state.loan_calculator.origination_fee = state.user_preferences.origination_fee;
+			state.loan_calculator.brokerage = state.user_preferences.brokerage;
+			state.loan_calculator.custom_two = state.user_preferences.custom_two;
+			state.loan_calculator.custom_two_label = state.user_preferences.custom_two_label;
+			state.loan_calculator.custom_three = state.user_preferences.custom_three;
+			state.loan_calculator.custom_three_label = state.user_preferences.custom_three_label;
+			state.loan_calculator.lender_fee = state.user_preferences.lender_fee;
+			state.loan_calculator.monthly_fee = state.user_preferences.monthly_fee;
+			state.loan_calculator.term = state.user_preferences.term;
+			state.loan_calculator.apr = state.user_preferences.apr;
+			state.loan_calculator.rv = state.user_preferences.rv;
+			state.loan_calculator.rv_percent = state.user_preferences.rv_percent;
+			state.loan_calculator.weekly_big = state.user_preferences.weekly_big;
+			state.loan_calculator.fort_big = state.user_preferences.fort_big;
+			state.loan_calculator.monthly_big = state.user_preferences.monthly_big;
+			state.loan_calculator.hidden = state.user_preferences.hidden;
+			state.loan_calculator.is_saved = state.user_preferences.is_saved;
 		},
 		pushLoanToHistory(state, payload) {
 			var loan = {};
@@ -663,37 +731,19 @@ export default new Vuex.Store({
 			state.user_preferences = JSON.parse(localStorage.getItem('user_preferences'));
 			window.console.log('setting user preferences from browser local storage.')
 		},
-		saveApplicationsToLocal(state){
-			try {
-				localStorage.setItem('applications', JSON.stringify(state.applications));
-				window.console.log('Applications data is saved to local storage.')
-			} catch {
-				window.console.log('Unable to save applications to local storage.')
-				alert('Unable to save applications to local storage.')
-			}
-		},
-		getApplicationsFromLocal(state){
-			try {
-				state.applications = JSON.parse(localStorage.getItem('applications'));
-				window.console.log('Retrieved Applications data from browser local storage.')
-			} catch {
-				window.console.log('Unable to retrieve Applications data from browser local storage.')
-				alert('Unable to retrieve Applications data from your browser local storage.')
-			}
-		},
-		deleteApplication(state, index){
-			state.applications.splice(index, 1)
-		},
-		setSessionUUID(state){
+		
+		setSessionUUID(state) {
 			state.user_preferences.session_uuid = uuid.v4()
 		},
 
 
 	},
 	actions: {
-		saveByUUID(object){
-			if(object.uuid != ''){
-				try{
+		
+		
+		saveByUUID(object) {
+			if (object.uuid != '') {
+				try {
 					localStorage.setItem(object.uuid, JSON.stringify(object))
 					window.console.log('Object Saved by existing UUID.')
 				} catch {
@@ -711,8 +761,8 @@ export default new Vuex.Store({
 			}
 		},
 
-		getByUUID({state}, payload){
-			switch(payload.type){
+		getByUUID({ state }, payload) {
+			switch (payload.type) {
 				case 'application':
 					state.selected_application = JSON.parse(localStorage.getItem(payload.uuid));
 					window.console.log('got application from browser local storage.')
@@ -728,9 +778,9 @@ export default new Vuex.Store({
 			payload.array.push(item)
 		},
 
-		initialize({commit, dispatch}) {
+		initialize({ commit, dispatch }) {
 			var token = localStorage.getItem('session_token')
-			if(token){
+			if (token) {
 				dispatch('testAuthConnection')
 			}
 			var prefs = localStorage.getItem('user_preferences');
@@ -741,18 +791,18 @@ export default new Vuex.Store({
 			}
 
 			var apps = localStorage.getItem('applications')
-			if(apps){
+			if (apps) {
 				window.console.log('getting apps')
-				commit('getApplicationsFromLocal')
+				dispatch('getApplicationsFromLocal')
 			} else {
 				commit('createEmptyApplication')
 				commit('addPersonToApplication')
 			}
 			dispatch('postUserVisitorDetailsToServer')
 		},
-		postUserVisitorDetailsToServer({state}){
+		postUserVisitorDetailsToServer({ state }) {
 			// window.console.log('logging visit')
-			Axios.post(state.env.visitor_log_url, {
+			axios.post(state.env.visitor_log_url, {
 				user_name: state.user_preferences.user_name,
 				user_email: state.user_preferences.user_email,
 				user_phone: state.user_preferences.user_phone,
@@ -760,9 +810,9 @@ export default new Vuex.Store({
 				user_business_address: state.user_preferences.user_business_address
 			})
 		},
-		saveDetails({state, commit}){
+		saveDetails({ state, commit }) {
 			commit('savePreferences')
-			Axios.post(state.env.details_update_url, {
+			axios.post(state.env.details_update_url, {
 				session_uuid: state.user_preferences.session_uuid,
 				email: state.user_preferences.user_email,
 				first_name: state.user_preferences.user_name,
@@ -777,11 +827,11 @@ export default new Vuex.Store({
 				show_copy_button: state.user_preferences.show_copy_button,
 				confirm_delete_prompts: state.user_preferences.require_confirmation_prompts,
 			})
-			
+
 		},
-		
-		deleteApplication({state, commit, dispatch}, index){
-			if(state.user_preferences.require_confirmation_prompts){
+
+		deleteApplication({ state, commit, dispatch }, index) {
+			if (state.user_preferences.require_confirmation_prompts) {
 				if (confirm('Are you sure you want to permanently remove this application?')) {
 					commit('deleteApplication', index)
 					dispatch('saveApplications')
@@ -791,23 +841,24 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
-		saveApplicationsLoop({commit, dispatch}){
+		saveApplicationsLoop({ commit, dispatch }) {
 			setTimeout(() => {
 				commit('saveApplicationsToLocal')
 
 				dispatch('saveApplicationsLoop')
 			}, 236000)
 		},
-		saveApplications({commit}){
+		saveApplications({ commit }) {
 			commit('saveApplicationsToLocal')
+			commit('updateTimestamps')
 		},
-		pushToArray({commit, dispatch}, payload){
+		pushToArray({ commit, dispatch }, payload) {
 			commit('pushToArray', payload)
 			dispatch('saveApplications')
 		},
-		dropFromArray({state, commit, dispatch}, payload){
-			if(state.user_preferences.require_confirmation_prompts){
-				if(confirm('Are you sure you want to permanently remove this ' + payload.type + '?')){
+		dropFromArray({ state, commit, dispatch }, payload) {
+			if (state.user_preferences.require_confirmation_prompts) {
+				if (confirm('Are you sure you want to permanently remove this ' + payload.type + '?')) {
 					payload.object.shared = false
 					commit('dropFromArray', payload)
 					dispatch('saveApplications')
@@ -817,32 +868,128 @@ export default new Vuex.Store({
 				commit('dropFromArray', payload)
 				dispatch('saveApplications')
 			}
-			
+
 		},
-		linkObjectToNextPerson({commit, dispatch}, payload){
+		linkObjectToNextPerson({ commit, dispatch }, payload) {
 			commit('linkObjectToNextPerson', payload)
 			dispatch('saveApplications')
 		},
-		
-		createNewApplication({commit}){
+
+		createNewApplication({ commit }) {
 			commit('createEmptyApplication')
 			commit('addPersonToApplication')
 		},
-
-		createManyApplications({commit}){
-			var remaining = 300
-			setTimeout(()=>{
-				while (remaining > 0) {
-					commit('createEmptyApplication')
-					commit('addPersonToApplication')
-					remaining--
-				}
-			},20)
-			
+		selectApplication({ commit , dispatch}, index){
+			commit('selectApplication', index)
+			commit('appVersionUpdate')
+			dispatch('syncApp')
+		},
+		getApplicationsFromLocal({commit}){
+			try{
+				var apps = JSON.parse(localStorage.getItem('applications'))
+				commit('setApplications', apps)
+				window.console.log('Retrieved Applications data from browser local storage.')
+			} catch {
+				window.console.log('Unable to retrieve Applications data from browser local storage. Please call support for assistance.')
+			}
 		},
 		
+		syncApp({getters, dispatch}){
+			let app = getters.application
+			if(app.updated_at){
+				
+				let config = {
+					headers: {
+						'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+					}
+				}
+				axios
+				.post(env.state.uri + 'api/application/sync-check', {
+					uuid: getters.application.uuid
+				}, config)
+				.then(response => {
+					if(moment(app.updated_at).isBefore(response.data.updated_at)){
+						window.console.log('local version timestamp is ' + app.updated_at + ' which is older than the remote version at ' + response.data.updated_at +
+						' - fetching remote version....')
+						dispatch('fetchAppFromServer', app.uuid)
+						
+					} else {
+						window.console.log('local version timestamp is ' + app.updated_at + ' which is after the remote version at ' + response.data.updated_at + 
+						' - updating server with local version')
+						dispatch('updateAppOnServer')
+					}
+				})
+				.catch(error => {
+					window.console.log(error)
+				})
+
+
+			}
+		},
+		fetchAppFromServer({commit, dispatch}, uuid){
+			let config = {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+				}
+			}
+			axios.post(env.state.uri + 'api/application-uuid', {
+				uuid: uuid
+			}, config)
+			.then(response => {
+				commit('overwriteApplication', response.data.application.data)
+				dispatch('saveApplicationsToLocal')
+			})
+			.catch(error => {
+				window.console.log(error)
+			})
+
+		},
+		fetchApplicationsFromServer({commit}, payload){
+			let config = {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+				}
+			}
+			axios.post(env.state.uri + 'api/applications', {
+				start_date: payload.start_date,
+				end_date: payload.end_date
+			}, config)
+			.then(response => {
+				commit('overwriteAllApplications', response.data.applications)
+				commit('saveApplicationsToLocal')
+			})
+			.catch(error => {
+				window.console.log(error)
+			})
+
+		},
+		saveApplicationsToLocal({commit}){
+			commit('updateTimestamps')
+			commit('saveApplicationsToLocal')
+		},
 		
+		updateAppOnServer({ getters, commit }) {
+			let config = {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+				}
+			}
+			
+			commit('appVersionUpdate')
+
+			axios.post(env.state.uri + 'api/application/store', {
+				uuid: getters.application.uuid,
+				is_archived: getters.application.is_archived,
+				application: getters.application
+			}, config).then(response => {
+				window.console.log(response.data.id)
+			}).catch(error => {
+				window.console.log(error)
+			})
+		},
 		
+
+
 	},
 	modules: {
 		auth,

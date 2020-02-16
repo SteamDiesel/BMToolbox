@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 import CheckBox from '@/components/buttons/CheckBox.vue'
 export default {
@@ -141,7 +141,7 @@ export default {
 			this.other_loan.refinance = !this.other_loan.refinance
 			this.saveApplicationsToLocal()
 		},
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

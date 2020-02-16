@@ -301,7 +301,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import moment from 'moment'
 import FormField from "@/components/application/FormField.vue";
 export default {
@@ -362,7 +362,7 @@ export default {
 			var date = moment(this.employer.end_date).subtract(this.employer.years, 'years').subtract(this.employer.months, 'months').format('YYYY-MM-DD')
 			this.employer.start_date = date
 		},
-		...mapMutations(["saveApplicationsToLocal"]),
+		...mapActions(["saveApplicationsToLocal"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

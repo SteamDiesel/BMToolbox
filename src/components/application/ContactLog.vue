@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import moment from 'moment'
 import FormField from "@/components/application/FormField.vue";
 export default {
@@ -86,8 +86,8 @@ export default {
 			this.entry.notes = ""
 			this.focusOnLast()
 		},
-		...mapMutations(["saveApplicationsToLocal"]),
-		...mapActions(["pushToArray"]),
+		
+		...mapActions(["pushToArray","saveApplicationsToLocal"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

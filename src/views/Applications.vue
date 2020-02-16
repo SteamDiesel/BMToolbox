@@ -18,11 +18,27 @@
 		
 		<div class="flex h-full w-full body-internal">
 			<div class="w-64 px-6 flex flex-col justify-start items-start">
-				<button class="py-2 px-3 flex justify-start rounded hover:bg-gray-300 w-full">
+				
+				<FormField class="w-full" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
+					<template v-slot:label>Start Date</template>
+					<input
+						:id="'#'+start_date"
+						v-model="start_date"
+						type="date"
+						class="form-input text-center"
+					/>
+				</FormField>
+				<FormField class="w-full mb-4" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
+					<template v-slot:label>End Date</template>
+					<input
+						:id="'#'+end_date"
+						v-model="end_date"
+						type="date"
+						class="form-input text-center"
+					/>
+				</FormField>
+				<button @click="fetchApplicationsFromServer({start_date: start_date, end_date: end_date})" class="py-2 px-3 flex justify-start rounded hover:bg-gray-300 w-full">
 					All Active
-				</button>
-				<button class="py-2 px-3 flex justify-start rounded hover:bg-gray-300 w-full">
-					All Archived
 				</button>
 			</div>
 			
@@ -53,6 +69,7 @@ import NewApplicationButton from "@/components/buttons/NewApplicationButton.vue"
 import PageHeader from '@/components/layout/PageHeader.vue'
 import AppsTable from '@/components/tables/AppsTable.vue'
 import ImportApp from '@/components/ImportApp.vue'
+import FormField from "@/components/application/FormField.vue";
 
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
@@ -60,7 +77,9 @@ export default {
 	data(){
 		return{
 			is_table: true,
-			show_import: false
+			show_import: false,
+			start_date: '',
+			end_date: '',
 		}
 	},
 	components: {
@@ -68,7 +87,8 @@ export default {
 		NewApplicationButton,
 		PageHeader,
 		AppsTable,
-		ImportApp
+		ImportApp,
+		FormField
 		// SaveApplicationsButton
 	},
 	computed: {
@@ -80,7 +100,7 @@ export default {
 			this.$router.push("application");
 		},
 		...mapMutations(["selectApplication"]),
-		...mapActions(["deleteApplication"])
+		...mapActions(["deleteApplication", "fetchApplicationsFromServer"])
 	}
 };
 </script>

@@ -365,11 +365,12 @@ export default {
 		}
 	},
 	methods: {
-		...mapMutations(["saveApplicationsToLocal"]),
+		...mapMutations([]),
 		...mapActions([
 			"pushToArray",
 			"dropFromArray",
-			"linkObjectToNextPerson"
+			"linkObjectToNextPerson",
+			"saveApplicationsToLocal"
 		]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);

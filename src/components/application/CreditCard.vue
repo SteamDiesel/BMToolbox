@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
 	name: 'CreditCard',
@@ -77,7 +77,7 @@ export default {
 		credit_card: Object
 	},
 	methods:{
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['saveApplicationsToLocal']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

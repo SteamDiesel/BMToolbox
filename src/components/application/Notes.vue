@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
 	name: "Notes",
 	methods: {
-		...mapMutations(["saveApplicationsToLocal"]),
+		...mapActions(["saveApplicationsToLocal"]),
 	}
 };
 </script>

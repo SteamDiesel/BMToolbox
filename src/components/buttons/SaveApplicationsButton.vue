@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
 	name: "SaveApplicationsButton",
 	computed:{
@@ -25,7 +25,7 @@ export default {
 		activate() {
 			this.saveApplicationsToLocal();
 		},
-		...mapMutations(["saveApplicationsToLocal"])
+		...mapActions(["saveApplicationsToLocal"])
 	}
 };
 </script>

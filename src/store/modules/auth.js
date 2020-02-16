@@ -64,7 +64,19 @@ export default {
 						}
 						window.console.log(error.config);
 					})
-				)
+				).catch(error => {
+					if (error.response) {
+						commit('setFailedLogin', error)
+						window.console.log(error.response.data);
+						window.console.log(error.response.status);
+						window.console.log(error.response.headers);
+					} else if (error.request) {
+						window.console.log(error.request);
+					} else {
+						window.console.log('Error', error.message);
+					}
+					window.console.log(error.config);
+				})
 		},
 		testAuthConnection({ commit }) {
 			let config = {

@@ -278,7 +278,7 @@
 
 <script>
 import FormField from "@/components/application/FormField.vue";
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
 	name: "AppLoanCalc",
 	props: {
@@ -416,7 +416,7 @@ export default {
 			this.calc.rv_percent = +(Math.round(percent + "e+" + 2) + "e-" + 2);
 		},
 
-		...mapMutations(["saveApplicationsToLocal"]),
+		...mapActions(["saveApplicationsToLocal"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

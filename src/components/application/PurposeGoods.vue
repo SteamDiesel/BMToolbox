@@ -351,7 +351,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import FormField from "@/components/application/FormField.vue";
 export default {
 	name: "PurposeGoods",
@@ -376,7 +376,7 @@ export default {
 			this.edit_details = false;
 			this.show_details = !this.show_details;
 		},
-		...mapMutations(["saveApplicationsToLocal"]),
+		...mapActions(["saveApplicationsToLocal"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

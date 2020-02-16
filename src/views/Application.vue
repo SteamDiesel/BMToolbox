@@ -5,7 +5,8 @@
 		>
 			<div class="w-full flex justify-between">
 				<div class="ml-8">
-					<select v-if="statuses" @change="saveApplicationsToLocal" v-model="application.status" class="form-input p-2 rounded w-32 font-semibold" :style="{'background-color': application.status.color}" name="" id="">
+					<select @change="saveApplicationsToLocal" v-model="application.status" class=" rounded w-full font-semibold text-blue-600 hover:underline" :style="{'background-color': application.status.color}">
+						<option value="" selected>Select Status</option>
 						<option v-for="(status, index) in statuses" :key="index" :value="status" class="p-2" :style="{'background-color': status.color}">{{status.value}}</option>
 					</select>
 				</div>
@@ -125,9 +126,8 @@ export default {
 			"addPersonToApplication",
 			"addBusinessToApplication",
 			"removePersonFromApplication",
-			"saveApplicationsToLocal"
 		]),
-		...mapActions(["dropFromArray"])
+		...mapActions(["dropFromArray", "deleteApplication", "saveApplicationsToLocal"])
 	}
 };
 </script>

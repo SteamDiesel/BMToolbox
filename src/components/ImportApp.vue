@@ -45,7 +45,7 @@
 
 <script>
 
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
 	name: "AppImporter",
@@ -75,7 +75,8 @@ export default {
 			this.show_button = false
 			this.saveApplicationsToLocal()
 		},
-		...mapMutations(["importApplication", "saveApplicationsToLocal"])
+		...mapMutations(["importApplication"]),
+		...mapActions([ "saveApplicationsToLocal"])
 	}
 };
 </script>

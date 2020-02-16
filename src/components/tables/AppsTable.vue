@@ -30,7 +30,7 @@
 					<td class="py-3 text-left px-3" >
 						{{app.loan_calculator.full_naf | toCurrency}}
 					</td>
-					<td class="py-3 text-left px-3 font-semibold" :style="{'background-color': app.status.color}">
+					<td v-if="app.status" class="py-3 text-left px-3 font-semibold" :style="{'background-color': app.status.color}">
 						{{app.status.value}}
 					</td>
 				</tr>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
 	name: "AppCard",
 	computed: {
@@ -53,8 +53,8 @@ export default {
 			this.selectApplication(index);
 			this.$router.push("application");
 		},
-		...mapMutations(["selectApplication"]),
-		...mapActions(["deleteApplication"])
+		
+		...mapActions(["selectApplication"])
 	}
 };
 </script>
