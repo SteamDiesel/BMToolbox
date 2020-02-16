@@ -31,7 +31,7 @@
 					:id="'#'+address.years"
 					v-model="address.years"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -45,7 +45,7 @@
 					:id="'#'+address.months"
 					v-model="address.months"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -84,7 +84,7 @@
 						@keyup.81="address.rent = address.rent * 0.33"
 						@keyup.89="address.rent = address.rent * 0.0833"
 						@change="saveApplicationsToLocal"
-						type="text"
+						type="number"
 						class="form-input text-center"
 					/>
 				</FormField>
@@ -103,7 +103,7 @@
 						@keyup.81="address.board = address.board * 0.33"
 						@keyup.89="address.board = address.board * 0.0833"
 						@change="saveApplicationsToLocal"
-						type="text"
+						type="number"
 						class="form-input text-center"
 					/>
 				</FormField>
