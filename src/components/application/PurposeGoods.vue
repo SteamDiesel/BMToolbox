@@ -25,7 +25,7 @@
 					<input
 						:id="'#'+vehicle.year"
 						v-model="vehicle.year"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -35,7 +35,7 @@
 					<input
 						:id="'#'+vehicle.make"
 						v-model="vehicle.make"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -46,7 +46,7 @@
 					<input
 						:id="'#'+vehicle.model"
 						v-model="vehicle.model"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -57,7 +57,7 @@
 					<input
 						:id="'#'+vehicle.badge"
 						v-model="vehicle.badge"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -67,7 +67,7 @@
 					<input
 						:id="'#'+vehicle.model_year"
 						v-model="vehicle.model_year"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -77,7 +77,7 @@
 					<input
 						:id="'#'+vehicle.series"
 						v-model="vehicle.series"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -91,7 +91,7 @@
 					<input
 						:id="'#'+vehicle.body"
 						v-model="vehicle.body"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -102,7 +102,7 @@
 					<input
 						:id="'#'+vehicle.doors"
 						v-model="vehicle.doors"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -113,7 +113,7 @@
 					<input
 						:id="'#'+vehicle.seats"
 						v-model="vehicle.seats"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -124,7 +124,7 @@
 					<input
 						:id="'#'+vehicle.colour"
 						v-model="vehicle.colour"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -137,7 +137,7 @@
 					<input
 						:id="'#'+vehicle.transmission"
 						v-model="vehicle.transmission"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -148,7 +148,7 @@
 					<input
 						:id="'#'+vehicle.engine"
 						v-model="vehicle.engine"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -159,7 +159,7 @@
 					<input
 						:id="'#'+vehicle.engine_size"
 						v-model="vehicle.engine_size"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -170,7 +170,7 @@
 					<input
 						:id="'#'+vehicle.fuel_type"
 						v-model="vehicle.fuel_type"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -184,7 +184,7 @@
 					<input
 						:id="'#'+vehicle.build_date"
 						v-model="vehicle.build_date"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -195,7 +195,7 @@
 					<input
 						:id="'#'+vehicle.compliance_date"
 						v-model="vehicle.compliance_date"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -209,7 +209,7 @@
 					<input
 						:id="'#'+vehicle.first_registered_date"
 						v-model="vehicle.first_registered_date"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -220,7 +220,7 @@
 					<input
 						:id="'#'+vehicle.factory_warranty_months"
 						v-model="vehicle.factory_warranty_months"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -231,7 +231,7 @@
 					<input
 						:id="'#'+vehicle.factory_warranty_km"
 						v-model="vehicle.factory_warranty_km"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -245,7 +245,7 @@
 					<input
 						:id="'#'+vehicle.stock_number"
 						v-model="vehicle.stock_number"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -255,7 +255,7 @@
 					<input
 						:id="'#'+vehicle.vin"
 						v-model="vehicle.vin"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -266,7 +266,7 @@
 					<input
 						:id="'#'+vehicle.engine_number"
 						v-model="vehicle.engine_number"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -277,7 +277,7 @@
 					<input
 						:id="'#'+vehicle.plate_number"
 						v-model="vehicle.plate_number"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -287,7 +287,7 @@
 					<input
 						:id="'#'+vehicle.odometer"
 						v-model="vehicle.odometer"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -299,7 +299,7 @@
 					<input
 						:id="'#'+vehicle.nvic"
 						v-model="vehicle.nvic"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -310,7 +310,7 @@
 					<input
 						:id="'#'+vehicle.redbook_value"
 						v-model="vehicle.redbook_value"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -321,7 +321,7 @@
 					<input
 						:id="'#'+vehicle.glasses_value"
 						v-model="vehicle.glasses_value"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="form-input text-center"
 					/>
@@ -332,7 +332,7 @@
 				<select
 					:id="'#'+vehicle.type"
 					v-model="vehicle.type"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input w-36 text-center"
 				>
@@ -376,7 +376,7 @@ export default {
 			this.edit_details = false;
 			this.show_details = !this.show_details;
 		},
-		...mapActions(["saveApplicationsToLocal"]),
+		...mapActions(["saveApp"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

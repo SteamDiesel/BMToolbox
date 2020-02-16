@@ -21,7 +21,7 @@
 				<input
 					:id="'#'+vehicle.description"
 					v-model="vehicle.description"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -35,7 +35,7 @@
 				<input
 					:id="'#'+vehicle.market_value"
 					v-model="vehicle.market_value"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -56,7 +56,7 @@
 				<input
 					:id="'#'+vehicle.finance_lender"
 					v-model="vehicle.finance_lender"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -70,7 +70,7 @@
 				<input
 					:id="'#'+vehicle.finance_balance"
 					v-model="vehicle.finance_balance"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -88,7 +88,7 @@
 					@keyup.70="vehicle.finance_payment = vehicle.finance_payment * 2.166"
 					@keyup.81="vehicle.finance_payment = vehicle.finance_payment * 0.33"
 					@keyup.89="vehicle.finance_payment = vehicle.finance_payment * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import FormField from '@/components/application/FormField.vue'
 export default {
 	name: 'Vehicle',
@@ -111,7 +111,7 @@ export default {
 		vehicle: Object
 	},
 	methods:{
-		...mapMutations(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+kid.age"
 					v-model="kid.age"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -34,7 +34,7 @@ export default {
 		kid: Object
 	},
 	methods:{
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

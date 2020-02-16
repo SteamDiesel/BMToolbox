@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+property.description"
 					v-model="property.description"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -24,7 +24,7 @@
 				<input
 					:id="'#'+property.market_value"
 					v-model="property.market_value"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -42,7 +42,7 @@
 					@keyup.70="property.rental_income = property.rental_income * 2.166"
 					@keyup.81="property.rental_income = property.rental_income * 0.33"
 					@keyup.89="property.rental_income = property.rental_income * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -62,7 +62,7 @@
 				<input
 					:id="'#'+property.first_mortgage_lender"
 					v-model="property.first_mortgage_lender"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -76,7 +76,7 @@
 				<input
 					:id="'#'+property.first_mortgage_balance"
 					v-model="property.first_mortgage_balance"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -94,7 +94,7 @@
 					@keyup.70="property.first_mortgage_payment = property.first_mortgage_payment * 2.166"
 					@keyup.81="property.first_mortgage_payment = property.first_mortgage_payment * 0.33"
 					@keyup.89="property.first_mortgage_payment = property.first_mortgage_payment * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -117,7 +117,7 @@ export default {
 		property: Object
 	},
 	methods:{
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

@@ -67,12 +67,12 @@ export default {
 			this.entry.posted_by = this.user_preferences.user_name;
 			Object.assign(entry, this.entry);
 			this.application.contact_log.unshift(entry);
-			this.saveApplicationsToLocal();
+			this.saveApp();
 			this.entry.timestamp = "";
 			this.entry.type = "";
 			this.entry.notes = "";
 		},
-		...mapMutations(["saveApplicationsToLocal"])
+		...mapMutations(["saveApp"])
 	}
 };
 </script>

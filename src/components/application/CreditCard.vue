@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+credit_card.lender"
 					v-model="credit_card.lender"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -24,7 +24,7 @@
 				<input
 					:id="'#'+credit_card.credit_limit"
 					v-model="credit_card.credit_limit"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					@keyup="credit_card.monthly_payment = credit_card.credit_limit * .03"
 					type="number"
 					class="form-input text-center"
@@ -39,7 +39,7 @@
 				<input
 					:id="'#'+credit_card.balance"
 					v-model="credit_card.balance"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -53,7 +53,7 @@
 				<input
 					:id="'#'+credit_card.monthly_payment"
 					v-model="credit_card.monthly_payment"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -77,7 +77,7 @@ export default {
 		credit_card: Object
 	},
 	methods:{
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

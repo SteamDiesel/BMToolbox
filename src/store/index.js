@@ -283,6 +283,7 @@ export default new Vuex.Store({
 		},
 		unsaved_changes: false,
 		app_import_field: '',
+		timeout_one: 'time',
 
 	},
 	getters: {
@@ -309,10 +310,9 @@ export default new Vuex.Store({
 		getApplicationsFromLocal(state) {
 			try {
 				state.applications = JSON.parse(localStorage.getItem('applications'));
-				window.console.log('Retrieved Applications data from browser local storage.')
+				window.console.log('Retrieved Applications data from local storage.')
 			} catch {
-				window.console.log('Unable to retrieve Applications data from browser local storage.')
-				alert('Unable to retrieve Applications data from your browser local storage.')
+				window.console.log('Unable to retrieve Applications data from local storage.')
 			}
 		},
 		appVersionUpdate(state){
@@ -879,16 +879,14 @@ export default new Vuex.Store({
 			commit('createEmptyApplication')
 			commit('addPersonToApplication')
 		},
-		selectApplication({ commit , dispatch}, index){
+		selectApplication({ commit }, index){
 			commit('selectApplication', index)
 			commit('appVersionUpdate')
-			dispatch('syncApp')
 		},
 		getApplicationsFromLocal({commit}){
 			try{
-				var apps = JSON.parse(localStorage.getItem('applications'))
-				commit('setApplications', apps)
-				window.console.log('Retrieved Applications data from browser local storage.')
+				// var apps = JSON.parse(localStorage.getItem('applications'))
+				commit('getApplicationsFromLocal')
 			} catch {
 				window.console.log('Unable to retrieve Applications data from browser local storage. Please call support for assistance.')
 			}
@@ -908,14 +906,13 @@ export default new Vuex.Store({
 					uuid: getters.application.uuid
 				}, config)
 				.then(response => {
-					if(moment(app.updated_at).isBefore(response.data.updated_at)){
-						window.console.log('local version timestamp is ' + app.updated_at + ' which is older than the remote version at ' + response.data.updated_at +
-						' - fetching remote version....')
-						dispatch('fetchAppFromServer', app.uuid)
-						
+					if(response.data.updated_at){
+						if(moment(app.updated_at).isBefore(response.data.updated_at)){
+							dispatch('fetchAppFromServer', app.uuid)
+						} else {
+							dispatch('updateAppOnServer')
+						}
 					} else {
-						window.console.log('local version timestamp is ' + app.updated_at + ' which is after the remote version at ' + response.data.updated_at + 
-						' - updating server with local version')
 						dispatch('updateAppOnServer')
 					}
 				})
@@ -967,22 +964,28 @@ export default new Vuex.Store({
 			commit('updateTimestamps')
 			commit('saveApplicationsToLocal')
 		},
-		
-		updateAppOnServer({ getters, commit }) {
+		saveApp({state, dispatch}){
+			dispatch('saveApplicationsToLocal')
+			clearTimeout(state.timeout_one)
+			state.timeout_one = setTimeout(() => { 
+				dispatch('updateAppOnServer')
+			}, 3000);
+		},
+
+		updateAppOnServer({ getters }) {
 			let config = {
 				headers: {
 					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
 				}
 			}
-			
-			commit('appVersionUpdate')
-
 			axios.post(env.state.uri + 'api/application/store', {
 				uuid: getters.application.uuid,
 				is_archived: getters.application.is_archived,
 				application: getters.application
 			}, config).then(response => {
-				window.console.log(response.data.id)
+				if(response.data.id){
+					window.console.log('App was updated on server')
+				}
 			}).catch(error => {
 				window.console.log(error)
 			})

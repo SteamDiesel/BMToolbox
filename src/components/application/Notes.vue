@@ -11,7 +11,7 @@ import { mapActions } from "vuex";
 export default {
 	name: "Notes",
 	methods: {
-		...mapActions(["saveApplicationsToLocal"]),
+		...mapActions(["saveApp"]),
 	}
 };
 </script>

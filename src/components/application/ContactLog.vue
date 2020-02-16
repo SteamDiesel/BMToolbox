@@ -87,7 +87,7 @@ export default {
 			this.focusOnLast()
 		},
 		
-		...mapActions(["pushToArray","saveApplicationsToLocal"]),
+		...mapActions(["pushToArray","saveApp"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

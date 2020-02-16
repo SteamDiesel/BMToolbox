@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+address.address"
 					v-model="address.address"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -30,7 +30,7 @@
 				<input
 					:id="'#'+address.years"
 					v-model="address.years"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -44,7 +44,7 @@
 				<input
 					:id="'#'+address.months"
 					v-model="address.months"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -83,7 +83,7 @@
 						@keyup.70="address.rent = address.rent * 2.166"
 						@keyup.81="address.rent = address.rent * 0.33"
 						@keyup.89="address.rent = address.rent * 0.0833"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -102,7 +102,7 @@
 						@keyup.70="address.board = address.board * 2.166"
 						@keyup.81="address.board = address.board * 0.33"
 						@keyup.89="address.board = address.board * 0.0833"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -128,7 +128,7 @@ export default {
 		index: Number
 	},
 	methods:{
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

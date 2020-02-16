@@ -18,7 +18,7 @@
 				<input
 					:id="'#'+employer.employer"
 					v-model="employer.employer"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -33,7 +33,7 @@
 				<input
 					:id="'#'+employer.position"
 					v-model="employer.position"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -45,7 +45,7 @@
 				<select
 					:id="'#'+employer.status"
 					v-model="employer.status"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="select"
 					class="form-input text-center"
 				>
@@ -66,7 +66,7 @@
 				<input
 					:id="'#'+employer.address"
 					v-model="employer.address"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -76,7 +76,7 @@
 				<input
 					:id="'#'+employer.contact_phone"
 					v-model="employer.contact_phone"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -86,7 +86,7 @@
 				<input
 					:id="'#'+employer.contact_name"
 					v-model="employer.contact_name"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -185,7 +185,7 @@
 						@keyup.70="employer.net_monthly_income = employer.net_monthly_income * 2.166"
 						@keyup.81="employer.net_monthly_income = employer.net_monthly_income * 0.33"
 						@keyup.89="employer.net_monthly_income = employer.net_monthly_income * 0.0833"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center font-semibold"
 					/>
@@ -210,7 +210,7 @@
 					<input
 						:id="'#'+employer.payslip_start_date"
 						v-model="employer.payslip_start_date"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="date"
 						class="form-input text-center"
 					/>
@@ -222,7 +222,7 @@
 					<input
 						:id="'#'+employer.payslip_date"
 						v-model="employer.payslip_date"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="date"
 						class="form-input text-center"
 					/>
@@ -234,7 +234,7 @@
 					<input
 						:id="'#'+employer.payslip_net_ytd"
 						v-model="employer.payslip_net_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -247,7 +247,7 @@
 					<input
 						:id="'#'+employer.payslip_gross_wages_ytd"
 						v-model="employer.payslip_gross_wages_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -257,7 +257,7 @@
 					<input
 						:id="'#'+employer.payslip_gross_overtime_ytd"
 						v-model="employer.payslip_gross_overtime_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -268,7 +268,7 @@
 					<input
 						:id="'#'+employer.payslip_gross_commission_ytd"
 						v-model="employer.payslip_gross_commission_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -279,7 +279,7 @@
 					<input
 						:id="'#'+employer.payslip_gross_allowance_ytd"
 						v-model="employer.payslip_gross_allowance_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -289,7 +289,7 @@
 					<input
 						:id="'#'+employer.payslip_gross_allowance_ytd"
 						v-model="employer.payslip_gross_allowance_ytd"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						class="form-input text-center"
 					/>
@@ -362,7 +362,7 @@ export default {
 			var date = moment(this.employer.end_date).subtract(this.employer.years, 'years').subtract(this.employer.months, 'months').format('YYYY-MM-DD')
 			this.employer.start_date = date
 		},
-		...mapActions(["saveApplicationsToLocal"]),
+		...mapActions(["saveApp"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

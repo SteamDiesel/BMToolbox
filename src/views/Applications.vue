@@ -73,7 +73,7 @@ import FormField from "@/components/application/FormField.vue";
 
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
-	name: "home",
+	name: "Applications",
 	data(){
 		return{
 			is_table: true,
@@ -100,7 +100,10 @@ export default {
 			this.$router.push("application");
 		},
 		...mapMutations(["selectApplication"]),
-		...mapActions(["deleteApplication", "fetchApplicationsFromServer"])
+		...mapActions(["deleteApplication", "fetchApplicationsFromServer", "getApplicationsFromLocal"])
+	},
+	mounted(){
+		this.getApplicationsFromLocal()
 	}
 };
 </script>

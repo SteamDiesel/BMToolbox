@@ -14,7 +14,7 @@
 				<input
 					:id="'#'+person.first_name"
 					v-model="person.first_name"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -25,7 +25,7 @@
 				<input
 					:id="'#'+person.alias"
 					v-model="person.alias"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -35,7 +35,7 @@
 				<input
 					:id="'#'+person.middle_names"
 					v-model="person.middle_names"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -45,7 +45,7 @@
 				<input
 					:id="'#'+person.surname"
 					v-model="person.surname"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -58,7 +58,7 @@
 				<input
 					:id="'#'+person.mobile_phone"
 					v-model="person.mobile_phone"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -69,7 +69,7 @@
 				<input
 					:id="'#'+person.home_phone"
 					v-model="person.home_phone"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -80,7 +80,7 @@
 				<input
 					:id="'#'+person.work_phone"
 					v-model="person.work_phone"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -91,7 +91,7 @@
 				<input
 					:id="'#'+person.email_address"
 					v-model="person.email_address"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -101,7 +101,7 @@
 				<input
 					:id="'#'+person.abn"
 					v-model="person.abn"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -113,7 +113,7 @@
 				<input
 					:id="'#'+person.date_of_birth"
 					v-model="person.date_of_birth"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="date"
 					class="form-input text-center"
 				/>
@@ -124,7 +124,7 @@
 				<select
 					:id="'#'+person.gender"
 					v-model="person.gender"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				>
@@ -139,7 +139,7 @@
 				<select
 					:id="'#'+person.marital_status"
 					v-model="person.marital_status"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				>
@@ -159,7 +159,7 @@
 				<input
 					:id="'#'+person.licence_number"
 					v-model="person.licence_number"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -169,7 +169,7 @@
 				<select
 					:id="'#'+person.licence_state"
 					v-model="person.licence_state"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				>
@@ -194,7 +194,7 @@
 				<input
 					:id="'#'+person.licence_card"
 					v-model="person.licence_card"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -204,7 +204,7 @@
 				<input
 					:id="'#'+person.licence_expiry"
 					v-model="person.licence_expiry"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="date"
 					class="form-input text-center"
 				/>
@@ -216,7 +216,7 @@
 				<select
 					:id="'#'+person.visa_status"
 					v-model="person.visa_status"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				>
@@ -234,7 +234,7 @@
 				<input
 					:id="'#'+person.visa_class"
 					v-model="person.visa_class"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -245,7 +245,7 @@
 				<input
 					:id="'#'+person.visa_expiry"
 					v-model="person.visa_expiry"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="date"
 					class="form-input text-center"
 				/>
@@ -257,7 +257,7 @@
 				<input
 					:id="'#'+person.passport_number"
 					v-model="person.passport_number"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -267,7 +267,7 @@
 				<input
 					:id="'#'+person.passport_country"
 					v-model="person.passport_country"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -277,7 +277,7 @@
 				<input
 					:id="'#'+person.passport_expiry"
 					v-model="person.passport_expiry"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="date"
 					class="form-input text-center"
 				/>
@@ -370,7 +370,7 @@ export default {
 			"pushToArray",
 			"dropFromArray",
 			"linkObjectToNextPerson",
-			"saveApplicationsToLocal"
+			"saveApp"
 		]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);

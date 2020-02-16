@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 import CreditCard from "@/components/application/CreditCard.vue";
 import Header from "@/components/application/sections/SectionHeader.vue";
@@ -110,7 +110,6 @@ export default {
 		person_index: Number
 	},
 	methods: {
-		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions(["pushToArray", "dropFromArray", "linkObjectToNextPerson"])
 	}
 };

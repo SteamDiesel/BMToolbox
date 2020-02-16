@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+other_asset.description"
 					v-model="other_asset.description"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -24,7 +24,7 @@
 				<input
 					:id="'#'+other_asset.value"
 					v-model="other_asset.value"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -48,7 +48,7 @@ export default {
 		other_asset: Object
 	},
 	methods:{
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import Header from "@/components/application/sections/SectionHeader.vue";
 import Section from "@/components/application/sections/Section.vue";
@@ -332,7 +332,6 @@ export default {
 
 	},
 	methods: {
-		...mapMutations(["saveApplicationsToLocal"]),
 		...mapActions([
 			"pushToArray",
 			"dropFromArray",

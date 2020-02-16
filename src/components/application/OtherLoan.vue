@@ -10,7 +10,7 @@
 				<input
 					:id="'#'+other_loan.lender"
 					v-model="other_loan.lender"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="text"
 					class="form-input text-center"
 				/>
@@ -24,7 +24,7 @@
 				<input
 					:id="'#'+other_loan.borrow_amount"
 					v-model="other_loan.borrow_amount"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -38,7 +38,7 @@
 				<input
 					:id="'#'+other_loan.current_balance"
 					v-model="other_loan.current_balance"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -56,7 +56,7 @@
 					@keyup.70="other_loan.monthly_payment = other_loan.monthly_payment * 2.166"
 					@keyup.81="other_loan.monthly_payment = other_loan.monthly_payment * 0.33"
 					@keyup.89="other_loan.monthly_payment = other_loan.monthly_payment * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -76,7 +76,7 @@
 				<input
 					:id="'#'+other_loan.start_date"
 					v-model="other_loan.start_date"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="date"
 					class="form-input text-center"
 				/>
@@ -90,7 +90,7 @@
 				<input
 					:id="'#'+other_loan.term"
 					v-model="other_loan.term"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -114,7 +114,7 @@
 				<input
 					:id="'#'+other_loan.apr"
 					v-model="other_loan.apr"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					type="number"
 					class="form-input text-center"
 				/>
@@ -139,9 +139,9 @@ export default {
 	methods:{
 		checkboxPayout(){
 			this.other_loan.refinance = !this.other_loan.refinance
-			this.saveApplicationsToLocal()
+			this.saveApp()
 		},
-		...mapActions(['saveApplicationsToLocal']),
+		...mapActions(['saveApp']),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute('type', 'text');

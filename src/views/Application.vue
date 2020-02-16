@@ -5,7 +5,7 @@
 		>
 			<div class="w-full flex justify-between">
 				<div class="ml-8">
-					<select @change="saveApplicationsToLocal" v-model="application.status" class=" rounded w-full font-semibold text-blue-600 hover:underline" :style="{'background-color': application.status.color}">
+					<select @change="saveApp" v-model="application.status" class=" rounded w-full font-semibold text-blue-600 hover:underline" :style="{'background-color': application.status.color}">
 						<option value="" selected>Select Status</option>
 						<option v-for="(status, index) in statuses" :key="index" :value="status" class="p-2" :style="{'background-color': status.color}">{{status.value}}</option>
 					</select>
@@ -47,7 +47,7 @@
 					<textarea
 						:id="'#'+application.notes"
 						v-model="application.notes"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="text"
 						class="bg-transparent text-left w-full h-64 p-4 rounded border border-gray-300 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100"
 					/>
@@ -56,11 +56,17 @@
 		</div>
 		<div class="w-full body-internal overflow-auto overflow-none bg-gray-200">
 			<div class="px-3">
-				<div class="flex">
-					<button @click="appPageSwitch('loan')" :class="{'text-blue-600': show_loan}" class="px-6 py-4 font-semibold hover:text-blue-400">Loan</button>
-					<button @click="appPageSwitch('vehicle')" :class="{'text-blue-600': show_vehicle}" class="px-6 py-4 font-semibold hover:text-blue-400">Vehicle</button>
-					<button @click="appPageSwitch('applicants')" :class="{'text-blue-600': show_applicants}" class="px-6 py-4 font-semibold hover:text-blue-400">Applicants</button>
-					<button @click="appPageSwitch('history')" :class="{'text-blue-600': show_history}" class="px-6 py-4 font-semibold hover:text-blue-400">History</button>
+				<div class="flex justify-between">
+					<div class="flex">
+						<button @click="appPageSwitch('loan')" :class="{'text-blue-600': show_loan}" class="px-6 py-4 font-semibold hover:text-blue-400">Loan</button>
+						<button @click="appPageSwitch('vehicle')" :class="{'text-blue-600': show_vehicle}" class="px-6 py-4 font-semibold hover:text-blue-400">Vehicle</button>
+						<button @click="appPageSwitch('applicants')" :class="{'text-blue-600': show_applicants}" class="px-6 py-4 font-semibold hover:text-blue-400">Applicants</button>
+						<button @click="appPageSwitch('history')" :class="{'text-blue-600': show_history}" class="px-6 py-4 font-semibold hover:text-blue-400">History</button>
+					</div>
+					<div>
+						<button @click="syncApp" class="px-6 py-4 font-semibold text-green-500 hover:text-blue-400">Sync</button>
+					</div>
+					
 				</div>
 				<div>
 					<hr />
@@ -127,8 +133,8 @@ export default {
 			"addBusinessToApplication",
 			"removePersonFromApplication",
 		]),
-		...mapActions(["dropFromArray", "deleteApplication", "saveApplicationsToLocal"])
-	}
+		...mapActions(["dropFromArray", "deleteApplication", "saveApp", "syncApp"])
+	},
 };
 </script>
 <style>

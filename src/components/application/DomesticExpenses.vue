@@ -7,7 +7,7 @@
 				<input
 					:id="'#exp'+expenses.groceries"
 					v-model="expenses.groceries"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					@keyup.87="expenses.groceries = expenses.groceries * 4.33"
 					@keyup.70="expenses.groceries = expenses.groceries * 2.16"
 					@keyup.81="expenses.groceries = expenses.groceries * 0.33"
@@ -26,7 +26,7 @@
 					@keyup.70="expenses.toiletries = expenses.toiletries * 2.166"
 					@keyup.81="expenses.toiletries = expenses.toiletries * 0.33"
 					@keyup.89="expenses.toiletries = expenses.toiletries * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -41,7 +41,7 @@
 					@keyup.70="expenses.clothing = expenses.clothing * 2.166"
 					@keyup.81="expenses.clothing = expenses.clothing * 0.33"
 					@keyup.89="expenses.clothing = expenses.clothing * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -60,7 +60,7 @@
 					@keyup.70="expenses.footwear = expenses.footwear * 2.166"
 					@keyup.81="expenses.footwear = expenses.footwear * 0.33"
 					@keyup.89="expenses.footwear = expenses.footwear * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -75,7 +75,7 @@
 					@keyup.70="expenses.pet_care = expenses.pet_care * 2.166"
 					@keyup.81="expenses.pet_care = expenses.pet_care * 0.33"
 					@keyup.89="expenses.pet_care = expenses.pet_care * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -90,7 +90,7 @@
 					@keyup.70="expenses.doctor = expenses.doctor * 2.166"
 					@keyup.81="expenses.doctor = expenses.doctor * 0.33"
 					@keyup.89="expenses.doctor = expenses.doctor * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -105,7 +105,7 @@
 					@keyup.70="expenses.dentist = expenses.dentist * 2.166"
 					@keyup.81="expenses.dentist = expenses.dentist * 0.33"
 					@keyup.89="expenses.dentist = expenses.dentist * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -120,7 +120,7 @@
 					@keyup.70="expenses.medicine = expenses.medicine * 2.166"
 					@keyup.81="expenses.medicine = expenses.medicine * 0.33"
 					@keyup.89="expenses.medicine = expenses.medicine * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -138,7 +138,7 @@
 					@keyup.70="expenses.school_fees = expenses.school_fees * 2.166"
 					@keyup.81="expenses.school_fees = expenses.school_fees * 0.33"
 					@keyup.89="expenses.school_fees = expenses.school_fees * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -153,7 +153,7 @@
 					@keyup.70="expenses.child_care = expenses.child_care * 2.166"
 					@keyup.81="expenses.child_care = expenses.child_care * 0.33"
 					@keyup.89="expenses.child_care = expenses.child_care * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -168,7 +168,7 @@
 					@keyup.70="expenses.books = expenses.books * 2.166"
 					@keyup.81="expenses.books = expenses.books * 0.33"
 					@keyup.89="expenses.books = expenses.books * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -183,7 +183,7 @@
 					@keyup.70="expenses.uniforms = expenses.uniforms * 2.166"
 					@keyup.81="expenses.uniforms = expenses.uniforms * 0.33"
 					@keyup.89="expenses.uniforms = expenses.uniforms * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -198,7 +198,7 @@
 					@keyup.70="expenses.nannies = expenses.nannies * 2.166"
 					@keyup.81="expenses.nannies = expenses.nannies * 0.33"
 					@keyup.89="expenses.nannies = expenses.nannies * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -213,7 +213,7 @@
 					@keyup.70="expenses.child_support_maintenance = expenses.child_support_maintenance * 2.166"
 					@keyup.81="expenses.child_support_maintenance = expenses.child_support_maintenance * 0.33"
 					@keyup.89="expenses.child_support_maintenance = expenses.child_support_maintenance * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -230,7 +230,7 @@
 					@keyup.70="expenses.water = expenses.water * 2.166"
 					@keyup.81="expenses.water = expenses.water * 0.33"
 					@keyup.89="expenses.water = expenses.water * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -245,7 +245,7 @@
 					@keyup.70="expenses.gas = expenses.gas * 2.166"
 					@keyup.81="expenses.gas = expenses.gas * 0.33"
 					@keyup.89="expenses.gas = expenses.gas * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -260,7 +260,7 @@
 					@keyup.70="expenses.electricity = expenses.electricity * 2.166"
 					@keyup.81="expenses.electricity = expenses.electricity * 0.33"
 					@keyup.89="expenses.electricity = expenses.electricity * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -275,7 +275,7 @@
 					@keyup.70="expenses.mobile_phone = expenses.mobile_phone * 2.166"
 					@keyup.81="expenses.mobile_phone = expenses.mobile_phone * 0.33"
 					@keyup.89="expenses.mobile_phone = expenses.mobile_phone * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -290,7 +290,7 @@
 					@keyup.70="expenses.home_phone = expenses.home_phone * 2.166"
 					@keyup.81="expenses.home_phone = expenses.home_phone * 0.33"
 					@keyup.89="expenses.home_phone = expenses.home_phone * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -305,7 +305,7 @@
 					@keyup.70="expenses.internet = expenses.internet * 2.166"
 					@keyup.81="expenses.internet = expenses.internet * 0.33"
 					@keyup.89="expenses.internet = expenses.internet * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -320,7 +320,7 @@
 					@keyup.70="expenses.pay_tv = expenses.pay_tv * 2.166"
 					@keyup.81="expenses.pay_tv = expenses.pay_tv * 0.33"
 					@keyup.89="expenses.pay_tv = expenses.pay_tv * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -335,7 +335,7 @@
 					@keyup.70="expenses.music_streaming = expenses.music_streaming * 2.166"
 					@keyup.81="expenses.music_streaming = expenses.music_streaming * 0.33"
 					@keyup.89="expenses.music_streaming = expenses.music_streaming * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -350,7 +350,7 @@
 					@keyup.70="expenses.video_streaming = expenses.video_streaming * 2.166"
 					@keyup.81="expenses.video_streaming = expenses.video_streaming * 0.33"
 					@keyup.89="expenses.video_streaming = expenses.video_streaming * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -367,7 +367,7 @@
 					@keyup.70="expenses.council_rates = expenses.council_rates * 2.166"
 					@keyup.81="expenses.council_rates = expenses.council_rates * 0.33"
 					@keyup.89="expenses.council_rates = expenses.council_rates * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -382,7 +382,7 @@
 					@keyup.70="expenses.body_corporate_fees = expenses.body_corporate_fees * 2.166"
 					@keyup.81="expenses.body_corporate_fees = expenses.body_corporate_fees * 0.33"
 					@keyup.89="expenses.body_corporate_fees = expenses.body_corporate_fees * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -397,7 +397,7 @@
 					@keyup.70="expenses.taxes_and_levies = expenses.taxes_and_levies * 2.166"
 					@keyup.81="expenses.taxes_and_levies = expenses.taxes_and_levies * 0.33"
 					@keyup.89="expenses.taxes_and_levies = expenses.taxes_and_levies * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -412,7 +412,7 @@
 					@keyup.70="expenses.repairs_and_maintenance = expenses.repairs_and_maintenance * 2.166"
 					@keyup.81="expenses.repairs_and_maintenance = expenses.repairs_and_maintenance * 0.33"
 					@keyup.89="expenses.repairs_and_maintenance = expenses.repairs_and_maintenance * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -427,7 +427,7 @@
 					@keyup.70="expenses.other_household_items = expenses.other_household_items * 2.166"
 					@keyup.81="expenses.other_household_items = expenses.other_household_items * 0.33"
 					@keyup.89="expenses.other_household_items = expenses.other_household_items * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -444,7 +444,7 @@
 					@keyup.70="expenses.home_and_contents = expenses.home_and_contents * 2.166"
 					@keyup.81="expenses.home_and_contents = expenses.home_and_contents * 0.33"
 					@keyup.89="expenses.home_and_contents = expenses.home_and_contents * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -459,7 +459,7 @@
 					@keyup.70="expenses.private_health_insurance = expenses.private_health_insurance * 2.166"
 					@keyup.81="expenses.private_health_insurance = expenses.private_health_insurance * 0.33"
 					@keyup.89="expenses.private_health_insurance = expenses.private_health_insurance * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -474,7 +474,7 @@
 					@keyup.70="expenses.life_insurance = expenses.life_insurance * 2.166"
 					@keyup.81="expenses.life_insurance = expenses.life_insurance * 0.33"
 					@keyup.89="expenses.life_insurance = expenses.life_insurance * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -489,7 +489,7 @@
 					@keyup.70="expenses.motor_vehicle_insurance = expenses.motor_vehicle_insurance * 2.166"
 					@keyup.81="expenses.motor_vehicle_insurance = expenses.motor_vehicle_insurance * 0.33"
 					@keyup.89="expenses.motor_vehicle_insurance = expenses.motor_vehicle_insurance * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -506,7 +506,7 @@
 					@keyup.70="expenses.fuel = expenses.fuel * 2.166"
 					@keyup.81="expenses.fuel = expenses.fuel * 0.33"
 					@keyup.89="expenses.fuel = expenses.fuel * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -521,7 +521,7 @@
 					@keyup.70="expenses.servicing = expenses.servicing * 2.166"
 					@keyup.81="expenses.servicing = expenses.servicing * 0.33"
 					@keyup.89="expenses.servicing = expenses.servicing * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -536,7 +536,7 @@
 					@keyup.70="expenses.public_transport = expenses.public_transport * 2.166"
 					@keyup.81="expenses.public_transport = expenses.public_transport * 0.33"
 					@keyup.89="expenses.public_transport = expenses.public_transport * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -551,7 +551,7 @@
 					@keyup.70="expenses.parking_and_tolls = expenses.parking_and_tolls * 2.166"
 					@keyup.81="expenses.parking_and_tolls = expenses.parking_and_tolls * 0.33"
 					@keyup.89="expenses.parking_and_tolls = expenses.parking_and_tolls * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -568,7 +568,7 @@
 					@keyup.70="expenses.entertainment = expenses.entertainment * 2.166"
 					@keyup.81="expenses.entertainment = expenses.entertainment * 0.33"
 					@keyup.89="expenses.entertainment = expenses.entertainment * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -583,7 +583,7 @@
 					@keyup.70="expenses.holidays = expenses.holidays * 2.166"
 					@keyup.81="expenses.holidays = expenses.holidays * 0.33"
 					@keyup.89="expenses.holidays = expenses.holidays * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -598,7 +598,7 @@
 					@keyup.70="expenses.sports = expenses.sports * 2.166"
 					@keyup.81="expenses.sports = expenses.sports * 0.33"
 					@keyup.89="expenses.sports = expenses.sports * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -613,7 +613,7 @@
 					@keyup.70="expenses.alcohol = expenses.alcohol * 2.166"
 					@keyup.81="expenses.alcohol = expenses.alcohol * 0.33"
 					@keyup.89="expenses.alcohol = expenses.alcohol * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -628,7 +628,7 @@
 					@keyup.70="expenses.tobacco = expenses.tobacco * 2.166"
 					@keyup.81="expenses.tobacco = expenses.tobacco * 0.33"
 					@keyup.89="expenses.tobacco = expenses.tobacco * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -643,7 +643,7 @@
 					@keyup.70="expenses.gambling = expenses.gambling * 2.166"
 					@keyup.81="expenses.gambling = expenses.gambling * 0.33"
 					@keyup.89="expenses.gambling = expenses.gambling * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -658,7 +658,7 @@
 					@keyup.70="expenses.restaurants = expenses.restaurants * 2.166"
 					@keyup.81="expenses.restaurants = expenses.restaurants * 0.33"
 					@keyup.89="expenses.restaurants = expenses.restaurants * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -673,7 +673,7 @@
 					@keyup.70="expenses.memberships = expenses.memberships * 2.166"
 					@keyup.81="expenses.memberships = expenses.memberships * 0.33"
 					@keyup.89="expenses.memberships = expenses.memberships * 0.0833"
-					@change="saveApplicationsToLocal"
+					@change="saveApp"
 					class="form-input text-center"
 					type="number"
 				/>
@@ -696,7 +696,7 @@ export default {
 		expenses: Object
 	},
 	methods: {
-		...mapActions(["saveApplicationsToLocal"]),
+		...mapActions(["saveApp"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

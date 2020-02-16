@@ -26,7 +26,7 @@
 					<input
 						:id="'#'+calc.vehicle_price"
 						v-model="calc.vehicle_price"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="500"
 						class="form-input text-center"
@@ -38,7 +38,7 @@
 					<input
 						:id="'#'+calc.aftermarket"
 						v-model="calc.aftermarket"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="100"
 						class="form-input text-center"
@@ -50,7 +50,7 @@
 					<input
 						:id="'#'+calc.warranty"
 						v-model="calc.warranty"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="100"
 						class="form-input text-center"
@@ -62,7 +62,7 @@
 					<input
 						:id="'#'+calc.trade_value"
 						v-model="calc.trade_value"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="500"
 						class="form-input text-center"
@@ -74,7 +74,7 @@
 					<input
 						:id="'#'+calc.trade_payout"
 						v-model="calc.trade_payout"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="500"
 						class="form-input text-center"
@@ -86,7 +86,7 @@
 					<input
 						:id="'#'+calc.sign_deposit"
 						v-model="calc.sign_deposit"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="500"
 						class="form-input text-center"
@@ -98,7 +98,7 @@
 					<input
 						:id="'#'+calc.further_deposit"
 						v-model="calc.further_deposit"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="500"
 						class="form-input text-center"
@@ -110,7 +110,7 @@
 					<input
 						:id="'#'+balance_financed"
 						v-model="balance_financed"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						readonly
 						class="form-input text-center"
@@ -124,7 +124,7 @@
 					<input
 						:id="'#'+calc.origination_fee"
 						v-model="calc.origination_fee"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="110"
 						class="form-input text-center"
@@ -135,7 +135,7 @@
 					<input
 						:id="'#'+calc.brokerage"
 						v-model="calc.brokerage"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="110"
 						class="form-input text-center"
@@ -146,7 +146,7 @@
 					<input
 						:id="'#'+calc.credit_insurance"
 						v-model="calc.credit_insurance"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="100"
 						class="form-input text-center"
@@ -158,7 +158,7 @@
 					<input
 						:id="'#'+calc.gap_insurance"
 						v-model="calc.gap_insurance"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="100"
 						class="form-input text-center"
@@ -169,7 +169,7 @@
 					<input
 						:id="'#'+calc.lender_fee"
 						v-model="calc.lender_fee"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="50"
 						class="form-input text-center"
@@ -180,7 +180,7 @@
 					<input
 						:id="'#'+calc.monthly_fee"
 						v-model="calc.monthly_fee"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="5"
 						class="form-input text-center"
@@ -191,7 +191,7 @@
 					<input
 						:id="'#'+naf"
 						v-model="naf"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						readonly
 						class="form-input text-center"
@@ -205,7 +205,7 @@
 					<input
 						:id="'#'+calc.term"
 						v-model="calc.term"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="12"
 						class="form-input text-center"
@@ -217,7 +217,7 @@
 					<input
 						:id="'#'+calc.apr"
 						v-model="calc.apr"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						type="number"
 						step="0.1"
 						class="form-input text-center"
@@ -228,7 +228,7 @@
 					<input
 						:id="'#'+calc.rv"
 						v-model="calc.rv"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						@keyup="setRvPercent"
 						type="number"
 						step="500"
@@ -240,7 +240,7 @@
 					<input
 						:id="'#'+calc.rv_percent"
 						v-model="calc.rv_percent"
-						@change="saveApplicationsToLocal"
+						@change="saveApp"
 						@keyup="setRv"
 						type="number"
 						step="2"
@@ -416,7 +416,7 @@ export default {
 			this.calc.rv_percent = +(Math.round(percent + "e+" + 2) + "e-" + 2);
 		},
 
-		...mapActions(["saveApplicationsToLocal"]),
+		...mapActions(["saveApp"]),
 		copyClipboard(id) {
 			let valueToCopy = document.getElementById(id);
 			valueToCopy.setAttribute("type", "text");

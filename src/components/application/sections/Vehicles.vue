@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 import Vehicle from "@/components/application/Vehicle.vue";
 import Header from "@/components/application/sections/SectionHeader.vue";
@@ -113,7 +113,7 @@ export default {
 		person_index: Number
 	},
 	methods: {
-		...mapMutations(["saveApplicationsToLocal"]),
+
 		...mapActions(["pushToArray", "dropFromArray", "linkObjectToNextPerson"])
 	}
 };

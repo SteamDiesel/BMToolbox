@@ -121,7 +121,6 @@ export default {
 			"addBusinessToApplication",
 			"removePersonFromApplication",
 			"addVehicleToApplication",
-			"saveApplicationsToLocal"
 		]),
 		...mapActions(["dropFromArray", "pushToArray"])
 	}
