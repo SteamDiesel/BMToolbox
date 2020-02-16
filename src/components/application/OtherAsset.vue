@@ -25,7 +25,7 @@
 					:id="'#'+other_asset.value"
 					v-model="other_asset.value"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>

@@ -25,7 +25,8 @@
 					:id="'#'+credit_card.credit_limit"
 					v-model="credit_card.credit_limit"
 					@change="saveApplicationsToLocal"
-					type="text"
+					@keyup="credit_card.monthly_payment = credit_card.credit_limit * .03"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -39,7 +40,7 @@
 					:id="'#'+credit_card.balance"
 					v-model="credit_card.balance"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
@@ -53,7 +54,7 @@
 					:id="'#'+credit_card.monthly_payment"
 					v-model="credit_card.monthly_payment"
 					@change="saveApplicationsToLocal"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>
