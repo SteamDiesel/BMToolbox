@@ -13,7 +13,7 @@
 		<div class="w-full px-4">
 			<div @click='edit_note = true' v-if="!edit_note" class="w-full px-2 py-1 border border-gray-100 hover:border-teal-500 hover:bg-teal-100 rounded">{{entry.notes}}</div>
 			<div v-if="edit_note" >
-			<textarea @keydown.enter="edit_note = false" class="w-full h-64 p-4 rounded border border-teal-500 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100" v-model="entry.notes"></textarea>
+			<textarea class="w-full h-64 p-4 rounded border border-teal-500 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100" v-model="entry.notes"></textarea>
 				<button @click='edit_note = false' class="btn-secondary">
 					Close
 				</button>

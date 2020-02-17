@@ -844,32 +844,32 @@ export default new Vuex.Store({
 				dispatch('saveApplications')
 			}
 		},
-		saveApplicationsLoop({ commit, dispatch }) {
-			setTimeout(() => {
-				commit('saveApplicationsToLocal')
+		// saveApplicationsLoop({ commit, dispatch }) {
+		// 	setTimeout(() => {
+		// 		commit('saveApplicationsToLocal')
 
-				dispatch('saveApplicationsLoop')
-			}, 236000)
-		},
+		// 		dispatch('saveApplicationsLoop')
+		// 	}, 236000)
+		// },
 		saveApplications({ commit }) {
 			commit('saveApplicationsToLocal')
 			commit('updateTimestamps')
 		},
 		pushToArray({ commit, dispatch }, payload) {
 			commit('pushToArray', payload)
-			dispatch('saveApplications')
+			dispatch('saveApp')
 		},
 		dropFromArray({ state, commit, dispatch }, payload) {
 			if (state.user_preferences.require_confirmation_prompts) {
 				if (confirm('Are you sure you want to permanently remove this ' + payload.type + '?')) {
 					payload.object.shared = false
 					commit('dropFromArray', payload)
-					dispatch('saveApplications')
+					dispatch('saveApp')
 				}
 			} else {
 				payload.object.shared = false
 				commit('dropFromArray', payload)
-				dispatch('saveApplications')
+				dispatch('saveApp')
 			}
 
 		},

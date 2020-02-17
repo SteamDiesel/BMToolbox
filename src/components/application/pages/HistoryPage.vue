@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import moment from "moment";
 import ContactHistoryCard from "@/components/cards/ContactHistoryCard.vue";
 
@@ -72,7 +72,7 @@ export default {
 			this.entry.type = "";
 			this.entry.notes = "";
 		},
-		...mapMutations(["saveApp"])
+		...mapActions(["saveApp"])
 	}
 };
 </script>
