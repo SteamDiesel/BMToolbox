@@ -23,6 +23,8 @@ export default {
 		},
 		setNotConnected(state) {
 			state.authenticated = false
+			state.login_waiting = false
+			state.show_login_card = true
 		},
 		toggleLogin(state) {
 			state.show_login_card = !state.show_login_card

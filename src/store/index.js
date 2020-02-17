@@ -781,7 +781,10 @@ export default new Vuex.Store({
 		initialize({ commit, dispatch }) {
 			var token = localStorage.getItem('session_token')
 			if (token) {
+				commit('setConnected')
 				dispatch('testAuthConnection')
+			} else {
+				commit('setNotConnected')
 			}
 			var prefs = localStorage.getItem('user_preferences');
 			if (prefs) {
