@@ -100,11 +100,9 @@ export default {
 			this.$router.push("application");
 		},
 		...mapMutations(["selectApplication"]),
-		...mapActions(["deleteApplication", "fetchApplicationsFromServer", "getApplicationsFromLocal"])
+		...mapActions(["deleteApplication", "fetchApplicationsFromServer"])
 	},
-	mounted(){
-		this.getApplicationsFromLocal()
-	}
+	
 };
 </script>
 <style scoped>
