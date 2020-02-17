@@ -18,7 +18,7 @@
 						
 					</div>
 					<div class="flex h-full items-center ">
-						<a href="http://lite-resources.bdfi.test/register">
+						<a href="https://lite-resources.bdfi.app/register">
 							<div class="btn-secondary py-1 mr-4">
 								Register
 							</div>
