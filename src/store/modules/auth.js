@@ -12,10 +12,21 @@ export default {
 		login_waiting: false,
 
 	},
+	getters: {
+		config() {
+			return {
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+				}
+			}
+		},
+
+	},
 	mutations: {
 		setUser(state, payload) {
 			state.user = payload
 		},
+		
 		setConnected(state) {
 			state.authenticated = true
 			state.login_waiting = false
@@ -39,9 +50,7 @@ export default {
 	},
 	actions: {
 
-		signIn(
-			{ commit, dispatch }, payload
-		) {
+		signIn({ commit, dispatch }, payload) {
 			commit('setLoading')
 			axios.defaults.withCredentials = true;
 			axios.get(env.state.uri + 'airlock/csrf-cookie')
@@ -53,6 +62,7 @@ export default {
 						localStorage.setItem('session_token', response.data.token.plainTextToken)
 						commit('setUser', response.data.user)
 						dispatch('testAuthConnection')
+						dispatch('getUserPreferences')
 					}).catch(error => {
 						if (error.response) {
 							commit('setFailedLogin', error)
@@ -80,13 +90,9 @@ export default {
 					window.console.log(error.config);
 				})
 		},
-		testAuthConnection({ commit }) {
-			let config = {
-				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('session_token')
-				}
-			}
-			axios.get(env.state.uri + 'api/testAuthConnection', config).then(response => {
+		testAuthConnection({ getters, commit }) {
+			// let config = env.state.config
+			axios.get(env.state.uri + 'api/testAuthConnection', getters.config).then(response => {
 				if (response.data.message == 'connected') {
 					commit('setConnected')
 				}
@@ -96,7 +102,23 @@ export default {
 			}).catch(error => {
 				window.console.log(error)
 			})
-		}
+		},
+		saveUserPreferences({ getters, rootState, commit }) {
+			commit('savePreferences')
+			axios.post(env.state.uri + 'api/preferences', {
+				preferences: JSON.stringify(rootState.user_preferences)
+			}, getters.config).catch(error => {
+				window.console.log(error)
+			})
+
+		},
+		getUserPreferences({ getters , commit }) {
+			axios.get(env.state.uri + 'api/preferences', getters.config).then(response => {
+				commit('setUserPreferences', JSON.parse(response.data.preferences))
+			}).catch(error => {
+				window.console.log(error)
+			})
+		},
 
 	},
 	modules: {

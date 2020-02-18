@@ -54,6 +54,7 @@ export default new Vuex.Store({
 			is_saved: false,
 		},
 		user_preferences: {
+			// version 0 to version 1 change: added version number removed session uuid
 			session_uuid: '',
 			user_name: 'Anonymous',
 			user_role: '',
@@ -295,6 +296,9 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		setUserPreferences(state, payload){
+			state.user_preferences = payload
+		},
 		deleteApplication(state, index) {
 			state.applications.splice(index, 1)
 		},
@@ -813,25 +817,7 @@ export default new Vuex.Store({
 				user_business_address: state.user_preferences.user_business_address
 			})
 		},
-		saveDetails({ state, commit }) {
-			commit('savePreferences')
-			axios.post(state.env.details_update_url, {
-				session_uuid: state.user_preferences.session_uuid,
-				email: state.user_preferences.user_email,
-				first_name: state.user_preferences.user_name,
-				surname: state.user_preferences.user_name,
-				country: '',
-				phone_number: state.user_preferences.user_phone,
-				business_name: state.user_preferences.user_business_name,
-				role: state.user_preferences.user_role,
-				business_address: state.user_preferences.user_business_address,
-				brand_image_url: state.user_preferences.user_brand_image_url,
-				email_image_url: state.user_preferences.user_email_signature_image_url,
-				show_copy_button: state.user_preferences.show_copy_button,
-				confirm_delete_prompts: state.user_preferences.require_confirmation_prompts,
-			})
-
-		},
+		
 
 		deleteApplication({ state, commit, dispatch }, index) {
 			if (state.user_preferences.require_confirmation_prompts) {
