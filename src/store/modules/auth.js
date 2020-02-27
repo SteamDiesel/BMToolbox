@@ -3,12 +3,13 @@ import env from './environment'
 export default {
 	state: {
 
-		user: '',
+		user: {},
 		authenticated: false,
 		error_message: '',
 		email_message: '',
 		password_message: '',
 		show_login_card: false,
+		show_auth_menu: false,
 		login_waiting: false,
 
 	},
@@ -20,25 +21,39 @@ export default {
 				}
 			}
 		},
+		auth_user(state) {
+			// if(state.authenticated && state.user){
+			// 	return state.user
+			// } else {
+				return state.user
+			// }
+		}
 
 	},
 	mutations: {
 		setUser(state, payload) {
 			state.user = payload
+			localStorage.setItem('user', JSON.stringify(payload))
 		},
 		
-		setConnected(state) {
+		setConnected(state, user) {
+			state.user = user
 			state.authenticated = true
 			state.login_waiting = false
 			state.show_login_card = false
+			
 		},
 		setNotConnected(state) {
+			state.user = {}
 			state.authenticated = false
 			state.login_waiting = false
 			state.show_login_card = true
 		},
 		toggleLogin(state) {
 			state.show_login_card = !state.show_login_card
+		},
+		toggleMenu(state) {
+			state.show_auth_menu = !state.show_auth_menu
 		},
 		setLoading(state) {
 			state.login_waiting = true
@@ -93,11 +108,11 @@ export default {
 		testAuthConnection({ getters, commit }) {
 			// let config = env.state.config
 			axios.get(env.state.uri + 'api/testAuthConnection', getters.config).then(response => {
-				if (response.data.message == 'connected') {
-					commit('setConnected')
-				}
 				if (response.data.message == 'Unauthenticated') {
+					window.console.log(response.data.message)
 					commit('setNotConnected')
+				} else {
+					window.console.log(response.data.message)
 				}
 			}).catch(error => {
 				window.console.log(error)

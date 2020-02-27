@@ -1,7 +1,6 @@
 <template>
-	<div class="bg-gray-100 rounded-lg border-2 border-teal-500 w-100 h-100 flex flex-col items-center justify-between">
-		
-			<div class="flex justify-end w-full">
+	<MenuCard>
+<div class="flex justify-end w-full">
 				<button @click="toggleLogin" class="text-gray-500 m-4">
 					close
 				</button>
@@ -24,19 +23,20 @@
 					Please wait...
 				</div>
 			</transition>
-		<!-- <div>
-			{{user}}
-		</div> -->
-	</div>
+	</MenuCard>
+	
 </template>
 
 
 <script>
 
 import { mapState, mapActions, mapMutations } from 'vuex'
+import MenuCard from './MenuCard'
 export default {
 	name: "UserLogin",
-	components: {},
+	components: {
+		MenuCard
+	},
 	data(){
 		return {
 			email: '',

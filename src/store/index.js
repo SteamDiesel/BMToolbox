@@ -783,42 +783,53 @@ export default new Vuex.Store({
 		},
 
 		initialize({ commit, dispatch }) {
+
+	// first: get the local storage items if they exist
 			var token = localStorage.getItem('session_token')
-			if (token) {
-				commit('setConnected')
-				dispatch('testAuthConnection')
+			var prefs = localStorage.getItem('user_preferences')
+			var apps = localStorage.getItem('applications')
+			var user = JSON.parse(localStorage.getItem('user'))
+
+
+
+	// second: commit mutations to set environment from locally stored data
+			if (user && token) {
+				commit('setConnected', user)
 			} else {
 				commit('setNotConnected')
 			}
-			var prefs = localStorage.getItem('user_preferences');
+
+			// if (token) {
+			// 	commit('setConnected')
+			// } else {
+			// 	commit('setNotConnected')
+			// }
+			
+			
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
 			} else {
 				commit('setSessionUUID')
 			}
 
-			var apps = localStorage.getItem('applications')
-			if (apps) {
-				window.console.log('getting apps')
-				dispatch('getApplicationsFromLocal')
-			} else {
+			if (!apps) {
 				commit('createEmptyApplication')
 				commit('addPersonToApplication')
 			}
-			dispatch('postUserVisitorDetailsToServer')
-		},
-		postUserVisitorDetailsToServer({ state }) {
-			// window.console.log('logging visit')
-			axios.post(state.env.visitor_log_url, {
-				user_name: state.user_preferences.user_name,
-				user_email: state.user_preferences.user_email,
-				user_phone: state.user_preferences.user_phone,
-				user_business_name: state.user_preferences.user_business_name,
-				user_business_address: state.user_preferences.user_business_address
-			})
+
+	// last: dispatch actions for async remote resources
+			if (token && user) {
+				dispatch('testAuthConnection')
+			} 
+			
+			if (apps) {
+				window.console.log('Getting apps from local storage.')
+				dispatch('getApplicationsFromLocal')
+			}
+			
+			
 		},
 		
-
 		deleteApplication({ state, commit, dispatch }, index) {
 			if (state.user_preferences.require_confirmation_prompts) {
 				if (confirm('Are you sure you want to permanently remove this application?')) {
