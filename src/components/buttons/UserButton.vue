@@ -1,5 +1,5 @@
 <template>
-	<button v-if="user.name" @click="toggleMenu" class="h-full flex items-center px-4 hover:bg-blue-800 font-semibold text-gray-100">
+	<button v-if="user.name" @click="toggleAuthMenu" class="h-full flex items-center px-4 hover:bg-blue-800 font-semibold text-gray-100">
 		<div>
 			{{user.name}}		
 		</div>
@@ -22,7 +22,7 @@ export default {
 		})
 	},
 	methods: {
-		...mapMutations(["toggleMenu"])
+		...mapMutations(["toggleAuthMenu"])
 	}
 };
 </script>

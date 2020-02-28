@@ -799,12 +799,6 @@ export default new Vuex.Store({
 				commit('setNotConnected')
 			}
 
-			// if (token) {
-			// 	commit('setConnected')
-			// } else {
-			// 	commit('setNotConnected')
-			// }
-			
 			
 			if (prefs) {
 				commit('setUserPreferencesFromLocal')
@@ -819,7 +813,7 @@ export default new Vuex.Store({
 
 	// last: dispatch actions for async remote resources
 			if (token && user) {
-				dispatch('testAuthConnection')
+				dispatch('testAuthConnection', token)
 			} 
 			
 			if (apps) {

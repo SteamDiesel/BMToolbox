@@ -1,6 +1,6 @@
 <template>
-	<MenuCard>
-<div class="flex justify-end w-full">
+	<MenuCard class="flex flex-col justify-around">
+			<div class="flex justify-end w-full">
 				<button @click="toggleLogin" class="text-gray-500 m-4">
 					close
 				</button>
@@ -8,14 +8,18 @@
 			<div class="flex justify-center font-semibold text-red-800">
 				{{error_message}}
 			</div>
-			<input class="form-input bg-gray-200 rounded-lg text-center w-64 h-12" type="text" 
+			<div class="flex justify-center py-4">
+				<input class="form-input bg-gray-200 rounded-lg text-center w-64 h-12" type="text" 
 			v-model="email" placeholder="email">
+			</div>
+			<div class="flex justify-center py-4">
+				<input class="form-input bg-gray-200 rounded-lg text-center w-64 h-12 " type="password" 
+			v-model="password" placeholder="password">
+			</div>
 			
 
-			<input class="form-input bg-gray-200 rounded-lg text-center w-64 h-12 " type="password" 
-			v-model="password" placeholder="password">
-			
-			<transition name="fade" mode="out-in">
+			<div class="flex justify-center py-4">
+				<transition name="fade" mode="out-in">
 				<button v-if="!login_waiting" @click="signIn({email: email, password: password})" class=" mb-4 btn-primary">
 					Sign In
 				</button>
@@ -23,6 +27,9 @@
 					Please wait...
 				</div>
 			</transition>
+			</div>
+			
+			
 	</MenuCard>
 	
 </template>

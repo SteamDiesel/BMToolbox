@@ -11,6 +11,7 @@ export default {
 		show_login_card: false,
 		show_auth_menu: false,
 		login_waiting: false,
+		session_token: '',
 
 	},
 	getters: {
@@ -35,7 +36,6 @@ export default {
 			state.user = payload
 			localStorage.setItem('user', JSON.stringify(payload))
 		},
-		
 		setConnected(state, user) {
 			state.user = user
 			state.authenticated = true
@@ -52,7 +52,7 @@ export default {
 		toggleLogin(state) {
 			state.show_login_card = !state.show_login_card
 		},
-		toggleMenu(state) {
+		toggleAuthMenu(state) {
 			state.show_auth_menu = !state.show_auth_menu
 		},
 		setLoading(state) {
@@ -65,7 +65,7 @@ export default {
 	},
 	actions: {
 
-		signIn({ commit, dispatch }, payload) {
+		signIn({ commit, dispatch, state }, payload) {
 			commit('setLoading')
 			axios.defaults.withCredentials = true;
 			axios.get(env.state.uri + 'airlock/csrf-cookie')
@@ -76,8 +76,10 @@ export default {
 					}, { withCredentials: true }).then(response => {
 						localStorage.setItem('session_token', response.data.token.plainTextToken)
 						commit('setUser', response.data.user)
-						dispatch('testAuthConnection')
-						dispatch('getUserPreferences')
+						commit('setConnected', response.data.user)
+						state.show_login_card = false
+						dispatch('testAuthConnection', response.data.token.plainTextToken)
+						dispatch('getUserPreferences', response.data.token.plainTextToken)
 					}).catch(error => {
 						if (error.response) {
 							commit('setFailedLogin', error)
@@ -105,9 +107,16 @@ export default {
 					window.console.log(error.config);
 				})
 		},
-		testAuthConnection({ getters, commit }) {
-			// let config = env.state.config
-			axios.get(env.state.uri + 'api/testAuthConnection', getters.config).then(response => {
+		testAuthConnection({ getters, commit }, token) {
+			var config = {
+				headers: {
+					'Authorization': 'Bearer ' + token
+				}
+			}
+			if (!token){
+				config = getters.config
+			}
+			axios.get(env.state.uri + 'api/testAuthConnection', config).then(response => {
 				if (response.data.message == 'Unauthenticated') {
 					window.console.log(response.data.message)
 					commit('setNotConnected')
@@ -127,13 +136,32 @@ export default {
 			})
 
 		},
-		getUserPreferences({ getters , commit }) {
-			axios.get(env.state.uri + 'api/preferences', getters.config).then(response => {
+		getUserPreferences({ getters , commit }, token) {
+			var config = {
+				headers: {
+					'Authorization': 'Bearer ' + token
+				}
+			}
+			if (!token){
+				config = getters.config
+			}
+			axios.get(env.state.uri + 'api/preferences', config).then(response => {
 				commit('setUserPreferences', JSON.parse(response.data.preferences))
 			}).catch(error => {
 				window.console.log(error)
 			})
 		},
+		logout({ getters, dispatch, commit }){
+			axios.get(env.state.uri + 'api/logout', getters.config).then(
+				window.console.log('Logging out, clearing local storage, re-initializing app'),
+				localStorage.clear(),
+				commit('setNotConnected'),
+				dispatch('initialize')
+			).catch(error => {
+				window.console.log(error)
+			})
+
+		}
 
 	},
 	modules: {
