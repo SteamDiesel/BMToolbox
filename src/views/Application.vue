@@ -7,7 +7,7 @@
 				<div class="ml-8">
 					<select @change="saveApp" v-model="application.status" class=" rounded w-full font-semibold text-blue-600 hover:underline" :style="{'background-color': application.status.color}">
 						<option value="" selected>Select Status</option>
-						<option v-for="(status, index) in statuses" :key="index" :value="status" class="p-2" :style="{'background-color': status.color}">{{status.value}}</option>
+						<option v-for="(status, index) in user_preferences.app_statuses" :key="index" :value="status" class="p-2" :style="{'background-color': status.color}">{{status.value}}</option>
 					</select>
 				</div>
 				
@@ -15,15 +15,13 @@
 					<span class="font-semibold text-blue-600 hover:underline">Actions</span>
 					<template v-slot:menu>
 						<div class="bg-gray-200 border-2 border-gray-500">
+						
+							<button @click="actionSelect('print')" class="w-full p-6 font-semibold hover:bg-teal-100">Print</button>
 							
-							<router-link
-								to="/print-application"
-							>
-							<div  class="w-full p-6 font-semibold hover:bg-teal-100">Print</div>
-							</router-link>
-							
+							<button v-if="!application.is_archived" @click="actionSelect('archive')" class="w-full p-6 font-semibold hover:bg-teal-100 mb-2">Archive</button>
+							<button v-if="application.is_archived" @click="actionSelect('un-archive')" class="w-full p-6 font-semibold hover:bg-teal-100 mb-2">Un-Archive</button>
 							<hr />
-							<div class="w-full p-6 font-semibold hover:bg-teal-100">Delete</div>
+							<button @click="actionSelect('delete')" class="w-full p-6 font-semibold hover:bg-teal-100">Delete</button>
 						</div>
 					</template>
 				</DropdownMenu>
@@ -109,31 +107,50 @@ export default {
 	},
 	data() {
 		return {
-			statuses: [
-				{value: 'Lead', color: '#f7fafc'},
-				{value: 'Application', color: '#f7fafc'},
-				{value: 'Submitted', color: '#f7fafc'},
-				{value: 'Approved', color: '#48bb78'},
-				{value: 'Docs Out', color: '#f7fafc'},
-				{value: 'Settlement', color: '#f7fafc'},
-				{value: 'Settled', color: '#4299e1'},
-				{value: 'Declined', color: '#a0aec0'},
-			]
+			// statuses: [
+			// 	{value: 'Lead', color: '#f7fafc'},
+			// 	{value: 'Application', color: '#f7fafc'},
+			// 	{value: 'Submitted', color: '#f7fafc'},
+			// 	{value: 'Approved', color: '#48bb78'},
+			// 	{value: 'Docs Out', color: '#f7fafc'},
+			// 	{value: 'Settlement', color: '#f7fafc'},
+			// 	{value: 'Settled', color: '#4299e1'},
+			// 	{value: 'Declined', color: '#a0aec0'},
+			// ]
 		};
 	},
 	computed: {
-		...mapState(["applications", "show_vehicle", "show_loan", "show_applicants", "show_history"]),
+		...mapState(["applications", "show_vehicle", "show_loan", "show_applicants", "show_history", "user_preferences"]),
+		
 		...mapGetters(["application"])
 	},
 	methods: {
-		
+		actionSelect(io){
+			switch(io){
+				case 'print':
+					this.$router.push('print-application')
+					break;
+				case 'archive':
+					this.$router.push('applications')
+					this.archiveApplication({app: this.application, io: 1})
+					break;
+				case 'un-archive':
+					this.$router.push('applications')
+					this.archiveApplication({app: this.application, io: 0})
+					break;
+				case 'delete':
+					this.$router.push('applications')
+					this.deleteApplication(this.application)
+					break;
+			}
+		},
 		...mapMutations([
 			"appPageSwitch",
 			"addPersonToApplication",
 			"addBusinessToApplication",
 			"removePersonFromApplication",
 		]),
-		...mapActions(["dropFromArray", "deleteApplication", "saveApp", "syncApp"])
+		...mapActions(["dropFromArray", "deleteApplication", "saveApp", "syncApp", "archiveApplication"])
 	},
 };
 </script>

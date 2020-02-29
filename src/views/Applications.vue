@@ -16,37 +16,49 @@
 			<NewApplicationButton />
 		</PageHeader>
 		
-		<div class="flex h-full w-full body-internal">
-			<div class="w-64 px-6 flex flex-col justify-start items-start">
+		<div class="md:flex h-full w-full body-internal">
+			<div class="w-64 px-6 flex w-full justify-between items-center md:flex-col md:w-64 md:justify-start">
+				<div class="w-full">
+					<FormField class="w-full" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
+						<template v-slot:label>Start Date</template>
+						<input
+							:id="'#'+start_date"
+							v-model="start_date"
+							type="date"
+							class="form-input text-center"
+						/>
+					</FormField>
+					<FormField class="w-full mb-4" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
+						<template v-slot:label>End Date</template>
+						<input
+							:id="'#'+end_date"
+							v-model="end_date"
+							type="date"
+							class="form-input text-center"
+						/>
+					</FormField>
+				</div>
 				
-				<FormField class="w-full" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
-					<template v-slot:label>Start Date</template>
-					<input
-						:id="'#'+start_date"
-						v-model="start_date"
-						type="date"
-						class="form-input text-center"
-					/>
-				</FormField>
-				<FormField class="w-full mb-4" :no_copy=true @copy="copyClipboard('#'+person.passport_expiry)">
-					<template v-slot:label>End Date</template>
-					<input
-						:id="'#'+end_date"
-						v-model="end_date"
-						type="date"
-						class="form-input text-center"
-					/>
-				</FormField>
-				<button @click="fetchApplicationsFromServer({start_date: start_date, end_date: end_date})" class="py-2 px-3 flex justify-start rounded hover:bg-gray-300 w-full">
+				<button @click="fetchApplicationsFromServer(
+					{start_date: start_date, end_date: end_date, is_archived: 0}
+					)" class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300 w-full">
 					All Active
 				</button>
+				<button @click="fetchApplicationsFromServer(
+					{start_date: start_date, end_date: end_date, is_archived: 1}
+					)" class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300 w-full">
+					All Archived
+				</button>
+				
+				
+
 			</div>
 			
 			<div v-if="is_table" class=" w-full h-full overflow-auto">
 				<AppsTable/>
 			</div>
 			<div v-if="!is_table" class=" w-full h-full overflow-auto items-center flex justify-center">
-				Stage Board View is under construction
+				Stage Board View is planned for a future update.
 			</div>
 			<transition name="fade" mode="out-in">
 				<div v-if="show_import" class="bg-gray-200 absolute right-0 h-160 w-120 rounded border border-gray-500 m-4 p-4">

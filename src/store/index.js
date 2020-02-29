@@ -5,6 +5,7 @@ import axios from 'axios'
 import moment from 'moment'
 import auth from './modules/auth'
 import env from './modules/environment'
+// import VueRouter from "vue-router";
 
 
 Vue.use(Vuex);
@@ -69,8 +70,15 @@ export default new Vuex.Store({
 			require_confirmation_prompts: true,
 			show_copy_button: true,
 			app_statuses: [
-				{ value: 'New Lead', color: '', order: '' },
-				{ value: 'Contacted', color: '', order: '' }
+				{value: 'Lead', color: '#f7fafc'},
+				{value: 'Application', color: '#f7fafc'},
+				{value: 'Submitted', color: '#f7fafc'},
+				{value: 'Approved', color: '#48bb78'},
+				{value: 'Docs Out', color: '#f7fafc'},
+				{value: 'Settlement', color: '#f7fafc'},
+				{value: 'Settled', color: '#4299e1'},
+				{value: 'Declined', color: '#a0aec0'},
+				{value: 'Withdrawn', color: '#a0aec0'}
 			],
 			vehicle_price: 30000,
 			custom_one: 0,
@@ -299,7 +307,10 @@ export default new Vuex.Store({
 		setUserPreferences(state, payload){
 			state.user_preferences = payload
 		},
-		deleteApplication(state, index) {
+		deleteApplication(state, uuid) {
+			let index = state.applications.findIndex((app) => {
+				return app.uuid == uuid
+			})
 			state.applications.splice(index, 1)
 		},
 		saveApplicationsToLocal(state) {
@@ -824,24 +835,43 @@ export default new Vuex.Store({
 			
 		},
 		
-		deleteApplication({ state, commit, dispatch }, index) {
+		deleteApplication({ state, commit, dispatch }, app) {
 			if (state.user_preferences.require_confirmation_prompts) {
-				if (confirm('Are you sure you want to permanently remove this application?')) {
-					commit('deleteApplication', index)
-					dispatch('saveApplications')
+				if (confirm('Are you sure you want to permanently delete this application?')) {
+					
+					let config = {
+						headers: {
+							'Authorization': 'Bearer ' + localStorage.getItem('session_token')
+						}
+					}
+					
+					axios.post(env.state.uri + 'api/application/delete', {
+						uuid: app.uuid
+					}, config)
+					.then(response => {
+						window.console.log(response.data.success_message)
+						window.console.log(response.data.failure_message)
+						commit('deleteApplication', app.uuid)
+						commit('saveApplicationsToLocal')
+					})
+					.catch(error => {
+						window.console.log(error)
+					})
+		
 				}
 			} else {
-				commit('deleteApplication', index)
+				commit('deleteApplication', app.uuid)
 				dispatch('saveApplications')
 			}
 		},
-		// saveApplicationsLoop({ commit, dispatch }) {
-		// 	setTimeout(() => {
-		// 		commit('saveApplicationsToLocal')
-
-		// 		dispatch('saveApplicationsLoop')
-		// 	}, 236000)
-		// },
+		
+		archiveApplication({ dispatch, commit}, payload) {
+			payload.app.is_archived = payload.io
+			dispatch('updateAppOnServer')
+			commit('deleteApplication', payload.app.uuid)
+			commit('saveApplicationsToLocal')
+			
+		},
 		saveApplications({ commit }) {
 			commit('saveApplicationsToLocal')
 			commit('updateTimestamps')
@@ -943,7 +973,8 @@ export default new Vuex.Store({
 			}
 			axios.post(env.state.uri + 'api/applications', {
 				start_date: payload.start_date,
-				end_date: payload.end_date
+				end_date: payload.end_date,
+				is_archived: payload.is_archived
 			}, config)
 			.then(response => {
 				commit('overwriteAllApplications', response.data.applications)
