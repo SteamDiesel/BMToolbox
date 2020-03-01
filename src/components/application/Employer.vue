@@ -1,5 +1,5 @@
 <template>
-	<div class="hover:bg-blue-100">
+	<div class="">
 		<div class="flex flex-wrap">
 			<div class="w-1/5 flex justify-around items-center">
 				

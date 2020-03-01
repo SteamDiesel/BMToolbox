@@ -27,6 +27,7 @@ export default new Vuex.Store({
 		app_statuses: [
 			{ value: '', color: '' }
 		],
+		app_roles: ['Borrower', 'Non-Borrower', 'Guarantor'],
 		loan_calculator: {
 			name: "",
 			vehicle_price: 30000,
@@ -290,6 +291,40 @@ export default new Vuex.Store({
 			memberships: '',
 			child_support_maintenance: '',
 		},
+		credit_default: {
+			date_listed: '',
+			last_updated: '',
+			original_creditor: '',
+			current_creditor: '',
+			amount_listed: '',
+			current_balance: '',
+			monthly_payment: '',
+			status: '',
+			reason: '',
+			shared: false,
+		},
+		court_judgement:{
+			date_listed: '',
+			last_updated: '',
+			original_creditor: '',
+			current_creditor: '',
+			amount_listed: '',
+			current_balance: '',
+			monthly_payment: '',
+			status: '',
+			reason: '',
+			shared: false,
+		},
+		bankruptcy:{
+			type: '',
+			status: '',
+			start_date: '',
+			discharge_date: '',
+			term: '',
+			monthly_payment: '',
+			reason: '',
+			shared: false,
+		},
 		unsaved_changes: false,
 		app_import_field: '',
 		timeout_one: 'time',
@@ -335,11 +370,14 @@ export default new Vuex.Store({
 			if(!app.status){
 					app.status = {value: 'Lead', color: '#f7fafc'}
 				}
-			if(app.version == 1){
+			if(app.version <= 2){
 				app.is_archived = 0
 				app.created_at = ''
 				app.updated_at = ''
-				app.version = 2
+				app.people.forEach(person => {
+					person.role = ''
+				});
+				app.version = 3
 			}
 		},
 		updateTimestamps(state){
@@ -378,32 +416,25 @@ export default new Vuex.Store({
 			state.applications.unshift(app)
 		},
 		appPageSwitch(state, io) {
+			state.show_vehicle = false;
+			state.show_loan = false;
+			state.show_applicants = false;
+			state.show_history = false;
+
 			switch (io) {
 				case 'vehicle':
 					state.show_vehicle = true;
-					state.show_loan = false;
-					state.show_applicants = false;
-					state.show_history = false;
 					break;
 
 				case 'loan':
-					state.show_vehicle = false;
 					state.show_loan = true;
-					state.show_applicants = false;
-					state.show_history = false;
 					break;
 
 				case 'applicants':
-					state.show_vehicle = false;
-					state.show_loan = false;
 					state.show_applicants = true;
-					state.show_history = false;
 					break;
 
 				case 'history':
-					state.show_vehicle = false;
-					state.show_loan = false;
-					state.show_applicants = false;
 					state.show_history = true;
 					break;
 
@@ -441,6 +472,15 @@ export default new Vuex.Store({
 				case 'domestic_expenses':
 					Object.assign(object, state.domestic_expenses)
 					break;
+				case 'credit_default':
+					Object.assign(object, state.credit_default)
+					break;
+				case 'court_judgement':
+					Object.assign(object, state.court_judgement)
+					break;
+				case 'bankruptcy':
+					Object.assign(object, state.bankruptcy)
+					break;
 				case 'quote':
 					Object.assign(object, payload.quote)
 					break;
@@ -457,7 +497,7 @@ export default new Vuex.Store({
 		},
 
 
-		dropFromArray(state, payload) {
+		dropFromArray( state, payload) {
 			var array = payload.array
 			array.splice(payload.index, 1)
 			if (payload.person) {
@@ -479,44 +519,45 @@ export default new Vuex.Store({
 			var person = state.applications[state.selected_application_index]
 				.people[next]
 
+			payload.object.shared = true
+
 			switch (payload.type) {
 				case 'kid':
 					person.kids.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'address':
 					person.addresses.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'employer':
 					person.employers.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'property':
 					person.properties.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'vehicle':
 					person.vehicles.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'credit_card':
 					person.credit_cards.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'other_loan':
 					person.other_loans.push(payload.object)
-					payload.object.shared = true
 					break;
 				case 'other_asset':
 					person.other_assets.push(payload.object)
-					payload.object.shared = true
+					break;
+				case 'credit_default':
+					person.credit_defaults.push(payload.object)
+					break;
+				case 'court_judgement':
+					person.court_judgements.push(payload.object)
+					break;
+				case 'bankruptcy':
+					person.bankruptcies.push(payload.object)
 					break;
 				case 'domestic_expenses':
 					person.domestic_expenses.push(payload.object)
-					payload.object.shared = true
 					break;
-
 			}
 
 		},
@@ -528,8 +569,9 @@ export default new Vuex.Store({
 
 		createEmptyApplication(state) {
 			//version 1 to version 2 change: added is_archived, added updated_at, added created_at, dropped is_active
+			//version 2 to version 3 change: added 'role' to each person
 			var new_app = {
-				version: 2,
+				version: 3,
 				status: '',
 				stage: '',
 				is_archived: 0,
@@ -647,6 +689,7 @@ export default new Vuex.Store({
 		addPersonToApplication(state) {
 			let ar = state.applications[state.selected_application_index].people
 			let empty_person = {
+				role: 'Borrower',
 				title: '',
 				first_name: '',
 				alias: '',

@@ -78,7 +78,7 @@ a {
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
 
-
+b,
 strong {
   font-weight: bolder;
 }
@@ -743,6 +743,11 @@ video {
   border-radius: 9999px;
 }
 
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
 .rounded-r-lg {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
@@ -787,6 +792,10 @@ video {
 
 .border-b {
   border-bottom-width: 1px;
+}
+
+.border-l {
+  border-left-width: 1px;
 }
 
 .cursor-pointer {
@@ -874,6 +883,10 @@ video {
 
 .h-3 {
   height: 0.75rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .h-5 {
@@ -1031,6 +1044,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .mr-8 {
   margin-right: 2rem;
 }
@@ -1041,6 +1058,14 @@ video {
 
 .mr-10 {
   margin-right: 2.5rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .mt-12 {
@@ -1351,6 +1376,10 @@ video {
   font-size: 1.5rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+}
+
 .text-4xl {
   font-size: 2.25rem;
 }
@@ -1390,6 +1419,10 @@ video {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .w-5 {
@@ -1604,7 +1637,25 @@ video {
         justify-content: space-around;
   }
 
+  .lg\:max-w-2xl {
+    max-width: 42rem;
+  }
+
   .lg\:w-1\/3 {
     width: 33.333333%;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .xl\:flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .xl\:justify-around {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
   }
 }

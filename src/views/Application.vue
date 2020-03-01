@@ -55,7 +55,7 @@
 		<div class="w-full body-internal overflow-auto overflow-none bg-gray-200">
 			<div class="px-3">
 				<div class="flex justify-between">
-					<div class="flex">
+					<div class="flex flex-wrap">
 						<button @click="appPageSwitch('loan')" :class="{'text-blue-600': show_loan}" class="px-6 py-4 font-semibold hover:text-blue-400">Loan</button>
 						<button @click="appPageSwitch('vehicle')" :class="{'text-blue-600': show_vehicle}" class="px-6 py-4 font-semibold hover:text-blue-400">Vehicle</button>
 						<button @click="appPageSwitch('applicants')" :class="{'text-blue-600': show_applicants}" class="px-6 py-4 font-semibold hover:text-blue-400">Applicants</button>
@@ -66,7 +66,7 @@
 					</div>
 					
 				</div>
-				<div>
+				<div class="mb-1">
 					<hr />
 				</div>
 			</div>
@@ -74,7 +74,8 @@
 			<transition name="fade" mode="out-in">
 			<VehiclePage v-if="show_vehicle" />
 			<LoanPage v-if="show_loan" />
-			<AppPage v-if="show_applicants" />
+			<AppPage v-if="false" />
+			<AppPages v-if="show_applicants" />
 			<HistoryPage v-if="show_history" />
 			</transition>
 
@@ -87,6 +88,7 @@
 
 import AppDetails from "@/components/application/sections/AppDetails.vue";
 import AppPage from "@/components/application/pages/AppPage.vue";
+import AppPages from "@/components/application/pages/AppPages.vue";
 import LoanPage from "@/components/application/pages/LoanPage.vue";
 import VehiclePage from "@/components/application/pages/VehiclePage.vue";
 import HistoryPage from "@/components/application/pages/HistoryPage.vue";
@@ -98,26 +100,13 @@ export default {
 	name: "home",
 	components: {
 		AppPage,
+		AppPages,
 		Notes,
 		LoanPage,
 		VehiclePage,
 		AppDetails,
 		DropdownMenu,
 		HistoryPage
-	},
-	data() {
-		return {
-			// statuses: [
-			// 	{value: 'Lead', color: '#f7fafc'},
-			// 	{value: 'Application', color: '#f7fafc'},
-			// 	{value: 'Submitted', color: '#f7fafc'},
-			// 	{value: 'Approved', color: '#48bb78'},
-			// 	{value: 'Docs Out', color: '#f7fafc'},
-			// 	{value: 'Settlement', color: '#f7fafc'},
-			// 	{value: 'Settled', color: '#4299e1'},
-			// 	{value: 'Declined', color: '#a0aec0'},
-			// ]
-		};
 	},
 	computed: {
 		...mapState(["applications", "show_vehicle", "show_loan", "show_applicants", "show_history", "user_preferences"]),

@@ -1,5 +1,5 @@
 <template>
-	<div class="hover:bg-blue-100">
+	<div class="">
 		<div class="flex flex-wrap">
 			<FormField 
 			class="w-1/5"
@@ -11,7 +11,7 @@
 					:id="'#'+kid.age"
 					v-model="kid.age"
 					@change="saveApp"
-					type="text"
+					type="number"
 					class="form-input text-center"
 				/>
 			</FormField>

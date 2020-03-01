@@ -1,5 +1,5 @@
 <template>
-	<div class="hover:bg-blue-100">
+	<div class="">
 		<div class="font-semibold mt-2">General</div>
 		<div class="flex flex-wrap">
 			<FormField class="w-1/4" @copy="copyClipboard('#exp'+expenses.groceries)">

@@ -2,12 +2,12 @@
 	<div class="pb-12">
 		<PageHeader	 title="Applications">
 			<div class="hidden md:block">
-				<button @click="is_table = true" :class="{'bg-gray-500':is_table}" class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2 ">
+				<!-- <button @click="is_table = true" :class="{'bg-gray-500':is_table}" class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2 ">
 					Table
 				</button>
 				<button @click="is_table = false" :class="{'bg-gray-500':!is_table}" class="h-8 rounded-r-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2  mr-4">
 					Board
-				</button>
+				</button> -->
 				<button
 					@click="show_import = !show_import"
 					class="bg-transparent font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded mr-4"
@@ -57,14 +57,18 @@
 
 			</div>
 			
-			<div v-if="is_table" class=" w-full h-full overflow-auto">
+			<div class=" w-full h-full overflow-auto">
 				<AppsTable/>
 			</div>
-			<div v-if="!is_table" class=" w-full h-full overflow-auto items-center flex justify-center">
+			<!-- <div v-if="is_table" class=" w-full h-full overflow-auto">
+				<AppsTable/>
+			</div> -->
+			<!-- <div v-if="!is_table" class=" w-full h-full overflow-auto items-center flex justify-center">
 				Stage Board View is planned for a future update.
-			</div>
+			</div> -->
 			<transition name="fade" mode="out-in">
-				<div v-if="show_import" class="bg-gray-200 absolute right-0 h-160 w-120 rounded border border-gray-500 m-4 p-4">
+				<div v-if="show_import" 
+				class="bg-gray-200 absolute right-0 h-160 w-120 rounded border border-gray-500 m-4 p-4">
 					<ImportApp>
 						<button @click="show_import = !show_import" class="btn-secondary">
 							Close

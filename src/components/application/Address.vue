@@ -1,5 +1,5 @@
 <template>
-	<div class="hover:bg-blue-100">
+	<div class="w-full">
 		<div class="flex flex-wrap">
 			<FormField 
 			class="w-4/5"
