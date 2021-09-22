@@ -1,5 +1,8 @@
 <template>
-	<button @click="activate" class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2">
+	<button
+		@click="activate"
+		class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
+	>
 		<svg viewBox="0 0 24 24" class="h-6 w-6">
 			<path
 				class="primary"
@@ -15,20 +18,19 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-export default {
-	name: "SaveApplicationsButton",
-	computed:{
-		...mapState(['unsaved_changes'])
-	},
-	methods: {
-		activate() {
-			this.saveApplicationsToLocal();
+	import { mapActions, mapState } from "vuex";
+	export default {
+		name: "updateApplicationsButton",
+		computed: {
+			...mapState(["unsaved_changes"]),
 		},
-		...mapActions(["saveApplicationsToLocal"])
-	}
-};
+		methods: {
+			activate() {
+				this.saveApplicationsToLocal();
+			},
+			...mapActions(["saveApplicationsToLocal"]),
+		},
+	};
 </script>
 
-<style>
-</style>
+<style></style>

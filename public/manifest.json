@@ -43,5 +43,8 @@
 	"background_color": "#2d3748",
 	"display": "standalone",
 	"scope": "/",
-	"theme_color": "#2d3748"
+	"theme_color": "#2d3748",
+	"permissions": [
+		"unlimitedStorage"
+	]
 }

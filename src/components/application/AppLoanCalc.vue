@@ -1,116 +1,146 @@
 <template>
 	<div class="p-2 w-120">
-		<div class="flex w-full px-4 h-24 items-center">	
+		<div class="flex w-full px-4 h-24 items-center">
 			<div class="w-full flex h-full justify-between items-center">
 				<div
 					@click="makeBig('week')"
-					:class="{ 'text-2xl font-semibold': calc.weekly_big}"
+					:class="{ 'text-2xl font-semibold': calc.weekly_big }"
 					class="cursor-pointer mt-3 text-center"
-				>${{weekly_pmt}}/w</div>
+				>
+					${{ weekly_pmt }}/w
+				</div>
 				<div
 					@click="makeBig('fort')"
-					:class="{ 'text-2xl font-semibold': calc.fort_big}"
+					:class="{ 'text-2xl font-semibold': calc.fort_big }"
 					class="cursor-pointer mt-3 text-center"
-				>${{fort_pmt}}/f</div>
+				>
+					${{ fort_pmt }}/f
+				</div>
 				<div
 					@click="makeBig('month')"
-					:class="{ 'text-2xl font-semibold': calc.monthly_big}"
+					:class="{ 'text-2xl font-semibold': calc.monthly_big }"
 					class="cursor-pointer mt-3 text-center"
-				>${{monthly_pmt}}/m</div>
+				>
+					${{ monthly_pmt }}/m
+				</div>
 			</div>
 		</div>
 		<div class="flex w-full">
 			<div class="w-1-3">
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.vehicle_price)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.vehicle_price)"
+				>
 					<template v-slot:label>Vehicle Price</template>
 					<input
-						:id="'#'+calc.vehicle_price"
+						:id="'#' + calc.vehicle_price"
 						v-model="calc.vehicle_price"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.aftermarket)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.aftermarket)"
+				>
 					<template v-slot:label>Aftermarket</template>
 					<input
-						:id="'#'+calc.aftermarket"
+						:id="'#' + calc.aftermarket"
 						v-model="calc.aftermarket"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.warranty)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.warranty)"
+				>
 					<template v-slot:label>Warranty</template>
 					<input
-						:id="'#'+calc.warranty"
+						:id="'#' + calc.warranty"
 						v-model="calc.warranty"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.trade_value)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.trade_value)"
+				>
 					<template v-slot:label>Trade Value</template>
 					<input
-						:id="'#'+calc.trade_value"
+						:id="'#' + calc.trade_value"
 						v-model="calc.trade_value"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.trade_payout)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.trade_payout)"
+				>
 					<template v-slot:label>Trade Payout</template>
 					<input
-						:id="'#'+calc.trade_payout"
+						:id="'#' + calc.trade_payout"
 						v-model="calc.trade_payout"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.sign_deposit)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.sign_deposit)"
+				>
 					<template v-slot:label>Initial Deposit</template>
 					<input
-						:id="'#'+calc.sign_deposit"
+						:id="'#' + calc.sign_deposit"
 						v-model="calc.sign_deposit"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.further_deposit)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.further_deposit)"
+				>
 					<template v-slot:label>Deposit at Delivery</template>
 					<input
-						:id="'#'+calc.further_deposit"
+						:id="'#' + calc.further_deposit"
 						v-model="calc.further_deposit"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+balance_financed)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + balance_financed)"
+				>
 					<template v-slot:label>Invoice Balance</template>
 					<input
-						:id="'#'+balance_financed"
+						:id="'#' + balance_financed"
 						v-model="balance_financed"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						readonly
 						class="form-input text-center"
@@ -119,79 +149,97 @@
 			</div>
 
 			<div class="w-1-3">
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.origination_fee)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.origination_fee)"
+				>
 					<template v-slot:label>Origination Fee</template>
 					<input
-						:id="'#'+calc.origination_fee"
+						:id="'#' + calc.origination_fee"
 						v-model="calc.origination_fee"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="110"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.brokerage)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.brokerage)"
+				>
 					<template v-slot:label>Brokerage</template>
 					<input
-						:id="'#'+calc.brokerage"
+						:id="'#' + calc.brokerage"
 						v-model="calc.brokerage"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="110"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.credit_insurance)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.credit_insurance)"
+				>
 					<template v-slot:label>Credit Insurance</template>
 					<input
-						:id="'#'+calc.credit_insurance"
+						:id="'#' + calc.credit_insurance"
 						v-model="calc.credit_insurance"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.gap_insurance)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.gap_insurance)"
+				>
 					<template v-slot:label>Gap Insurance</template>
 					<input
-						:id="'#'+calc.gap_insurance"
+						:id="'#' + calc.gap_insurance"
 						v-model="calc.gap_insurance"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="100"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.lender_fee)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.lender_fee)"
+				>
 					<template v-slot:label>Lender Fee</template>
 					<input
-						:id="'#'+calc.lender_fee"
+						:id="'#' + calc.lender_fee"
 						v-model="calc.lender_fee"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="50"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.monthly_fee)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.monthly_fee)"
+				>
 					<template v-slot:label>Monthly Fee</template>
 					<input
-						:id="'#'+calc.monthly_fee"
+						:id="'#' + calc.monthly_fee"
 						v-model="calc.monthly_fee"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="5"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+naf)">
+				<FormField class="w-full" @copy="copyClipboard('#' + naf)">
 					<template v-slot:label>N.A.F.</template>
 					<input
-						:id="'#'+naf"
+						:id="'#' + naf"
 						v-model="naf"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						readonly
 						class="form-input text-center"
@@ -200,236 +248,278 @@
 			</div>
 
 			<div class="w-1-3">
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.term)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.term)"
+				>
 					<template v-slot:label>Term (months)</template>
 					<input
-						:id="'#'+calc.term"
+						:id="'#' + calc.term"
 						v-model="calc.term"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="12"
 						class="form-input text-center"
 					/>
 				</FormField>
 
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.apr)">
+				<FormField class="w-full" @copy="copyClipboard('#' + calc.apr)">
 					<template v-slot:label>A.P.R.</template>
 					<input
-						:id="'#'+calc.apr"
+						:id="'#' + calc.apr"
 						v-model="calc.apr"
-						@change="saveApp"
+						@change="updateField"
 						type="number"
 						step="0.1"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.rv)">
+				<FormField class="w-full" @copy="copyClipboard('#' + calc.rv)">
 					<template v-slot:label>Residual Value</template>
 					<input
-						:id="'#'+calc.rv"
+						:id="'#' + calc.rv"
 						v-model="calc.rv"
-						@change="saveApp"
+						@change="updateField"
 						@keyup="setRvPercent"
 						type="number"
 						step="500"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<FormField class="w-full" @copy="copyClipboard('#'+calc.rv_percent)">
+				<FormField
+					class="w-full"
+					@copy="copyClipboard('#' + calc.rv_percent)"
+				>
 					<template v-slot:label>Residual Percent</template>
 					<input
-						:id="'#'+calc.rv_percent"
+						:id="'#' + calc.rv_percent"
 						v-model="calc.rv_percent"
-						@change="saveApp"
+						@change="updateField"
 						@keyup="setRv"
 						type="number"
 						step="2"
 						class="form-input text-center"
 					/>
 				</FormField>
-				<div class="flex flex-col w-full pt-4 justify-center items-center">
+				<div
+					class="flex flex-col w-full pt-4 justify-center items-center"
+				>
 					<div
 						@click="makeBig('week')"
-						:class="{ 'text-2xl font-semibold': calc.weekly_big}"
+						:class="{ 'text-2xl font-semibold': calc.weekly_big }"
 						class="cursor-pointer mt-3"
-					>${{weekly_pmt}}/w</div>
+					>
+						${{ weekly_pmt }}/w
+					</div>
 					<div
 						@click="makeBig('fort')"
-						:class="{ 'text-2xl font-semibold': calc.fort_big}"
+						:class="{ 'text-2xl font-semibold': calc.fort_big }"
 						class="cursor-pointer mt-3"
-					>${{fort_pmt}}/f</div>
+					>
+						${{ fort_pmt }}/f
+					</div>
 					<div
 						@click="makeBig('month')"
-						:class="{ 'text-2xl font-semibold': calc.monthly_big}"
+						:class="{ 'text-2xl font-semibold': calc.monthly_big }"
 						class="cursor-pointer mt-3"
-					>${{monthly_pmt}}/m</div>
+					>
+						${{ monthly_pmt }}/m
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="flex w-full flex-wrap mt-12">
-			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 60, rv: 0})" >5y</button>
-			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 84, rv: 0})" >7y</button>
-			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 60, rv: 30})" >5y30%</button>
-			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 48, rv: 40})" >4y40%</button>
-			<button class="btn-secondary px-2 py-1 mx-2" @click="applyPreset({term: 36, rv: 50})" >3y50%</button>
+			<button
+				class="btn-secondary px-2 py-1 mx-2"
+				@click="applyPreset({ term: 60, rv: 0 })"
+			>
+				5y
+			</button>
+			<button
+				class="btn-secondary px-2 py-1 mx-2"
+				@click="applyPreset({ term: 84, rv: 0 })"
+			>
+				7y
+			</button>
+			<button
+				class="btn-secondary px-2 py-1 mx-2"
+				@click="applyPreset({ term: 60, rv: 30 })"
+			>
+				5y30%
+			</button>
+			<button
+				class="btn-secondary px-2 py-1 mx-2"
+				@click="applyPreset({ term: 48, rv: 40 })"
+			>
+				4y40%
+			</button>
+			<button
+				class="btn-secondary px-2 py-1 mx-2"
+				@click="applyPreset({ term: 36, rv: 50 })"
+			>
+				3y50%
+			</button>
 		</div>
 	</div>
 </template>
 
 <script>
-import FormField from "@/components/application/FormField.vue";
-import { mapActions } from "vuex";
-export default {
-	name: "AppLoanCalc",
-	props: {
-		calc: Object
-	},
-	data() {
-		return {
-			show_edit: false
-		};
-	},
-	components: {
-		FormField
-	},
-	watch:{
-		monthly_pmt: 'setVals',
-		
-	},
-	computed: {
-		balance_financed() {
-			var calc = this.calc
-			return (
-				+calc.vehicle_price +
-				+calc.warranty +
-				+calc.aftermarket -
-				+calc.trade_value +
-				+calc.trade_payout -
-				+calc.sign_deposit -
-				+calc.further_deposit
-			);
+	import FormField from "@/components/application/FormField.vue";
+	import { mapActions } from "vuex";
+	export default {
+		name: "AppLoanCalc",
+		props: {
+			calc: Object,
 		},
-		naf() {
-			var calc = this.calc
-			return (
-				this.balance_financed +
-				+calc.origination_fee +
-				+calc.brokerage +
-				+calc.credit_insurance +
-				+calc.gap_insurance +
-				+calc.lender_fee
-			);
+		data() {
+			return {
+				show_edit: false,
+			};
 		},
-		calculating_naf() {
-			var calc = this.calc
-			return (
-				this.balance_financed +
-				+calc.origination_fee +
-				+calc.brokerage +
-				+calc.credit_insurance +
-				+calc.gap_insurance +
-				+calc.lender_fee -
-				+calc.rv
-			);
+		components: {
+			FormField,
 		},
-		intrate() {
-			return this.calc.apr / 100;
+		watch: {
+			monthly_pmt: "setVals",
 		},
-		monthly_pmt() { 
-			var int = this.intrate / 12;
-			var y = Math.pow(1 + int, this.calc.term);
-			var rvint = this.calc.rv * int;
-			var pmt =
-				(this.calculating_naf * y * int) / (y - 1) +
-				+this.calc.monthly_fee +
-				rvint;
-			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
-		},
-		fort_pmt() { 
-			var term = (this.calc.term / 12) * 26;
-			var int = this.intrate / 26;
-			var y = Math.pow(1 + int, term);
-			var rvint = this.calc.rv * int;
-			var pmt =
-				(this.calculating_naf * y * int) / (y - 1) +
-				+this.calc.monthly_fee / 2 +
-				rvint;
-			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
-		},
-		weekly_pmt() { 
-			var term = (this.calc.term / 12) * 52;
-			var int = this.intrate / 52;
-			var y = Math.pow(1 + int, term);
-			var rvint = this.calc.rv * int;
-			var pmt =
-				(this.calculating_naf * y * int) / (y - 1) +
-				+this.calc.monthly_fee / 4 +
-				rvint;
-			return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
-		}
-	},
-
-	methods: {
-		applyPreset(payload){
-			this.calc.term = payload.term;
-			this.calc.rv_percent = payload.rv;
-			this.setRv()
-		},
-		setVals(){
-			var calc = this.calc
-			calc.full_naf = +this.naf 
-			calc.bare_naf = +this.naf 
-			calc.invoice_balance = +this.balance_financed
-			calc.weekly = +this.weekly_pmt
-			calc.fortnightly = +this.fort_pmt
-			calc.monthly = +this.monthly_pmt
-		},
-		makeBig(io) {
-			switch (io) {
-				case "week":
-					this.calc.weekly_big = true;
-					this.calc.fort_big = false;
-					this.calc.monthly_big = false;
-					break;
-				case "fort":
-					this.calc.weekly_big = false;
-					this.calc.fort_big = true;
-					this.calc.monthly_big = false;
-					break;
-				case "month":
-					this.calc.weekly_big = false;
-					this.calc.fort_big = false;
-					this.calc.monthly_big = true;
-					break;
-				default:
-					this.calc.weekly_big = true;
-					this.calc.fort_big = false;
-					this.calc.monthly_big = false;
-			}
-		},
-		setRv() {
-			var value = (this.calc.rv_percent / 100) * this.calc.vehicle_price;
-			this.calc.rv = +(Math.round(value + "e+" + 2) + "e-" + 2);
-		},
-		setRvPercent() {
-			var percent = (this.calc.rv / this.calc.vehicle_price) * 100;
-			this.calc.rv_percent = +(Math.round(percent + "e+" + 2) + "e-" + 2);
+		computed: {
+			balance_financed() {
+				var calc = this.calc;
+				return (
+					+calc.vehicle_price +
+					+calc.warranty +
+					+calc.aftermarket -
+					+calc.trade_value +
+					+calc.trade_payout -
+					+calc.sign_deposit -
+					+calc.further_deposit
+				);
+			},
+			naf() {
+				var calc = this.calc;
+				return (
+					this.balance_financed +
+					+calc.origination_fee +
+					+calc.brokerage +
+					+calc.credit_insurance +
+					+calc.gap_insurance +
+					+calc.lender_fee
+				);
+			},
+			calculating_naf() {
+				var calc = this.calc;
+				return (
+					this.balance_financed +
+					+calc.origination_fee +
+					+calc.brokerage +
+					+calc.credit_insurance +
+					+calc.gap_insurance +
+					+calc.lender_fee -
+					+calc.rv
+				);
+			},
+			intrate() {
+				return this.calc.apr / 100;
+			},
+			monthly_pmt() {
+				var int = this.intrate / 12;
+				var y = Math.pow(1 + int, this.calc.term);
+				var rvint = this.calc.rv * int;
+				var pmt =
+					(this.calculating_naf * y * int) / (y - 1) +
+					+this.calc.monthly_fee +
+					rvint;
+				return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
+			},
+			fort_pmt() {
+				var term = (this.calc.term / 12) * 26;
+				var int = this.intrate / 26;
+				var y = Math.pow(1 + int, term);
+				var rvint = this.calc.rv * int;
+				var pmt =
+					(this.calculating_naf * y * int) / (y - 1) +
+					+this.calc.monthly_fee / 2 +
+					rvint;
+				return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
+			},
+			weekly_pmt() {
+				var term = (this.calc.term / 12) * 52;
+				var int = this.intrate / 52;
+				var y = Math.pow(1 + int, term);
+				var rvint = this.calc.rv * int;
+				var pmt =
+					(this.calculating_naf * y * int) / (y - 1) +
+					+this.calc.monthly_fee / 4 +
+					rvint;
+				return +(Math.round(pmt + "e+" + 2) + "e-" + 2);
+			},
 		},
 
-		...mapActions(["saveApp"]),
-		copyClipboard(id) {
-			let valueToCopy = document.getElementById(id);
-			valueToCopy.setAttribute("type", "text");
-			valueToCopy.select();
-			try {
-				document.execCommand("copy");
-			} catch (err) {
-				alert("Oops, unable to copy");
-			}
-		}
-	}
-};
+		methods: {
+			applyPreset(payload) {
+				this.calc.term = payload.term;
+				this.calc.rv_percent = payload.rv;
+				this.setRv();
+			},
+			setVals() {
+				var calc = this.calc;
+				calc.full_naf = +this.naf;
+				calc.bare_naf = +this.naf;
+				calc.invoice_balance = +this.balance_financed;
+				calc.weekly = +this.weekly_pmt;
+				calc.fortnightly = +this.fort_pmt;
+				calc.monthly = +this.monthly_pmt;
+			},
+			makeBig(io) {
+				switch (io) {
+					case "week":
+						this.calc.weekly_big = true;
+						this.calc.fort_big = false;
+						this.calc.monthly_big = false;
+						break;
+					case "fort":
+						this.calc.weekly_big = false;
+						this.calc.fort_big = true;
+						this.calc.monthly_big = false;
+						break;
+					case "month":
+						this.calc.weekly_big = false;
+						this.calc.fort_big = false;
+						this.calc.monthly_big = true;
+						break;
+					default:
+						this.calc.weekly_big = true;
+						this.calc.fort_big = false;
+						this.calc.monthly_big = false;
+				}
+			},
+			setRv() {
+				var value =
+					(this.calc.rv_percent / 100) * this.calc.vehicle_price;
+				this.calc.rv = +(Math.round(value + "e+" + 2) + "e-" + 2);
+			},
+			setRvPercent() {
+				var percent = (this.calc.rv / this.calc.vehicle_price) * 100;
+				this.calc.rv_percent = +(
+					Math.round(percent + "e+" + 2) +
+					"e-" +
+					2
+				);
+			},
+
+			...mapActions(["updateField"]),
+			copyClipboard(id) {
+				let valueToCopy = document.getElementById(id);
+				valueToCopy.setAttribute("type", "text");
+				valueToCopy.select();
+				try {
+					document.execCommand("copy");
+				} catch (err) {
+					alert("Oops, unable to copy");
+				}
+			},
+		},
+	};
 </script>
 
-<style>
-</style>
+<style></style>

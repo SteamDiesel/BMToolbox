@@ -1,20 +1,19 @@
 <template>
 	<div>
 		<div class="flex w-full">
-			<slot/>
+			<slot />
 		</div>
 	</div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-export default {
-	name: "Notes",
-	methods: {
-		...mapActions(["saveApp"]),
-	}
-};
+	import { mapActions } from "vuex";
+	export default {
+		name: "Notes",
+		methods: {
+			...mapActions(["updateField"]),
+		},
+	};
 </script>
 
-<style>
-</style>
+<style></style>
