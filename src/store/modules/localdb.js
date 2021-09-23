@@ -50,6 +50,7 @@ export default {
 				}
 			};
 		},
+
 		storeApp({ state, getters }) {
 			window.console.log("StoreApp triggered");
 			var app = getters.application;
@@ -71,14 +72,14 @@ export default {
 			};
 		},
 		updateApp({ state, getters }) {
-			var app = getters.application;
-			window.console.log(app.uuid);
+			var new_app = getters.application;
+			window.console.log(new_app.uuid);
 
 			var objectStore = state.db
 				.transaction(["applications"], "readwrite")
 				.objectStore("applications");
 
-			var request = objectStore.get(app.uuid);
+			var request = objectStore.get(new_app.uuid);
 
 			request.onerror = (event) => {
 				window.console.log(event);
@@ -88,9 +89,9 @@ export default {
 			};
 
 			request.onsuccess = (event) => {
-				var user = event.target.result;
-				user = app;
-				var requestUpdate = objectStore.put(user);
+				var old_app = event.target.result;
+				old_app = new_app;
+				var requestUpdate = objectStore.put(old_app);
 				requestUpdate.onerror = (event) => {
 					window.console.log(event);
 					window.console.log("error saving updated object");

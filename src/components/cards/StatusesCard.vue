@@ -1,28 +1,59 @@
 <template>
-  <div class="bg-gray-100 rounded-lg">
-	  <div class="flex" v-for="(status, index) in statuses">
-		  <input type="text" placeholder="Value" v-model="status.value">
-		  <input type="color" v-model="status.color">
-	  </div>
-	  
-  </div>
+	<div
+		class="border-grey-400 border-2 rounded-lg px-4 py-2 my-2"
+		:style="{ 'background-color': status.color }"
+	>
+		<div v-if="is_edit" class="flex justify-between">
+			<input type="color" v-model="status.color" />
+			<input type="text" placeholder="Value" v-model="status.value" />
+			<button
+				@click="done"
+				class="bg-teal-300 font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded"
+			>
+				Done
+			</button>
+		</div>
+		<div v-if="!is_edit" class="flex justify-between">
+			<div class="font-bold text-lg">
+				{{ status.value }}
+			</div>
+			<div>
+				<button
+					@click="editing"
+					class="bg-teal-300 font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded"
+				>
+					Edit
+				</button>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-export default {
-	name: 'StatusesCard',
-	computed:{
-		...mapState({
-			statuses: state => state.user_preferences.statuses
-		})
-	},
-	methods:{
-		...mapActions([])
-	}
-}
+	export default {
+		name: "StatusesCard",
+		props: {
+			status: Object,
+		},
+		data() {
+			return {
+				is_edit: false,
+				original_value: "",
+			};
+		},
+		computed: {},
+		methods: {
+			editing() {
+				this.is_edit = true;
+				this.original_value = this.status.value;
+			},
+			done() {
+				this.is_edit = false;
+				window.console.log(this.original_value);
+				window.console.log(this.status.value);
+			},
+		},
+	};
 </script>
 
-<style>
-
-</style>
+<style></style>
