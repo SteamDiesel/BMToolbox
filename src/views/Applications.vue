@@ -2,12 +2,20 @@
 	<div class="pb-12">
 		<PageHeader title="Applications">
 			<div class="hidden md:block">
-				<!-- <button @click="is_table = true" :class="{'bg-gray-500':is_table}" class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2 ">
+				<button
+					@click.prevent="is_table = true"
+					:class="{ 'bg-gray-400': is_table }"
+					class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2 "
+				>
 					Table
 				</button>
-				<button @click="is_table = false" :class="{'bg-gray-500':!is_table}" class="h-8 rounded-r-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2  mr-4">
+				<button
+					@click.prevent="is_table = false"
+					:class="{ 'bg-gray-400': !is_table }"
+					class="h-8 rounded-r-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2  mr-4"
+				>
 					Board
-				</button> -->
+				</button>
 				<button
 					@click="show_import = !show_import"
 					class="bg-transparent font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded mr-4"
@@ -66,15 +74,15 @@
 				</button>
 			</div>
 
-			<div class=" w-full h-full overflow-auto">
+			<!-- <div class=" w-full h-full overflow-auto">
+				<AppsTable />
+			</div> -->
+			<div v-if="is_table" class=" w-full h-full overflow-auto">
 				<AppsTable />
 			</div>
-			<!-- <div v-if="is_table" class=" w-full h-full overflow-auto">
-				<AppsTable/>
-			</div> -->
-			<!-- <div v-if="!is_table" class=" w-full h-full overflow-auto items-center flex justify-center">
-				Stage Board View is planned for a future update.
-			</div> -->
+			<div v-if="!is_table" class=" w-full h-full overflow-auto flex">
+				<AppsKanban />
+			</div>
 			<transition name="fade" mode="out-in">
 				<div
 					v-if="show_import"
@@ -103,13 +111,14 @@
 	import AppsTable from "@/components/tables/AppsTable.vue";
 	import ImportApp from "@/components/ImportApp.vue";
 	import FormField from "@/components/application/FormField.vue";
+	import AppsKanban from "@/components/kanban/AppsKanban.vue";
 
 	import { mapState, mapMutations, mapActions } from "vuex";
 	export default {
 		name: "Applications",
 		data() {
 			return {
-				is_table: true,
+				is_table: false,
 				show_import: false,
 				start_date: "",
 				end_date: "",
@@ -117,6 +126,7 @@
 		},
 		components: {
 			// AppCard,
+			AppsKanban,
 			NewApplicationButton,
 			PageHeader,
 			AppsTable,
