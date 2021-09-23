@@ -101,6 +101,36 @@ export default {
 				};
 			};
 		},
+		updateAppByApp({ state }, app) {
+			var new_app = app;
+			window.console.log(new_app.uuid);
+
+			var objectStore = state.db
+				.transaction(["applications"], "readwrite")
+				.objectStore("applications");
+
+			var request = objectStore.get(new_app.uuid);
+
+			request.onerror = (event) => {
+				window.console.log(event);
+				window.console.log(
+					"error while retrieving object to be updated from db."
+				);
+			};
+
+			request.onsuccess = (event) => {
+				var old_app = event.target.result;
+				old_app = new_app;
+				var requestUpdate = objectStore.put(old_app);
+				requestUpdate.onerror = (event) => {
+					window.console.log(event);
+					window.console.log("error saving updated object");
+				};
+				requestUpdate.onsuccess = () => {
+					window.console.log("successfully saved");
+				};
+			};
+		},
 		deleteApp({ state, dispatch }, application) {
 			window.console.log(application.uuid);
 			window.console.log(application.index);

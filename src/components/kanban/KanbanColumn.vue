@@ -19,7 +19,7 @@
 </template>
 
 <script>
-	import { mapState } from "vuex";
+	import { mapActions, mapState } from "vuex";
 	import KanbanCard from "./KanbanCard.vue";
 	export default {
 		components: { KanbanCard },
@@ -42,12 +42,13 @@
 					return deal.uuid == card_id;
 				});
 				// window.console.log("Application index " + deal_index);
-
+				const app = this.applications[deal_index];
 				// window.console.log("target id is " + e.target.id);
-				this.applications[deal_index].status = this.column.status;
-
+				app.status = this.column.status;
+				this.updateAppByApp(app);
 				// window.console.log("drop " + e.target.id);
 			},
+			...mapActions(["updateAppByApp"]),
 
 			// Parent element (column) functions
 			// make parent element @draggable
