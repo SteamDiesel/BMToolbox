@@ -31,7 +31,7 @@ export default {
 		},
 		indexApps({ state, commit }, is_archived) {
 			// initial setup
-			window.console.log("Index triggered");
+			// window.console.log("Index triggered");
 			var apps = [];
 			var applications = state.db
 				.transaction("applications")
@@ -41,18 +41,18 @@ export default {
 				if (cursor) {
 					if (cursor.value.is_archived == is_archived) {
 						apps.push(cursor.value);
-						window.console.log(cursor.value.uuid);
+						// window.console.log(cursor.value.uuid);
 					}
 					cursor.continue();
 				} else {
-					window.console.log("No more entries!");
+					// window.console.log("No more entries!");
 					commit("setApplications", apps);
 				}
 			};
 		},
 
 		storeApp({ state, getters }) {
-			window.console.log("StoreApp triggered");
+			// window.console.log("StoreApp triggered");
 			var app = getters.application;
 
 			var transaction = state.db.transaction(
@@ -67,13 +67,11 @@ export default {
 				window.console.log("Application Stored!");
 			};
 			transaction.onerror = (event) => {
-				window.console.log("error message");
-				window.console.log(event.target.error);
+				window.console.log("error message: " + event.target.error);
 			};
 		},
 		updateApp({ state, getters }) {
 			var new_app = getters.application;
-			window.console.log(new_app.uuid);
 
 			var objectStore = state.db
 				.transaction(["applications"], "readwrite")
@@ -97,13 +95,12 @@ export default {
 					window.console.log("error saving updated object");
 				};
 				requestUpdate.onsuccess = () => {
-					window.console.log("successfully saved");
+					window.console.log("Saved " + new_app.uuid);
 				};
 			};
 		},
 		updateAppByApp({ state }, app) {
 			var new_app = app;
-			window.console.log(new_app.uuid);
 
 			var objectStore = state.db
 				.transaction(["applications"], "readwrite")
@@ -127,13 +124,13 @@ export default {
 					window.console.log("error saving updated object");
 				};
 				requestUpdate.onsuccess = () => {
-					window.console.log("successfully saved");
+					window.console.log("Saved " + new_app.uuid);
 				};
 			};
 		},
 		deleteApp({ state, dispatch }, application) {
-			window.console.log(application.uuid);
-			window.console.log(application.index);
+			// window.console.log(application.uuid);
+			// window.console.log(application.index);
 			var request = state.db
 				.transaction(["applications"], "readwrite")
 				.objectStore("applications")

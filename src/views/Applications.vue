@@ -5,14 +5,14 @@
 				<button
 					@click.prevent="is_table = true"
 					:class="{ 'bg-gray-400': is_table }"
-					class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2 "
+					class="h-8 rounded-l-lg bg-gray-200 border border-gray-600 text-xs font-semibold py-1 px-2 "
 				>
 					Table
 				</button>
 				<button
 					@click.prevent="is_table = false"
 					:class="{ 'bg-gray-400': !is_table }"
-					class="h-8 rounded-r-lg bg-gray-200 border border-gray-600 text-xs py-1 px-2  mr-4"
+					class="h-8 rounded-r-lg bg-gray-200 border border-gray-600 text-xs font-semibold py-1 px-2  mr-4"
 				>
 					Board
 				</button>
@@ -31,7 +31,7 @@
 			<div
 				class="w-64 px-6 flex w-full justify-between items-center md:flex-col md:w-64 md:justify-start"
 			>
-				<div class="w-full">
+				<!-- <div class="w-full">
 					<FormField
 						class="w-full"
 						:no_copy="true"
@@ -58,7 +58,7 @@
 							class="form-input text-center"
 						/>
 					</FormField>
-				</div>
+				</div> -->
 
 				<button
 					@click="indexApps(0)"
@@ -110,7 +110,7 @@
 	import PageHeader from "@/components/layout/PageHeader.vue";
 	import AppsTable from "@/components/tables/AppsTable.vue";
 	import ImportApp from "@/components/ImportApp.vue";
-	import FormField from "@/components/application/FormField.vue";
+	// import FormField from "@/components/application/FormField.vue";
 	import AppsKanban from "@/components/kanban/AppsKanban.vue";
 
 	import { mapState, mapMutations, mapActions } from "vuex";
@@ -131,7 +131,7 @@
 			PageHeader,
 			AppsTable,
 			ImportApp,
-			FormField,
+			// FormField,
 			// updateApplicationsButton
 		},
 		computed: {

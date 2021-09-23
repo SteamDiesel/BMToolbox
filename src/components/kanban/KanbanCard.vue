@@ -1,22 +1,47 @@
 <template>
 	<div
-		class="border border-gray-400 p-2 m-1"
+		class="border border-gray-400 p-2 mx-1 mb-2 flex"
 		draggable="true"
 		@dragstart="startDrag"
 		:id="application.uuid"
 	>
-		{{ application.status.value }}
-		<span v-for="(person, index) in application.people" :key="index">
-			{{ person.first_name }} {{ person.surname }}
-
-			<span class="mx-2" v-if="index + 1 < application.people.length"
-				>&</span
+		<div>
+			<button
+				@click.prevent="openApp(application.uuid)"
+				class="hover:text-indigo-600 text-gray-800 font-semibold"
 			>
-		</span>
+				<span
+					v-for="(person, index) in application.people"
+					:key="index"
+				>
+					{{ person.first_name }} {{ person.surname }}
+
+					<span
+						class="mx-2"
+						v-if="index + 1 < application.people.length"
+						>&</span
+					>
+				</span>
+			</button>
+
+			<div class="text-xs text-grey-400">
+				{{ application.vehicle.year }}
+				{{ application.vehicle.make }}
+				{{ application.vehicle.model }}
+				{{ application.vehicle.badge }}
+			</div>
+			<div class="text-xs text-grey-400">
+				NAF: {{ application.loan_calculator.full_naf | toCurrency }}
+			</div>
+			<div v-if="application.is_archived" class="text-xs text-grey-400">
+				ARCHIVED
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+	import { mapActions, mapState } from "vuex";
 	export default {
 		name: "KanbanCard",
 		props: {
@@ -25,6 +50,9 @@
 		},
 		data() {
 			return {};
+		},
+		computed: {
+			...mapState(["applications"]),
 		},
 		methods: {
 			// Child/card components
@@ -41,6 +69,15 @@
 					// e.target.style.opacity = "0.4";
 				});
 			},
+
+			openApp(uuid) {
+				var index = this.applications.findIndex((app) => {
+					return app.uuid == uuid;
+				});
+				this.selectApplication(index);
+				this.$router.push("application");
+			},
+			...mapActions(["selectApplication"]),
 		},
 	};
 </script>

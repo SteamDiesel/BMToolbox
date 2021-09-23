@@ -6,7 +6,8 @@
 		@dragenter.prevent
 		:id="column.status.value"
 	>
-		<div class="flex-none mb-4 p-2">
+		<div class="flex-none mb-2 p-2">
+			<!-- :style="{ 'background-color': column.status.color }" -->
 			{{ column.status.value }}
 		</div>
 
