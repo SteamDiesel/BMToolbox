@@ -51,6 +51,16 @@
 							to="/applications"
 							>Applications</router-link
 						>
+						<router-link
+							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
+							to="/tasks"
+							>Tasks</router-link
+						>
+						<router-link
+							class="h-full flex items-center px-4 py-1 hover:bg-blue-800"
+							to="/history"
+							>History</router-link
+						>
 					</div>
 					<div class="flex h-full items-center">
 						<UserButton />

@@ -1,12 +1,16 @@
-import env from "./environment";
+// import env from "./environment";
 export default {
 	state: {
 		db: null,
+		check: "it works",
 	},
 	getters: {},
 	mutations: {},
 	actions: {
 		initializeDB({ state, dispatch }) {
+			window.console.log("Initializing the Database....");
+			// https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+
 			var request = window.indexedDB.open("BDFIdatabase", 1);
 			request.onupgradeneeded = (event) => {
 				window.console.log(
@@ -14,11 +18,19 @@ export default {
 				);
 				state.db = event.target.result;
 				state.db.createObjectStore("applications", { keyPath: "uuid" });
+				var taskstable = state.db.createObjectStore("tasks", {
+					keyPath: "uuid",
+				});
+				taskstable.createIndex("application_id", "application_id", {
+					unique: false,
+				});
 			};
+
 			request.onsuccess = (event) => {
 				state.db = event.target.result;
 				window.console.log("Successfully Initialized the Database.");
 				dispatch("indexApps", 0);
+				dispatch("indexTasks", false);
 			};
 			request.onerror = (event) => {
 				alert(
@@ -28,6 +40,8 @@ export default {
 					"Database error: " + event.target.errorCode
 				);
 			};
+			// dispatch("indexApps", 0);
+			// dispatch("indexTasks", false);
 		},
 		indexApps({ state, commit }, is_archived) {
 			// initial setup
@@ -36,6 +50,7 @@ export default {
 			var applications = state.db
 				.transaction("applications")
 				.objectStore("applications");
+
 			applications.openCursor().onsuccess = (event) => {
 				var cursor = event.target.result;
 				if (cursor) {
@@ -142,6 +157,6 @@ export default {
 		},
 	},
 	modules: {
-		env,
+		// env,
 	},
 };

@@ -1,8 +1,19 @@
 <template>
-	<div class="flex w-full justify-between">
+	<div class="w-full justify-between px-8">
 		<!-- Contact Log  -->
-		<div class="bg-gray-100 w-1/3 p-2 ml-8 mr-4 my-4">
-			<div class="w-full p-4">
+		<div class="bg-gray-100 w-full p-2  mr-4 my-4">
+			<div v-show="!show" class="w-full p-4 flex justify-around">
+				<button
+					class="btn-primary"
+					v-for="(val, index) in contact_log_types"
+					:key="index"
+					@click.prevent="startNote(val)"
+				>
+					{{ val }}
+				</button>
+			</div>
+
+			<div v-show="show" class="w-full p-4">
 				<select
 					v-model="entry.type"
 					class="bg-transparent px-2 py-1 mb-1 rounded border border-gray-300 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100"
@@ -20,7 +31,7 @@
 					:id="'#' + entry.notes"
 					v-model="entry.notes"
 					type="text"
-					class="bg-transparent w-full h-64 p-4 rounded border border-gray-300 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100"
+					class="bg-transparent w-full h-32 p-4 rounded border border-gray-300 focus:border-teal-500 focus:bg-teal-100 hover:bg-teal-100"
 				/>
 
 				<div class="w-full flex justify-start">
@@ -58,6 +69,7 @@
 					timestamp: "",
 					posted_by: "",
 				},
+				show: false,
 			};
 		},
 		components: {
@@ -72,6 +84,19 @@
 				this.entry.timestamp = moment();
 				this.entry.posted_by = this.user_preferences.user_name;
 				this.pushNote(JSON.stringify(this.entry));
+				this.show = false;
+				this.$nextTick(
+					(this.entry = {
+						type: "",
+						notes: "",
+						timestamp: "",
+						posted_by: "",
+					})
+				);
+			},
+			startNote(val) {
+				this.show = true;
+				this.entry.type = val;
 			},
 			...mapActions([
 				"pushNote",

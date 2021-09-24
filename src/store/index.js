@@ -5,7 +5,8 @@ import { uuid } from "vue-uuid";
 // import moment from "moment";
 import auth from "./modules/auth";
 import env from "./modules/environment";
-import localdb from "./modules/localdb";
+// import localdb from "./modules/localdb";
+import tasksmodule from "./modules/tasks";
 // import VueRouter from "vue-router";
 
 Vue.use(Vuex);
@@ -106,6 +107,8 @@ export default new Vuex.Store({
 
 		loan_calc_history: [],
 		applications: [],
+
+		history: [],
 		// archived_applications: [],
 		application: {
 			// Created in mutation
@@ -908,13 +911,21 @@ export default new Vuex.Store({
 
 		initialize({ commit, dispatch }) {
 			// initialize the DB
-			dispatch("initializeDB");
+			window.console.log("Initializing the application....");
 
-			// first: get the local storage items if they exist
-			var token = localStorage.getItem("session_token");
 			var prefs = localStorage.getItem("user_preferences");
+			if (prefs) {
+				commit("setUserPreferencesFromLocal");
+			} else {
+				commit("setSessionUUID");
+			}
+
+			dispatch("initializeDB");
+			// first: get the local storage items if they exist
+			// var token = localStorage.getItem("session_token");
+
 			// var apps = localStorage.getItem('applications')
-			var user = JSON.parse(localStorage.getItem("user"));
+			// var user = JSON.parse(localStorage.getItem("user"));
 
 			// second: commit mutations to set environment from locally stored data
 			// if (user && token) {
@@ -923,21 +934,15 @@ export default new Vuex.Store({
 			// 	commit('setNotConnected')
 			// }
 
-			if (prefs) {
-				commit("setUserPreferencesFromLocal");
-			} else {
-				commit("setSessionUUID");
-			}
-
 			// if (!apps) {
 			// 	commit('createEmptyApplication')
 			// 	commit('addPersonToApplication')
 			// }
 
 			// last: dispatch actions for async remote resources
-			if (token && user) {
-				dispatch("testAuthConnection", token);
-			}
+			// if (token && user) {
+			// 	dispatch("testAuthConnection", token);
+			// }
 
 			// if (apps) {
 			// window.console.log('Getting apps from local storage.')
@@ -993,7 +998,9 @@ export default new Vuex.Store({
 			dispatch("updateField");
 		},
 		pushNote({ getters, dispatch }, payload) {
-			getters.application.contact_log.push(JSON.parse(payload));
+			// At position 2, add 2 elements:
+			// fruits.splice(2, 0, "Lemon", "Kiwi");
+			getters.application.contact_log.splice(0, 0, JSON.parse(payload));
 			dispatch("updateField");
 		},
 		dropFromArray({ state, commit, dispatch }, payload) {
@@ -1177,6 +1184,7 @@ export default new Vuex.Store({
 	modules: {
 		auth,
 		env,
-		localdb,
+		// localdb,
+		tasksmodule,
 	},
 });
