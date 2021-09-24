@@ -40,8 +40,6 @@ export default {
 					"Database error: " + event.target.errorCode
 				);
 			};
-			// dispatch("indexApps", 0);
-			// dispatch("indexTasks", false);
 		},
 		indexApps({ state, commit }, is_archived) {
 			// initial setup
@@ -51,6 +49,10 @@ export default {
 				.transaction("applications")
 				.objectStore("applications");
 
+			// applications.getAll().onsuccess = (e) => {
+			// 	apps = e.target.result;
+			// 	commit("setApplications", apps);
+			// };
 			applications.openCursor().onsuccess = (event) => {
 				var cursor = event.target.result;
 				if (cursor) {

@@ -44,22 +44,41 @@
 					</FormField>
 				</div> -->
 
-				<!-- <button
-					@click="indexApps(0)"
+				<button
+					@click="show_completed = false"
 					class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300 w-full"
 				>
-					All Active
+					All Pending
 				</button>
 				<button
-					@click="indexApps(1)"
+					@click="show_completed = true"
 					class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300 w-full"
 				>
-					All Archived
-				</button> -->
+					All Completed
+				</button>
 			</div>
-			<div class="p-10 w-full bg-blue-300 ">
-				<div class="" v-for="(task, index) in tasks" :key="index">
-					{{ task.title }}
+			<div class="p-10 w-full h-full ">
+				<div v-if="!show_completed">
+					<div
+						class="mb-4 hover:bg-blue-400 p-4 border border-1"
+						v-for="(task, index) in pending_tasks"
+						:key="index"
+					>
+						{{ task.title }} | Due {{ task.due_at | fromNow }} ({{
+							task.due_at
+						}}) |
+					</div>
+				</div>
+				<div v-if="show_completed">
+					<div
+						class="mb-4 hover:bg-blue-400 p-4 border border-1"
+						v-for="(task, index) in complete_tasks"
+						:key="index"
+					>
+						{{ task.title }} | Due {{ task.due_at | fromNow }} ({{
+							task.due_at
+						}}) |
+					</div>
 				</div>
 			</div>
 
@@ -74,7 +93,7 @@
 	// @ is an alias to /src
 	import PageHeader from "@/components/layout/PageHeader.vue";
 
-	import { mapState, mapMutations, mapActions } from "vuex";
+	import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 
 	import NewTask from "../components/NewTask.vue";
 	export default {
@@ -86,12 +105,14 @@
 		data() {
 			return {
 				show_new: false,
+				show_completed: false,
 			};
 		},
 		computed: {
 			...mapState({
 				tasks: (state) => state.tasksmodule.tasks,
 			}),
+			...mapGetters(["pending_tasks", "complete_tasks"]),
 		},
 		methods: {
 			openApp(index) {
