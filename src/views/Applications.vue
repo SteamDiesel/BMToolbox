@@ -1,5 +1,5 @@
 <template>
-	<div class="pb-12">
+	<div class="pb-4">
 		<PageHeader title="Applications">
 			<div class="hidden md:block">
 				<button
@@ -149,6 +149,8 @@
 </script>
 <style scoped>
 	.body-internal {
-		height: calc(100vh - 12rem);
+		height: calc(100vh - 11rem);
+		max-height: calc(100vh - 11rem);
+		min-height: calc(100vh - 11rem);
 	}
 </style>

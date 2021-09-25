@@ -1,11 +1,17 @@
 <template>
-	<div class="bg-gray-200 absolute right-0  w-120 border border-gray-500 m-0">
+	<div
+		class="bg-gray-200 absolute right-0 top-0 mt-12 w-120 border border-gray-500 m-0"
+	>
 		<div
-			class="w-full bg-teal-500 text-white font-semibold px-8 py-4 text-lg"
+			class="flex h-16 justify-between items-center w-full bg-teal-500 text-white font-semibold px-8  text-lg"
 		>
-			Create task
+			<div>Create task</div>
+
+			<div class="">
+				<slot></slot>
+			</div>
 		</div>
-		<div class="p-8">
+		<div class="px-8 pt-4 pb-8">
 			<FormField
 				:no_copy="true"
 				class="w-2/5"
@@ -142,9 +148,9 @@
 					</select>
 				</FormField>
 			</div>
-			<div>
+			<div class="mt-4 ml-2">
 				<button
-					@click="saveTask(JSON.stringify(new_task))"
+					@click="save()"
 					class="bg-transparent font-semibold hover:bg-teal-200 px-4 py-2 border border-teal-600 rounded mr-4"
 				>
 					Save Task
@@ -171,6 +177,7 @@
 				list_item: { is_complete: false, title: "" },
 				new_task: {
 					application_id: "",
+					application_name: "",
 					title: "",
 					description: "",
 					priority: "Medium",
@@ -196,6 +203,23 @@
 			},
 			deleteItem(index) {
 				this.new_task.checklist.splice(index, 1);
+			},
+			save() {
+				this.saveTask(JSON.stringify(this.new_task));
+				this.new_task = {
+					application_id: "",
+					application_name: "",
+					title: "",
+					description: "",
+					priority: "Medium",
+					created_at: "",
+					due_at: "",
+					updated_at: "",
+					is_complete: false,
+					checklist: [],
+					comments: [],
+					cascade_task: [],
+				};
 			},
 
 			...mapActions(["saveTask"]),

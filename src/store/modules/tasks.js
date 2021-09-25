@@ -17,6 +17,17 @@ export default {
 			apps.forEach((app) => {
 				tasks.forEach((task) => {
 					if (task.application_id == app.uuid && !task.is_complete) {
+						var str = [];
+						var inc = 0;
+						app.people.forEach((person) => {
+							inc++;
+							str.push(person.first_name, person.surname);
+							if (inc < app.people.length) {
+								str.push("&");
+							}
+						});
+						task.application_name = str.join(" ").toString();
+						window.console.log(task.application_name);
 						result.push(task);
 					}
 				});
@@ -39,6 +50,17 @@ export default {
 			apps.forEach((app) => {
 				tasks.forEach((task) => {
 					if (task.application_id == app.uuid && task.is_complete) {
+						var str = [];
+						app.people.forEach((person) => {
+							str.push(
+								person.first_name
+								// " ",
+								// person.surname,
+								// " "
+							);
+						});
+						window.console.log("str");
+
 						result.push(task);
 					}
 				});
@@ -96,6 +118,40 @@ export default {
 			};
 			transaction.onerror = (event) => {
 				window.console.log("error message: " + event.target.error);
+			};
+		},
+		updateTask({ state }, task) {
+			var new_task = task;
+			var task_index = state.tasks.findIndex((task) => {
+				return task.uuid == new_task.uuid;
+			});
+			window.console.log("task index to be updated: " + task_index);
+			state.tasks[task_index] = new_task;
+
+			var objectStore = state.localdb.db
+				.transaction(["tasks"], "readwrite")
+				.objectStore("tasks");
+
+			var request = objectStore.get(new_task.uuid);
+
+			request.onerror = (event) => {
+				window.console.log(event);
+				window.console.log(
+					"error while retrieving object to be updated from db."
+				);
+			};
+
+			request.onsuccess = (event) => {
+				var old_task = event.target.result;
+				old_task = new_task;
+				var requestUpdate = objectStore.put(old_task);
+				requestUpdate.onerror = (event) => {
+					window.console.log(event);
+					window.console.log("error saving updated task");
+				};
+				requestUpdate.onsuccess = () => {
+					window.console.log("Saved task " + new_task.uuid);
+				};
 			};
 		},
 		indexTasks({ state, commit }) {

@@ -10,17 +10,13 @@
 				@click.prevent="openApp(application.uuid)"
 				class="hover:text-indigo-600 text-gray-800 font-semibold"
 			>
-				<span
-					v-for="(person, index) in application.people"
-					:key="index"
-				>
-					{{ person.first_name }} {{ person.surname }}
-
-					<span
-						class="mx-2"
+				<span v-for="(person, index) in application.people" :key="index"
+					>{{ person.first_name }} {{ person.surname
+					}}<span
+						class=""
 						v-if="index + 1 < application.people.length"
-						>&</span
-					>
+						><br />
+					</span>
 				</span>
 			</button>
 
