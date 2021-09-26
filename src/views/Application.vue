@@ -123,7 +123,14 @@
 							:class="{ 'text-blue-600': show_applicants }"
 							class="px-6 py-4 font-semibold hover:text-blue-400"
 						>
-							Applicants
+							People
+						</button>
+						<button
+							@click="appPageSwitch('businesses')"
+							:class="{ 'text-blue-600': show_businesses }"
+							class="px-6 py-4 font-semibold hover:text-blue-400"
+						>
+							Business
 						</button>
 						<button
 							@click="appPageSwitch('history')"
@@ -153,6 +160,7 @@
 				<AppPage v-if="false" />
 				<AppPages v-if="show_applicants" />
 				<HistoryPage v-if="show_history" />
+				<BusinessPage v-if="show_businesses" />
 			</transition>
 		</div>
 	</div>
@@ -171,6 +179,7 @@
 	import DropdownMenu from "@/components/buttons/DropdownMenu.vue";
 
 	import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+	import BusinessPage from "../components/application/pages/BusinessPage.vue";
 	export default {
 		name: "home",
 		components: {
@@ -182,6 +191,7 @@
 			AppDetails,
 			DropdownMenu,
 			HistoryPage,
+			BusinessPage,
 		},
 		computed: {
 			...mapState([
@@ -189,6 +199,7 @@
 				"show_vehicle",
 				"show_loan",
 				"show_applicants",
+				"show_businesses",
 				"show_history",
 				"user_preferences",
 			]),

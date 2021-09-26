@@ -16,6 +16,7 @@ export default new Vuex.Store({
 		show_vehicle: false,
 		show_loan: true,
 		show_applicants: false,
+		show_businesses: false,
 		show_history: false,
 		contact_log_types: [
 			"Called",
@@ -438,6 +439,7 @@ export default new Vuex.Store({
 			state.show_vehicle = false;
 			state.show_loan = false;
 			state.show_applicants = false;
+			state.show_businesses = false;
 			state.show_history = false;
 
 			switch (io) {
@@ -451,6 +453,10 @@ export default new Vuex.Store({
 
 				case "applicants":
 					state.show_applicants = true;
+					break;
+
+				case "businesses":
+					state.show_businesses = true;
 					break;
 
 				case "history":
@@ -678,6 +684,7 @@ export default new Vuex.Store({
 				people: [],
 				quotes: [],
 				businesses: [],
+				trusts: [],
 				notes: "",
 				uuid: uuid.v4(),
 			};
@@ -781,10 +788,25 @@ export default new Vuex.Store({
 			}
 		},
 
-		addBusinessToApplication() {
-			window.alert(
-				"You will be able to add businesses in a future update, coming very soon... "
-			);
+		addBusinessToApplication(state) {
+			state.applications[
+				state.selected_application_index
+			].businesses.push({
+				entity_name: "Pty Ltd Entity Name",
+				business_name: "Business Name",
+				abn: "ABN",
+				acn: "ACN",
+				registration_date: "",
+				is_gst: false,
+				gst_date: "",
+				directors: [],
+				shareholders: [],
+				registered_address: {},
+				street_address: {},
+				financial: {},
+				accountant: {},
+				role: "",
+			});
 		},
 		setUserPreferencesFromLocal(state) {
 			state.user_preferences = JSON.parse(
