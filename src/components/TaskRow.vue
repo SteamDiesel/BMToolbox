@@ -1,19 +1,22 @@
 <template>
-	<tr class="border-b border-gray-400">
-		<td v-if="!open" class="py-3 text-left px-3"></td>
-		<td @click="open = !open" class="py-3 text-left px-3">
-			{{ task.title }} <br />
+	<div class="border border-1 flex hover:bg-blue-100 border-gray-400 mb-4">
+		<div class="py-3 text-left px-3"></div>
+		<div class="py-3 text-left px-3 w-64">
+			<span class="font-semibold">
+				{{ task.title }}
+			</span>
+			<br />
 			{{ task.description }}
-		</td>
-		<td class="py-3 text-left px-3">
+		</div>
+		<div class="py-3 text-left px-3 w-64">
 			<span
 				class=" hover:text-blue-600 hover:underline font-semibold cursor-pointer"
 				@click="openApp(task.application_id)"
 			>
 				{{ task.application_name }}
 			</span>
-		</td>
-		<td class="py-3 text-left px-3">
+		</div>
+		<div class="py-3 text-left px-3 w-64">
 			<div class=""></div>
 			<div
 				v-for="(item, index) in task.checklist"
@@ -22,44 +25,40 @@
 			>
 				<div class="flex items-center h-5">
 					<input
-						id="item.title"
+						:id="item.title"
 						aria-describedby="comments-description"
-						name="comments"
+						:name="item.title"
 						type="checkbox"
-						:value="item.is_complete"
+						v-model="item.is_complete"
 						@change="updateTask(task)"
 						class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
 					/>
 				</div>
 				<div class="ml-3 text-sm">
-					<label for="item.title" class="font-medium text-gray-700">{{
-						item.title
-					}}</label>
-					<!-- <span id="comments-description" class="text-gray-500"
-						><span class="sr-only">New comments </span>so you always
-						know what's happening.</span
-					> -->
+					<label :for="item.title" class="">{{ item.title }}</label>
 				</div>
 			</div>
-		</td>
-		<td class="py-3 text-left px-3">
-			{{ task.due_at | fromNow }} <br />
+		</div>
+		<div class="py-3 text-left px-3 w-64">
+			Due {{ task.due_at | fromNow }} <br />
 			({{ task.due_at | dateTimeFormat }})
-		</td>
-	</tr>
+		</div>
+		<div class="py-3 text-left px-3">
+			<slot></slot>
+		</div>
+	</div>
 </template>
 
 <script>
 	import { mapState, mapMutations, mapActions } from "vuex";
 	export default {
+		components: {},
 		name: "TaskRow",
 		props: {
 			task: Object,
 		},
 		data() {
-			return {
-				open: false,
-			};
+			return {};
 		},
 		computed: {
 			...mapState({
@@ -76,10 +75,14 @@
 				this.selectApplication(index);
 				this.$router.push("application");
 			},
+
 			...mapActions(["updateTask"]),
-			...mapMutations(["selectApplication"]),
+			...mapMutations(["selectApplication", "selectTask"]),
+		},
+		mounted() {
+			this.is_complete_proxy = this.task.is_complete;
 		},
 	};
 </script>
 
-<style></style>
+<style scoped></style>

@@ -8,8 +8,20 @@ import { uuid } from "vue-uuid";
 export default {
 	state: {
 		tasks: [],
+		current_task_uuid: "",
 	},
 	getters: {
+		current_task: (state) => {
+			if (state.current_task_uuid) {
+				var index = state.tasks.findIndex((task) => {
+					return task.uuid == state.current_task_uuid;
+				});
+				window.console.log(index);
+				return state.tasks[index];
+			} else {
+				return null;
+			}
+		},
 		pending_tasks: (state, getters, rootState) => {
 			const apps = rootState.applications;
 			const tasks = state.tasks;
@@ -27,7 +39,6 @@ export default {
 							}
 						});
 						task.application_name = str.join(" ").toString();
-						window.console.log(task.application_name);
 						result.push(task);
 					}
 				});
@@ -90,6 +101,11 @@ export default {
 		loadTasks(state, payload) {
 			state.tasks = payload;
 		},
+		selectTask(state, payload) {
+			window.console.log(payload);
+			state.current_task_uuid = payload.uuid;
+			window.console.log(state.current_task_uuid);
+		},
 	},
 	actions: {
 		saveTask({ dispatch, commit }, string) {
@@ -125,7 +141,7 @@ export default {
 			var task_index = state.tasks.findIndex((task) => {
 				return task.uuid == new_task.uuid;
 			});
-			window.console.log("task index to be updated: " + task_index);
+
 			state.tasks[task_index] = new_task;
 
 			var objectStore = state.localdb.db
@@ -153,6 +169,34 @@ export default {
 					window.console.log("Saved task " + new_task.uuid);
 				};
 			};
+		},
+		taskDelete({ state, dispatch }, doomed_task) {
+			var index = state.tasks.findIndex((task) => {
+				return task.uuid == doomed_task.uuid;
+			});
+			state.tasks.splice(index, 1);
+			var request = state.localdb.db
+				.transaction(["tasks"], "readwrite")
+				.objectStore("tasks")
+				.delete(doomed_task.uuid);
+			request.onsuccess = () => {
+				window.console.log(doomed_task.uuid + " was deleted.");
+				dispatch("indexTasks");
+			};
+		},
+
+		deleteTask({ rootState, dispatch }, task) {
+			if (rootState.user_preferences.require_confirmation_prompts) {
+				if (
+					confirm(
+						"Are you sure you want to permanently delete this task?"
+					)
+				) {
+					dispatch("taskDelete", task);
+				}
+			} else {
+				dispatch("taskDelete", task);
+			}
 		},
 		indexTasks({ state, commit }) {
 			// initial setup

@@ -17,60 +17,74 @@
 					@click="show_completed = false"
 					class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300"
 				>
-					All Pending
+					Pending
 				</button>
 				<button
 					@click="show_completed = true"
 					class="py-2 px-3 flex justify-center md:justify-start rounded hover:bg-gray-300"
 				>
-					All Completed
+					Complete
 				</button>
 			</div>
 			<div class="px-4 w-full">
 				<div v-if="!show_completed">
 					<div
-						class="w-full overflow-y-auto overscroll-contain body-int"
+						class="w-full flex justify-center overflow-y-auto overscroll-contain body-int"
 					>
-						<table class="w-full h-full">
-							<thead class="w-full ">
-								<tr
-									class="text-xs uppercase bg-gray-200 w-full"
-								>
-									<th
-										class="py-3 text-left px-3 border-t border-r border-l border-gray-400"
+						<div>
+							<task-row
+								v-for="(task, index) in pending_tasks"
+								:key="index"
+								:task="task"
+							>
+								<button @click="openTask(task)">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										class="w-8"
 									>
-										Done
-									</th>
-									<th
-										class="py-3 text-left px-3 border-t border-r border-gray-400"
+										<path
+											class="primary"
+											d="M12 8a1 1 0 0 1-1 1H5v10h10v-6a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h6a1 1 0 0 1 1 1z"
+										/>
+										<path
+											class="secondary"
+											d="M19 6.41L8.7 16.71a1 1 0 1 1-1.4-1.42L17.58 5H14a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V6.41z"
+										/>
+									</svg>
+								</button>
+							</task-row>
+						</div>
+					</div>
+				</div>
+				<div v-if="show_completed">
+					<div
+						class="w-full flex justify-center overflow-y-auto overscroll-contain body-int"
+					>
+						<div>
+							<task-row
+								v-for="(task, index) in complete_tasks"
+								:key="index"
+								:task="task"
+							>
+								<button @click="openTask(task)">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										class="w-8"
 									>
-										Title
-									</th>
-									<th
-										class="py-3 text-left px-3 border-t border-r border-gray-400"
-									>
-										Application
-									</th>
-									<th
-										class="py-3 text-left px-3 border-t border-r border-gray-400"
-									>
-										Checklist
-									</th>
-									<th
-										class="py-3 text-left px-3 border-t border-r border-gray-400"
-									>
-										Due Date
-									</th>
-								</tr>
-							</thead>
-							<tbody class="">
-								<task-row
-									v-for="(task, index) in pending_tasks"
-									:key="index"
-									:task="task"
-								></task-row>
-							</tbody>
-						</table>
+										<path
+											class="primary"
+											d="M12 8a1 1 0 0 1-1 1H5v10h10v-6a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h6a1 1 0 0 1 1 1z"
+										/>
+										<path
+											class="secondary"
+											d="M19 6.41L8.7 16.71a1 1 0 1 1-1.4-1.42L17.58 5H14a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V6.41z"
+										/>
+									</svg>
+								</button>
+							</task-row>
+						</div>
 					</div>
 				</div>
 				<!-- <div v-if="show_completed">
@@ -88,7 +102,10 @@
 
 			<transition name="fade" mode="out-in">
 				<new-task v-if="show_new">
-					<button @click="show_new = !show_new" class="mt-1">
+					<button
+						@click="(show_new = !show_new), (show_edit = false)"
+						class="mt-1"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
@@ -107,6 +124,30 @@
 						</svg></button
 				></new-task>
 			</transition>
+			<transition name="fade" mode="out-in">
+				<edit-task @delete="show_edit = false" v-if="show_edit">
+					<button
+						@click="(show_edit = !show_edit), (show_new = false)"
+						class="mt-1"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							class="w-8"
+						>
+							<circle
+								cx="12"
+								cy="12"
+								r="10"
+								class="primary hover:secondary"
+							/>
+							<path
+								class="secondary hover:primary"
+								d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
+							/>
+						</svg></button
+				></edit-task>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -119,21 +160,24 @@
 
 	import NewTask from "../components/NewTask.vue";
 	import TaskRow from "../components/TaskRow.vue";
+	import EditTask from "../components/EditTask.vue";
 	export default {
 		name: "Tasks",
 		components: {
 			PageHeader,
 			NewTask,
 			TaskRow,
+			EditTask,
 		},
 		data() {
 			return {
+				show_edit: false,
 				show_new: false,
 				show_completed: false,
 			};
 		},
 		computed: {
-			...mapGetters(["pending_tasks", "complete_tasks"]),
+			...mapGetters(["pending_tasks", "complete_tasks", "current_task"]),
 		},
 		methods: {
 			openApp(uuid) {
@@ -144,11 +188,15 @@
 				this.selectApplication(index);
 				this.$router.push("application");
 			},
-			...mapMutations(["selectApplication"]),
+			openTask(task) {
+				this.show_edit = true;
+				this.selectTask(task);
+			},
+			...mapMutations(["selectApplication", "selectTask"]),
 		},
 	};
 </script>
-<style scoped>
+<style>
 	.body-int {
 		height: calc(100vh - 14rem);
 		max-height: calc(100vh - 14rem);

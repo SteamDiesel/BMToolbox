@@ -14,7 +14,7 @@
 		<div class="px-8 pt-4 pb-8">
 			<FormField
 				:no_copy="true"
-				class="w-2/5"
+				class="w-full"
 				@copy="copyClipboard('#' + new_task.application_id)"
 			>
 				<template v-slot:label>
@@ -104,10 +104,23 @@
 					:key="index"
 				>
 					<button
-						class="ml-2 px-2 py-1 border text-red-400 hover:text-red-600 border-1 font-semibold "
+						class="ml-2 px-1 py-1 border text-red-400 hover:text-red-600 border-1 font-semibold "
 						@click.prevent="deleteItem(index)"
 					>
-						Delete
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							class="w-5"
+						>
+							<path
+								class="fill-current text-red-500"
+								d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
+							/>
+							<path
+								class="fill-current text-red-800"
+								d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
+							/>
+						</svg>
 					</button>
 				</list-item>
 			</div>

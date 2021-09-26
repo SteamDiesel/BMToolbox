@@ -8,7 +8,7 @@
 		<div>
 			<button
 				@click.prevent="openApp(application.uuid)"
-				class="hover:text-indigo-600 text-gray-800 font-semibold"
+				class="hover:text-indigo-600 text-gray-800 font-semibold text-left"
 			>
 				<span v-for="(person, index) in application.people" :key="index"
 					>{{ person.first_name }} {{ person.surname
