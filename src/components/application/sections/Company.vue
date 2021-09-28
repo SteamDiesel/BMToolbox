@@ -40,13 +40,10 @@
 					viewBox="0 0 24 24"
 					class="w-6"
 				>
-					<path
-						class="primary"
-						d="M12 8a1 1 0 0 1-1 1H5v10h10v-6a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h6a1 1 0 0 1 1 1z"
-					/>
+					<circle cx="10" cy="10" r="7" class="primary" />
 					<path
 						class="secondary"
-						d="M19 6.41L8.7 16.71a1 1 0 1 1-1.4-1.42L17.58 5H14a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V6.41z"
+						d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
 					/>
 				</svg>
 			</a>
@@ -92,7 +89,7 @@
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-1/5">
+			<FormField :no_copy="true" class="w-1/5">
 				<template v-slot:label>
 					GST Registered
 				</template>
@@ -118,6 +115,49 @@
 				/>
 			</FormField>
 		</div>
+		<Header title="Directors"> </Header>
+		<!-- <div class="flex flex-wrap">
+			<div class="w-1/2 pl-2">
+				<h3 class="font-semibold">People</h3>
+				<div class="p-4 border border-grey-300">
+					<div
+						class="flex justify-between px-4 py-2 w-full bg-white mb-1"
+						v-for="(person, index) in people"
+						:key="'b' + index"
+					>
+						<div>
+							{{ person.first_name + " " + person.surname }}
+						</div>
+
+						<button
+							class=""
+							@click="
+								addBenny({
+									name:
+										person.first_name +
+										' ' +
+										person.surname,
+								})
+							"
+						>
+							add
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="w-1/2 pl-2">
+				<h3 class="font-semibold">Named Beneficiaries</h3>
+				<ListName
+					v-for="(benny, index) in trust.beneficiaries"
+					:key="'benny' + index"
+					:ben="benny"
+				>
+					<button class="" @click="dropBenny(index)">
+						delete
+					</button>
+				</ListName>
+			</div>
+		</div> -->
 	</div>
 </template>
 
@@ -130,7 +170,7 @@
 	import CheckBox from "../../buttons/CheckBox.vue";
 
 	export default {
-		name: "Person",
+		name: "Company",
 		components: {
 			FormField,
 			Header,

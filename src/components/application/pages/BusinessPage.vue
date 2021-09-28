@@ -17,6 +17,22 @@
 						/>
 					</svg>
 				</button>
+				<button
+					@click="addTrustToApplication"
+					class="bg-gray-300 hover:bg-blue-200 p-2 shadow-lg rounded-full mx-2"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						class="w-4"
+					>
+						<path
+							class="primary"
+							d="M6 2h6v6c0 1.1.9 2 2 2h6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2z"
+						/>
+						<polygon class="secondary" points="14 2 20 8 14 8" />
+					</svg>
+				</button>
 			</div>
 		</div>
 
@@ -24,7 +40,7 @@
 			<div
 				class="w-full mr-10 mb-10 lg:max-w-2xl"
 				v-for="(bus, index) in application.businesses"
-				:key="index"
+				:key="'bus' + index"
 			>
 				<div>
 					<h2 class="text-3xl font-semibold">
@@ -46,7 +62,7 @@
 				</div>
 				<div>
 					<Company
-						:key="'id' + index"
+						:key="'bus_index' + index"
 						:business_index="index"
 						:people="application.people"
 						:bus="bus"
@@ -72,6 +88,73 @@
 								</svg>-->
 						</button>
 					</Company>
+					<BusinessAddress
+						:address="bus.street_address"
+						:id_prefix="'busstr' + index"
+						header="Street Address"
+					/>
+					<BusinessAddress
+						:address="bus.registered_address"
+						:id_prefix="'busreg' + index"
+						header="Registered Address"
+					/>
+				</div>
+			</div>
+			<div
+				class="w-full mr-10 mb-10 lg:max-w-2xl"
+				v-for="(trust, index) in application.trusts"
+				:key="'tst' + index"
+			>
+				<div>
+					<h2 class="text-3xl font-semibold">
+						{{ trust.trust_name }}
+					</h2>
+					<select
+						name="role"
+						:id="'app_role' + index"
+						v-model="trust.role"
+					>
+						<option
+							v-for="(role, index) in app_roles"
+							:key="index"
+							value="role"
+							>{{ role }}</option
+						>
+					</select>
+					<hr />
+				</div>
+				<div>
+					<Trust
+						:key="'trust_index' + index"
+						:trust_index="index"
+						:people="application.people"
+						:trust="trust"
+						:businesses="application.businesses"
+					>
+						<button
+							@click="
+								dropFromArray({
+									array: application.trusts,
+									object: trust,
+									type: 'trust',
+									index: index,
+								})
+							"
+							class="bg-gray-300 hover:bg-red-200 p-2 shadow-lg rounded-lg no-print"
+						>
+							delete
+						</button>
+					</Trust>
+					<BusinessAddress
+						:address="trust.street_address"
+						:id_prefix="'tststr' + index"
+						header="Street Address"
+					/>
+					<BusinessAddress
+						:address="trust.registered_address"
+						:id_prefix="'tstreg' + index"
+						header="Registered Address"
+					/>
 				</div>
 			</div>
 		</div>
@@ -80,10 +163,12 @@
 
 <script>
 	import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+	import BusinessAddress from "../BusinessAddress.vue";
 	import Company from "../sections/Company.vue";
+	import Trust from "../sections/Trust.vue";
 	export default {
 		name: "AppPage",
-		components: { Company },
+		components: { Company, BusinessAddress, Trust },
 		data() {
 			return {};
 		},
@@ -94,9 +179,10 @@
 
 		methods: {
 			...mapMutations([
-				"addPersonToApplication",
 				"addBusinessToApplication",
-				"removePersonFromApplication",
+				"addTrustToApplication",
+				"removeBusinessFromApplication",
+				"removeTrustFromApplication",
 			]),
 			...mapActions(["dropFromArray"]),
 		},

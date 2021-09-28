@@ -76,10 +76,9 @@
 				this.app_import_field = "";
 				this.import_staging = "";
 				this.show_button = false;
-				this.saveApplicationsToLocal();
 			},
 			...mapMutations(["importApplication"]),
-			...mapActions(["saveApplicationsToLocal"]),
+			...mapActions([]),
 		},
 	};
 </script>

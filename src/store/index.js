@@ -13,6 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		system: {},
 		show_vehicle: false,
 		show_loan: true,
 		show_applicants: false,
@@ -349,8 +350,11 @@ export default new Vuex.Store({
 			});
 			state.applications.splice(index, 1);
 		},
-		saveApplicationsToLocal(dispatch) {
-			dispatch("updateApp");
+		saveApplicationsToLocal() {
+			window.console.log(
+				"A redundant mutation saveApplicationsToLocal was triggered."
+			);
+			// dispatch("updateApp");
 			// try {
 			// 	localStorage.setItem(
 			// 		"applications",
@@ -787,6 +791,29 @@ export default new Vuex.Store({
 				ar.splice(ar.indexOf(person), 1);
 			}
 		},
+		removeBusinessFromApplication(state, business) {
+			if (
+				confirm(
+					"Are you sure you want to permanently remove this business?"
+				)
+			) {
+				var ar =
+					state.applications[state.selected_application_index]
+						.businesses;
+				ar.splice(ar.indexOf(business), 1);
+			}
+		},
+		removeTrustFromApplication(state, trust) {
+			if (
+				confirm(
+					"Are you sure you want to permanently remove this business?"
+				)
+			) {
+				var ar =
+					state.applications[state.selected_application_index].trusts;
+				ar.splice(ar.indexOf(trust), 1);
+			}
+		},
 
 		addBusinessToApplication(state) {
 			state.applications[
@@ -807,6 +834,38 @@ export default new Vuex.Store({
 				accountant: {},
 				role: "",
 			});
+		},
+		addTrustToApplication(state) {
+			var new_trust = {
+				trust_name: "Trust Name",
+				business_name: "",
+				abn: "ABN",
+				acn: "ACN",
+				registration_date: "",
+				is_gst: false,
+				gst_date: "",
+				type: "",
+				trustee: {},
+				beneficiaries: [],
+				unit_holders: [],
+				registered_address: {},
+				street_address: {},
+				financial: {},
+				accountant: {},
+				role: "",
+			};
+			if (state.applications[state.selected_application_index].trusts) {
+				state.applications[
+					state.selected_application_index
+				].trusts.push(new_trust);
+			} else {
+				state.applications[
+					state.selected_application_index
+				].trusts = [];
+				state.applications[
+					state.selected_application_index
+				].trusts.push(new_trust);
+			}
 		},
 		setUserPreferencesFromLocal(state) {
 			state.user_preferences = JSON.parse(
@@ -1011,10 +1070,10 @@ export default new Vuex.Store({
 			dispatch("updateApp");
 			Vue.nextTick(commit("deleteApplication", payload.app.uuid));
 		},
-		updateApplications({ commit }) {
-			commit("saveApplicationsToLocal");
-			commit("updateTimestamps");
-		},
+		// updateApplications({ commit }) {
+		// 	commit("saveApplicationsToLocal");
+		// 	commit("updateTimestamps");
+		// },
 		pushToArray({ commit, dispatch }, payload) {
 			commit("pushToArray", payload);
 			dispatch("updateField");
@@ -1161,11 +1220,11 @@ export default new Vuex.Store({
 		// 			window.console.log(error);
 		// 		});
 		// },
-		saveApplicationsToLocal({ commit }) {
-			commit("updateTimestamps");
-			commit("saveApplicationsToLocal");
-		},
-		updateField({ dispatch }) {
+		// saveApplicationsToLocal({ commit }) {
+		// 	commit("updateTimestamps");
+		// 	commit("saveApplicationsToLocal");
+		// },
+		updateField({ dispatch, commit }) {
 			// dispatch('saveApplicationsToLocal')
 			// clearTimeout(state.timeout_one)
 			// state.timeout_one = setTimeout(() => {
@@ -1173,6 +1232,7 @@ export default new Vuex.Store({
 			// }, 3000);
 			// let app = getters.application;
 			// window.console.log(app);
+			commit("updateTimestamps");
 			dispatch("updateApp");
 		},
 

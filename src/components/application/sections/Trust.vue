@@ -1,30 +1,67 @@
 <template>
 	<div class="w-full mt-8">
 		<div class="flex justify-between">
-			<Header title="Personal Details"> </Header>
+			<Header title="Trust Details"> </Header>
 			<slot />
 		</div>
 
 		<div class="flex flex-wrap">
 			<FormField
-				class="w-1/2"
-				@copy="copyClipboard('#' + person.first_name)"
+				class="w-2/5"
+				@copy="copyClipboard('#tr' + trust_index + trust.abn)"
 			>
-				<template v-slot:label>First Name</template>
+				<template v-slot:label>A.B.N. </template>
 				<input
-					:id="'#' + person.first_name"
-					v-model="person.first_name"
+					:id="'#tr' + trust_index + trust.abn"
+					v-model="trust.abn"
 					@change="updateField"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
+			<FormField
+				class="w-2/5"
+				@copy="copyClipboard('#tr' + trust_index + trust.acn)"
+			>
+				<template v-slot:label>A.C.N.</template>
+				<input
+					:id="'#tr' + trust_index + trust.acn"
+					v-model="trust.acn"
+					@change="updateField"
+					type="text"
+					class="form-input text-center"
+				/>
+			</FormField>
+			<a
+				:href="
+					'https://abr.business.gov.au/Search/ResultsActive?SearchText=' +
+						trust.abn
+				"
+				target="blank"
+				class="w-1/5 flex h-full mt-6 items-center justify-center"
+			>
+				Search ABR
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					class="w-6"
+				>
+					<circle cx="10" cy="10" r="7" class="primary" />
+					<path
+						class="secondary"
+						d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+					/>
+				</svg>
+			</a>
 
-			<FormField class="w-1/2" @copy="copyClipboard('#' + person.alias)">
-				<template v-slot:label>Alias / Nickname</template>
+			<FormField
+				class="w-1/2"
+				@copy="copyClipboard('#tr' + trust_index + trust.business_name)"
+			>
+				<template v-slot:label>Trading Name</template>
 				<input
-					:id="'#' + person.alias"
-					v-model="person.alias"
+					:id="'#tr' + trust_index + trust.business_name"
+					v-model="trust.business_name"
 					@change="updateField"
 					type="text"
 					class="form-input text-center"
@@ -32,25 +69,12 @@
 			</FormField>
 			<FormField
 				class="w-1/2"
-				@copy="copyClipboard('#' + person.middle_names)"
+				@copy="copyClipboard('#tr' + trust_index + trust.trust_name)"
 			>
-				<template v-slot:label>Middle Names</template>
+				<template v-slot:label>Trust Name</template>
 				<input
-					:id="'#' + person.middle_names"
-					v-model="person.middle_names"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField
-				class="w-1/2"
-				@copy="copyClipboard('#' + person.surname)"
-			>
-				<template v-slot:label>Surname</template>
-				<input
-					:id="'#' + person.surname"
-					v-model="person.surname"
+					:id="'#tr' + trust_index + trust.trust_name"
+					v-model="trust.trust_name"
 					@change="updateField"
 					type="text"
 					class="form-input text-center"
@@ -59,293 +83,148 @@
 		</div>
 
 		<div class="flex flex-wrap">
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.mobile_phone)"
-			>
-				<template v-slot:label>Mobile</template>
-				<input
-					:id="'#' + person.mobile_phone"
-					v-model="person.mobile_phone"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
+			<FormField :no_copy="true" class="w-1/2">
+				<template v-slot:label>Type of Trust</template>
+				<select @change="updateField" name="role" v-model="trust.type">
+					<option value="Discretionary">Discretionary</option>
+					<option value="Fixed/Unit">Fixed/Unit</option>
+				</select>
 			</FormField>
-
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.home_phone)"
-			>
-				<template v-slot:label>Home Phone</template>
-				<input
-					:id="'#' + person.home_phone"
-					v-model="person.home_phone"
+			<FormField :no_copy="true" class="w-1/2">
+				<template v-slot:label>Trustee</template>
+				<select
 					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.work_phone)"
-			>
-				<template v-slot:label>Work Phone</template>
-				<input
-					:id="'#' + person.work_phone"
-					v-model="person.work_phone"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-
-			<FormField
-				class="w-2/3"
-				@copy="copyClipboard('#' + person.email_address)"
-			>
-				<template v-slot:label>Email</template>
-				<input
-					:id="'#' + person.email_address"
-					v-model="person.email_address"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField class="w-1/3" @copy="copyClipboard('#' + person.abn)">
-				<template v-slot:label>Sole Trader ABN</template>
-				<input
-					:id="'#' + person.abn"
-					v-model="person.abn"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-		</div>
-		<div class="flex flex-wrap">
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.date_of_birth)"
-			>
-				<template v-slot:label
-					>Date of Birth
-					<span
-						:class="{ 'font-semibold text-red-600': age <= 17 }"
-						v-if="age"
-						>[{{ age }}]</span
+					name="role"
+					v-model="trust.trustee"
+				>
+					<option
+						v-for="(person, index) in people"
+						:key="'p' + index"
+						:value="{
+							name: person.first_name + ' ' + person.surname,
+						}"
+						>{{ person.first_name + " " + person.surname }}</option
 					>
+					<option
+						v-for="(bus, index) in businesses"
+						:key="'c' + index"
+						:value="{
+							name: bus.entity_name,
+						}"
+						>{{ bus.entity_name }}</option
+					>
+					<option :value="{ name: 'Other' }">Other</option>
+				</select>
+			</FormField>
+		</div>
+		<div class="flex flex-wrap">
+			<FormField
+				class="w-2/5"
+				@copy="
+					copyClipboard('#tr' + trust_index + trust.registration_date)
+				"
+			>
+				<template v-slot:label>Registration Date</template>
+				<input
+					:id="'#tr' + trust_index + trust.registration_date"
+					v-model="trust.registration_date"
+					@change="updateField"
+					type="date"
+					class="form-input text-center"
+				/>
+			</FormField>
+			<FormField :no_copy="true" class="w-1/5">
+				<template v-slot:label>
+					GST Registered
 				</template>
+				<div class="flex justify-center">
+					<CheckBox
+						:value="trust.is_gst"
+						@toggle="trust.is_gst = !trust.is_gst"
+					/>
+				</div>
+			</FormField>
+			<FormField
+				v-if="trust.is_gst"
+				class="w-2/5"
+				@copy="copyClipboard('#tr' + trust_index + trust.gst_date)"
+			>
+				<template v-slot:label>Date of GST registration</template>
 				<input
-					:id="'#' + person.date_of_birth"
-					v-model="person.date_of_birth"
-					@change="updateField"
-					type="date"
-					class="form-input text-center"
-				/>
-			</FormField>
-
-			<FormField class="w-1/3" @copy="copyClipboard('#' + person.gender)">
-				<template v-slot:label>Gender</template>
-				<select
-					:id="'#' + person.gender"
-					v-model="person.gender"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				>
-					<option value="" selected>Select</option>
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-				</select>
-			</FormField>
-
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.marital_status)"
-			>
-				<template v-slot:label>Marital Status</template>
-				<select
-					:id="'#' + person.marital_status"
-					v-model="person.marital_status"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				>
-					<option value="" selected>Select</option>
-					<option value="Single">Single</option>
-					<option value="Defacto">Defacto</option>
-					<option value="Married">Married</option>
-					<option value="Separated">Separated</option>
-					<option value="Divorced">Divorced</option>
-					<option value="Widowed">Widowed</option>
-				</select>
-			</FormField>
-		</div>
-		<div class="flex flex-wrap">
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.licence_number)"
-			>
-				<template v-slot:label>Licence #</template>
-				<input
-					:id="'#' + person.licence_number"
-					v-model="person.licence_number"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.licence_state)"
-			>
-				<template v-slot:label>Licence State</template>
-				<select
-					:id="'#' + person.licence_state"
-					v-model="person.licence_state"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				>
-					<option value="" selected>Select</option>
-					<option value="QLD">QLD</option>
-					<option value="NSW">NSW</option>
-					<option value="ACT">ACT</option>
-					<option value="VIC">VIC</option>
-					<option value="SA">SA</option>
-					<option value="WA">WA</option>
-					<option value="NT">NT</option>
-					<option value="TAS">TAS</option>
-					<option value="International">International</option>
-				</select>
-			</FormField>
-			<FormField
-				v-if="person.licence_state == 'NSW'"
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.licence_card)"
-			>
-				<template v-slot:label>Licence Card #</template>
-				<input
-					:id="'#' + person.licence_card"
-					v-model="person.licence_card"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.licence_expiry)"
-			>
-				<template v-slot:label>Licence Expiry Date</template>
-				<input
-					:id="'#' + person.licence_expiry"
-					v-model="person.licence_expiry"
+					:id="'#tr' + trust_index + trust.gst_date"
+					v-model="trust.gst_date"
 					@change="updateField"
 					type="date"
 					class="form-input text-center"
 				/>
 			</FormField>
 		</div>
+		<Header title="Beneficiaries"> </Header>
 		<div class="flex flex-wrap">
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.visa_status)"
-			>
-				<template v-slot:label>Residency Status</template>
-				<select
-					:id="'#' + person.visa_status"
-					v-model="person.visa_status"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				>
-					<option value="" selected>Select</option>
-					<option value="Citizen">Citizen</option>
-					<option value="Permanent Resident"
-						>Permanent Resident</option
+			<div class="w-1/2 pl-2">
+				<h3 class="font-semibold">People</h3>
+				<div class="p-4 border border-grey-300">
+					<div
+						class="flex justify-between px-4 py-2 w-full bg-white mb-1"
+						v-for="(person, index) in people"
+						:key="'b' + index"
 					>
-					<option value="Visa">Visa</option>
-				</select>
-			</FormField>
+						<div>
+							{{ person.first_name + " " + person.surname }}
+						</div>
 
-			<FormField
-				v-if="person.visa_status == 'Visa'"
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.visa_class)"
-			>
-				<template v-slot:label>Visa Sub-class</template>
-				<input
-					:id="'#' + person.visa_class"
-					v-model="person.visa_class"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
+						<button
+							class=""
+							@click="
+								addBenny({
+									name:
+										person.first_name +
+										' ' +
+										person.surname,
+								})
+							"
+						>
+							add
+						</button>
+					</div>
+					<div
+						class="flex justify-between px-4 py-2 w-full bg-white mb-1"
+					>
+						<div>
+							<input
+								type="text"
+								placeholder="custom"
+								v-model="ben_custom"
+								name="custom_beneficiary"
+								id=""
+							/>
+						</div>
 
-			<FormField
-				v-if="person.visa_status == 'Visa'"
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.visa_expiry)"
-			>
-				<template v-slot:label>Visa Expiry Date</template>
-				<input
-					:id="'#' + person.visa_expiry"
-					v-model="person.visa_expiry"
-					@change="updateField"
-					type="date"
-					class="form-input text-center"
-				/>
-			</FormField>
+						<button
+							class=""
+							@click="
+								addBenny({ name: ben_custom }),
+									(ben_custom = '')
+							"
+						>
+							add
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="w-1/2 pl-2">
+				<h3 class="font-semibold">Named Beneficiaries</h3>
+				<ListName
+					v-for="(benny, index) in trust.beneficiaries"
+					:key="'benny' + index"
+					:ben="benny"
+				>
+					<button class="" @click="dropBenny(index)">
+						delete
+					</button>
+				</ListName>
+			</div>
 		</div>
-		<div class="flex flex-wrap">
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.passport_number)"
-			>
-				<template v-slot:label>Passport #</template>
-				<input
-					:id="'#' + person.passport_number"
-					v-model="person.passport_number"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.passport_country)"
-			>
-				<template v-slot:label>Passport Country</template>
-				<input
-					:id="'#' + person.passport_country"
-					v-model="person.passport_country"
-					@change="updateField"
-					type="text"
-					class="form-input text-center"
-				/>
-			</FormField>
-			<FormField
-				class="w-1/3"
-				@copy="copyClipboard('#' + person.passport_expiry)"
-			>
-				<template v-slot:label>Passport Expiry Date</template>
-				<input
-					:id="'#' + person.passport_expiry"
-					v-model="person.passport_expiry"
-					@change="updateField"
-					type="date"
-					class="form-input text-center"
-				/>
-			</FormField>
-		</div>
-
-		<!-- ugly hack to trigger re-render when nested arrays are updated -->
-		<div class="invisible">{{ person.adr_count }}</div>
 	</div>
 </template>
 
@@ -353,26 +232,54 @@
 	import moment from "moment";
 	import { mapMutations, mapActions } from "vuex";
 	import FormField from "@/components/application/FormField.vue";
-
 	import Header from "@/components/application/sections/SectionHeader.vue";
+	import CheckBox from "../../buttons/CheckBox.vue";
+	import ListName from "./Business/ListName.vue";
 
 	export default {
-		name: "Person",
+		name: "Trust",
 		components: {
 			FormField,
 			Header,
+			CheckBox,
+			ListName,
 		},
 		props: {
 			people: Array,
-			person: Object,
-			person_index: Number,
+			trust: Object,
+			trust_index: Number,
+			businesses: Array,
+		},
+		data() {
+			return {
+				ben_custom: "name",
+			};
 		},
 		computed: {
 			age() {
-				return moment().diff(this.person.date_of_birth, "years", false);
+				return moment().diff(
+					this.trust.registration_date,
+					"years months",
+					false
+				);
 			},
 		},
 		methods: {
+			showOption(id) {
+				document.getElementById(id).style.display = "block";
+			},
+			addBenny(benny) {
+				if (benny.name) {
+					this.trust.beneficiaries.push(benny);
+					this.updateField();
+				} else {
+					window.console.log("empty field rejected.");
+				}
+			},
+			dropBenny(index) {
+				this.trust.beneficiaries.splice(index, 1);
+				this.updateField();
+			},
 			...mapMutations([]),
 			...mapActions([
 				"pushToArray",

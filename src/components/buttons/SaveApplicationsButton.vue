@@ -25,10 +25,8 @@
 			...mapState(["unsaved_changes"]),
 		},
 		methods: {
-			activate() {
-				this.saveApplicationsToLocal();
-			},
-			...mapActions(["saveApplicationsToLocal"]),
+			activate() {},
+			...mapActions([]),
 		},
 	};
 </script>
