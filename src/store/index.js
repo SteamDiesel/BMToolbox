@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { uuid } from "vue-uuid";
+import FileSaver from "file-saver";
 // import axios from "axios";
 // import moment from "moment";
 import auth from "./modules/auth";
@@ -13,7 +14,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		system: {},
+		system: {
+			app_page_show: "people",
+		},
 		show_vehicle: false,
 		show_loan: true,
 		show_applicants: false,
@@ -64,7 +67,7 @@ export default new Vuex.Store({
 			user_email: "",
 			user_phone: "",
 
-			user_business_name: "lite.bdfi.app",
+			user_business_name: "bdfi.app",
 			user_business_address: "",
 			user_brand_image_url: "",
 			user_email_sign_off: "",
@@ -112,9 +115,9 @@ export default new Vuex.Store({
 
 		history: [],
 		// archived_applications: [],
-		application: {
-			// Created in mutation
-		},
+		// application: {
+		// Created in mutation
+		// },
 		selected_application_index: 0,
 		person: {
 			title: "",
@@ -448,22 +451,27 @@ export default new Vuex.Store({
 
 			switch (io) {
 				case "vehicle":
+					state.system.app_page_show = "vehicle";
 					state.show_vehicle = true;
 					break;
 
 				case "loan":
+					state.system.app_page_show = "loan";
 					state.show_loan = true;
 					break;
 
 				case "applicants":
+					state.system.app_page_show = "applicants";
 					state.show_applicants = true;
 					break;
 
 				case "businesses":
+					state.system.app_page_show = "businesses";
 					state.show_businesses = true;
 					break;
 
 				case "history":
+					state.system.app_page_show = "history";
 					state.show_history = true;
 					break;
 			}
@@ -612,8 +620,6 @@ export default new Vuex.Store({
 		},
 
 		createEmptyApplication(state) {
-			//version 1 to version 2 change: added is_archived, added updated_at, added created_at, dropped is_active
-			//version 2 to version 3 change: added 'role' to each person
 			var new_app = {
 				version: 3,
 				status: "",
@@ -819,10 +825,10 @@ export default new Vuex.Store({
 			state.applications[
 				state.selected_application_index
 			].businesses.push({
-				entity_name: "Pty Ltd Entity Name",
-				business_name: "Business Name",
-				abn: "ABN",
-				acn: "ACN",
+				entity_name: "",
+				business_name: "",
+				abn: "",
+				acn: "",
 				registration_date: "",
 				is_gst: false,
 				gst_date: "",
@@ -837,10 +843,10 @@ export default new Vuex.Store({
 		},
 		addTrustToApplication(state) {
 			var new_trust = {
-				trust_name: "Trust Name",
+				trust_name: "",
 				business_name: "",
-				abn: "ABN",
-				acn: "ACN",
+				abn: "",
+				acn: "",
 				registration_date: "",
 				is_gst: false,
 				gst_date: "",
@@ -965,30 +971,49 @@ export default new Vuex.Store({
 		// 	}
 		// },
 
-		getByUUID({ state }, payload) {
-			switch (payload.type) {
-				case "application":
-					state.selected_application = JSON.parse(
-						localStorage.getItem(payload.uuid)
-					);
-					window.console.log(
-						"got application from browser local storage."
-					);
-					break;
-				case "person":
-					var item = JSON.parse(localStorage.getItem(payload.uuid));
-					window.console.log(
-						"got application from browser local storage."
-					);
-					break;
-				default:
-					window.console.log(
-						"failed to retrieve item from browser local storage."
-					);
-					break;
-			}
-			payload.array.push(item);
+		exportApp({ getters }) {
+			// window.console.log(getters.application);
+			// const str = ;
+			const blob = new Blob(
+				[JSON.stringify(getters.application, null, 2)],
+				{
+					type: "text/plain;charset=utf-8",
+				}
+			);
+			FileSaver.saveAs(
+				blob,
+				"BDFI-" +
+					getters.application.people[0].surname +
+					"-" +
+					getters.application.uuid +
+					".txt"
+			);
 		},
+
+		// getByUUID({ state }, payload) {
+		// 	switch (payload.type) {
+		// 		case "application":
+		// 			state.selected_application = JSON.parse(
+		// 				localStorage.getItem(payload.uuid)
+		// 			);
+		// 			window.console.log(
+		// 				"got application from browser local storage."
+		// 			);
+		// 			break;
+		// 		case "person":
+		// 			var item = JSON.parse(localStorage.getItem(payload.uuid));
+		// 			window.console.log(
+		// 				"got application from browser local storage."
+		// 			);
+		// 			break;
+		// 		default:
+		// 			window.console.log(
+		// 				"failed to retrieve item from browser local storage."
+		// 			);
+		// 			break;
+		// 	}
+		// 	payload.array.push(item);
+		// },
 
 		initialize({ commit, dispatch }) {
 			// initialize the DB

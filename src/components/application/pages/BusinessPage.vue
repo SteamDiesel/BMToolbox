@@ -88,16 +88,20 @@
 								</svg>-->
 						</button>
 					</Company>
-					<BusinessAddress
-						:address="bus.street_address"
-						:id_prefix="'busstr' + index"
-						header="Street Address"
-					/>
-					<BusinessAddress
-						:address="bus.registered_address"
-						:id_prefix="'busreg' + index"
-						header="Registered Address"
-					/>
+					<div class="mt-8">
+						<BusinessAddress
+							:address="bus.street_address"
+							:id_prefix="'busstr' + index"
+							header="Street Address"
+						/>
+					</div>
+					<div class="mt-8">
+						<BusinessAddress
+							:address="bus.registered_address"
+							:id_prefix="'busreg' + index"
+							header="Registered Address"
+						/>
+					</div>
 				</div>
 			</div>
 			<div
@@ -145,7 +149,7 @@
 							delete
 						</button>
 					</Trust>
-					<BusinessAddress
+					<!-- <BusinessAddress
 						:address="trust.street_address"
 						:id_prefix="'tststr' + index"
 						header="Street Address"
@@ -154,7 +158,7 @@
 						:address="trust.registered_address"
 						:id_prefix="'tstreg' + index"
 						header="Registered Address"
-					/>
+					/> -->
 				</div>
 			</div>
 		</div>

@@ -6,20 +6,20 @@
 		</div>
 
 		<div class="flex flex-wrap">
-			<FormField class="w-2/5" @copy="copyClipboard('#' + bus.abn)">
+			<FormField class="w-2/5" @copy="copyClipboard('#busabn' + bus.abn)">
 				<template v-slot:label>A.B.N. </template>
 				<input
-					:id="'#' + bus.abn"
+					:id="'#busabn' + bus.abn"
 					v-model="bus.abn"
 					@change="updateField"
 					type="text"
 					class="form-input text-center"
 				/>
 			</FormField>
-			<FormField class="w-2/5" @copy="copyClipboard('#' + bus.acn)">
+			<FormField class="w-2/5" @copy="copyClipboard('#busacn' + bus.acn)">
 				<template v-slot:label>A.C.N.</template>
 				<input
-					:id="'#' + bus.acn"
+					:id="'#busacn' + bus.acn"
 					v-model="bus.acn"
 					@change="updateField"
 					type="text"
@@ -50,11 +50,11 @@
 
 			<FormField
 				class="w-1/2"
-				@copy="copyClipboard('#' + bus.business_name)"
+				@copy="copyClipboard('#busnm' + bus.business_name)"
 			>
 				<template v-slot:label>Business/Trading Name</template>
 				<input
-					:id="'#' + bus.business_name"
+					:id="'#busnm' + bus.business_name"
 					v-model="bus.business_name"
 					@change="updateField"
 					type="text"
@@ -63,11 +63,11 @@
 			</FormField>
 			<FormField
 				class="w-1/2"
-				@copy="copyClipboard('#' + bus.entity_name)"
+				@copy="copyClipboard('#busent' + bus.entity_name)"
 			>
 				<template v-slot:label>Legal Entity Name</template>
 				<input
-					:id="'#' + bus.entity_name"
+					:id="'#busent' + bus.entity_name"
 					v-model="bus.entity_name"
 					@change="updateField"
 					type="text"
@@ -78,11 +78,11 @@
 		<div class="flex flex-wrap">
 			<FormField
 				class="w-2/5"
-				@copy="copyClipboard('#' + bus.registration_date)"
+				@copy="copyClipboard('#busreg' + bus.registration_date)"
 			>
 				<template v-slot:label>Registration Date</template>
 				<input
-					:id="'#' + bus.registration_date"
+					:id="'#busreg' + bus.registration_date"
 					v-model="bus.registration_date"
 					@change="updateField"
 					type="date"
@@ -103,11 +103,11 @@
 			<FormField
 				v-if="bus.is_gst"
 				class="w-2/5"
-				@copy="copyClipboard('#' + bus.gst_date)"
+				@copy="copyClipboard('#busgst' + bus.gst_date)"
 			>
 				<template v-slot:label>Date of GST registration</template>
 				<input
-					:id="'#' + bus.gst_date"
+					:id="'#busgst' + bus.gst_date"
 					v-model="bus.gst_date"
 					@change="updateField"
 					type="date"
@@ -115,8 +115,11 @@
 				/>
 			</FormField>
 		</div>
-		<Header title="Directors"> </Header>
-		<!-- <div class="flex flex-wrap">
+		<div class="mt-8">
+			<Header title="Directors"> </Header>
+		</div>
+
+		<div class="flex flex-wrap">
 			<div class="w-1/2 pl-2">
 				<h3 class="font-semibold">People</h3>
 				<div class="p-4 border border-grey-300">
@@ -132,7 +135,7 @@
 						<button
 							class=""
 							@click="
-								addBenny({
+								addDirector({
 									name:
 										person.first_name +
 										' ' +
@@ -146,18 +149,18 @@
 				</div>
 			</div>
 			<div class="w-1/2 pl-2">
-				<h3 class="font-semibold">Named Beneficiaries</h3>
+				<h3 class="font-semibold">Directors</h3>
 				<ListName
-					v-for="(benny, index) in trust.beneficiaries"
-					:key="'benny' + index"
-					:ben="benny"
+					v-for="(dir, index) in bus.directors"
+					:key="'dir' + index"
+					:ben="dir"
 				>
-					<button class="" @click="dropBenny(index)">
+					<button class="" @click="dropDirector(index)">
 						delete
 					</button>
 				</ListName>
 			</div>
-		</div> -->
+		</div>
 	</div>
 </template>
 
@@ -165,9 +168,9 @@
 	import moment from "moment";
 	import { mapMutations, mapActions } from "vuex";
 	import FormField from "@/components/application/FormField.vue";
-
 	import Header from "@/components/application/sections/SectionHeader.vue";
 	import CheckBox from "../../buttons/CheckBox.vue";
+	import ListName from "./Business/ListName.vue";
 
 	export default {
 		name: "Company",
@@ -175,6 +178,7 @@
 			FormField,
 			Header,
 			CheckBox,
+			ListName,
 		},
 		props: {
 			people: Array,
@@ -191,6 +195,18 @@
 			},
 		},
 		methods: {
+			addDirector(director) {
+				if (director.name) {
+					this.bus.directors.push(director);
+					this.updateField();
+				} else {
+					window.console.log("empty field rejected.");
+				}
+			},
+			dropDirector(index) {
+				this.bus.directors.splice(index, 1);
+				this.updateField();
+			},
 			...mapMutations([]),
 			...mapActions([
 				"pushToArray",

@@ -151,7 +151,7 @@
 			>
 				<template v-slot:label>Date of GST registration</template>
 				<input
-					:id="'#tr' + trust_index + trust.gst_date"
+					:id="'#trgst' + trust_index + trust.gst_date"
 					v-model="trust.gst_date"
 					@change="updateField"
 					type="date"
@@ -159,7 +159,10 @@
 				/>
 			</FormField>
 		</div>
-		<Header title="Beneficiaries"> </Header>
+		<div class="mt-8">
+			<Header title="Beneficiaries"> </Header>
+		</div>
+
 		<div class="flex flex-wrap">
 			<div class="w-1/2 pl-2">
 				<h3 class="font-semibold">People</h3>
@@ -193,7 +196,7 @@
 						<div>
 							<input
 								type="text"
-								placeholder="custom"
+								placeholder="Other Name"
 								v-model="ben_custom"
 								name="custom_beneficiary"
 								id=""
@@ -252,7 +255,7 @@
 		},
 		data() {
 			return {
-				ben_custom: "name",
+				ben_custom: "",
 			};
 		},
 		computed: {

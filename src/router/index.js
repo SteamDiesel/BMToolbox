@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: "/home",
-		name: "home",
+		// name: "home",
 		component: Home,
 	},
 
@@ -132,7 +132,7 @@ const routes = [
 	{
 		// This should catch the 404 redirect in the spa when installed as PWA App
 		path: "/index.html",
-		name: "home",
+		// name: "home",
 		component: Home,
 	},
 	{

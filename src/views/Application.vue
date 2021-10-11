@@ -38,6 +38,12 @@
 							>
 								Print
 							</button>
+							<button
+								@click="exportApp(application)"
+								class="w-full p-6 font-semibold hover:bg-teal-100"
+							>
+								Export
+							</button>
 
 							<button
 								v-if="!application.is_archived"
@@ -140,14 +146,15 @@
 							History
 						</button>
 					</div>
-					<div>
-						<!-- <button
-							@click="syncApp"
+
+					<!-- <div>
+						<button
+							@click=""
 							class="px-6 py-4 font-semibold text-green-500 hover:text-blue-400"
 						>
-							Sync
-						</button> -->
-					</div>
+							export
+						</button>
+					</div> -->
 				</div>
 				<div class="mb-1">
 					<hr />
@@ -202,6 +209,7 @@
 				"show_businesses",
 				"show_history",
 				"user_preferences",
+				"system",
 			]),
 
 			...mapGetters(["application"]),
@@ -243,7 +251,7 @@
 				"dropFromArray",
 				"deleteApplication",
 				"updateField",
-				// "syncApp",
+				"exportApp",
 				"archiveApplication",
 			]),
 		},
