@@ -1,10 +1,15 @@
 # lite.bdfi.app
-This is the lite minimum viable product for bdfi, built as a single page application. This SPA connects to it's sibling API backend code base at <a href="https://github.com/SteamDiesel/lite-resources">SteamDiesel/lite-resources</a>
+This is the lite minimum viable product for bdfi, built as a single page application, using the browser's indexedDB for local storage of data. This software if free open source.
 
-### Deployed SPA
-This project is deployed on Netlify and installable as an SPA. Visit at <a href="https://gallant-fermat-f884cb.netlify.app/">https://gallant-fermat-f884cb.netlify.app/</a>.
+## Deployed SPA
+This project is deployed on Netlify CDN and installable as an SPA. https://bdfi.netlify.app/
 
-For the application to work, it needs this SPA to be deployed and domain mapped to https://lite.bdfi.app and the laravel resources backend live at https://lite-resources.bdfi.app/ (OR change the api address in /src/store/modules/environment.js)
+Once the application has been visited, no internet connection is required to use it and save your data. There is no server, all data is stored in your browsers local storage.
+
+# Developing this project
+
+## Stack
+Built with VueJS 2.6 and TailwindCSS 1.1
 
 ## Project setup
 ```
