@@ -88,6 +88,11 @@ strong {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 
+code {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
 /**
  * Add the correct font size in all browsers.
  */
@@ -476,6 +481,11 @@ textarea {
  * back to the system monospace stack if there is no configured
  * 'mono' font family.
  */
+
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 
 /**
  * Make replaced elements `display: block` by default as that's
@@ -1026,11 +1036,6 @@ video {
   margin-right: 4rem;
 }
 
-.my-24 {
-  margin-top: 6rem;
-  margin-bottom: 6rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1385,10 +1390,6 @@ video {
   color: #f7fafc;
 }
 
-.text-gray-300 {
-  color: #e2e8f0;
-}
-
 .text-gray-500 {
   color: #a0aec0;
 }
@@ -1439,6 +1440,10 @@ video {
 
 .text-blue-600 {
   color: #3182ce;
+}
+
+.text-indigo-400 {
+  color: #7f9cf5;
 }
 
 .text-indigo-500 {

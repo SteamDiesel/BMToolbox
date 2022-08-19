@@ -72,9 +72,6 @@
 				This means that, to the extent that your device is secure, your
 				client data is secure.
 			</p>
-			<p class="mt-5">
-				Your connection to the BDFI secure server is fully encrypted.
-			</p>
 		</div>
 
 		<div class="mt-16">
@@ -95,9 +92,40 @@
 		<div class="mt-16">
 			<h1 class="text-2xl">Can BDFI back up my data for me?</h1>
 			<p class="mt-5">
-				Yes, BDFI will offer automated secure cloud backups. This is
-				part of a set of premium features that will be available in the
-				future.
+				Yes, BDFI can offer automated secure cloud backups. This is
+				available on request but will incur development and
+				infrastructure costs, please contact Jason to discuss your
+				requirements at
+				<a
+					class="hover:underline text-indigo-500 font-semibold"
+					href="mailto:jason.lloyd.law@gmail.com"
+					>by email here</a
+				>
+				or get in touch
+				<a
+					class="hover:underline text-indigo-500 font-semibold"
+					target="_blank"
+					href="https://www.linkedin.com/in/jason-lloyd-law/"
+					>on LinkedIn here.</a
+				>
+			</p>
+		</div>
+		<div class="mt-16">
+			<h1 class="text-2xl">Can BDFI be extended or customised?</h1>
+			<p class="mt-5">
+				Yes, BDFI is an open source project, you can view the source
+				code on the public repository
+				<a
+					class="hover:underline text-indigo-500 font-semibold"
+					href="https://github.com/SteamDiesel/BMToolbox"
+					>here</a
+				>. If you want to discuss modifying BDFI to suit your specific
+				business needs, then get in touch with Jason by email at
+				<a
+					class="hover:underline text-indigo-500 font-semibold"
+					href="mailto:jason.lloyd.law@gmail.com"
+					>jason.lloyd.law@gmail.com</a
+				>
 			</p>
 		</div>
 	</div>
